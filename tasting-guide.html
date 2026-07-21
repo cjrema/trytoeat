@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-<title>통합 시식가이드</title>
+<title>시식가이드</title>
 <link rel="stylesheet" as="style" crossorigin
   href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
 <style>
@@ -49,6 +49,31 @@
     font-size: 15px;
     color: var(--muted);
     font-weight: 500;
+  }
+  .top-actions{
+    display:flex;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .action-btn{
+    display:flex;
+    align-items:center;
+    gap: 6px;
+    flex: 1;
+    justify-content:center;
+    padding: 11px 10px;
+    border-radius: 12px;
+    border: 2px solid var(--line);
+    background: #fff;
+    color: var(--ink);
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .action-btn:active{ transform: scale(0.97); }
+  .action-btn.notice{
+    border-color: var(--accent);
+    color: var(--accent);
   }
   .search-wrap{
     position: relative;
@@ -197,6 +222,10 @@
 <body>
 
 <header class="top">
+  <div class="top-actions">
+    <button id="homeBtn" class="action-btn" type="button">🏠 메인으로</button>
+    <a id="noticeBtn" class="action-btn notice" href="#">📋 알림장 바로가기</a>
+  </div>
   <h1>시식가이드</h1>
   <p class="sub">제품을 눌러 시식가이드를 확인하세요</p>
   <div class="search-wrap">
@@ -245,13 +274,22 @@ const PRODUCTS = [
   { name: '진한 고기만두', category: '만두', emoji: '🥟', link: 'https://cjmd1.my.canva.site/mandu1', image: 'https://img.cjthemarket.com/images/file/product/506/20260409140029873.jpg?SF=webp&RS=550' },
   { name: '딤섬 새우하가우', category: '만두', emoji: '🥟', link: 'https://cjmd1.my.canva.site/tltlr-todngkrkdn', image: 'https://img.cjthemarket.com/images/file/product/20260102/554_206554_5.jpg?SF=webp&RS=550' },
   { name: '소바바 치킨', category: '치킨', emoji: '🐓', link: 'https://cjmd1.my.canva.site/sobaba1', badge: '인기', image:'https://img.cjthemarket.com/images/file/product/775/20260323083547100.jpg?SF=webp&RS=550' },
-  { name: 'CJ 닭강정', category: '치킨', emoji: '🐓', link: 'https://cjmd1.my.canva.site/chicken-gangjeong' },
-  { name: '비후베: 비엔나, 후랑크, 베이컨', category: '조리육', emoji: '🍖', link: 'https://cjmd1.my.canva.site/sausage' },
-  { name: '밥 싸먹는 햄', category: '조리육', emoji: '🍖', link: 'https://cjmd1.my.canva.site/qkqtkajrsmsgoa' },
-  { name: '슬라이스 씬', category: '조리육', emoji: '🍖', link: 'https://cjmd1.my.canva.site/tmftls' },
-  { name: '굿 베이컨', category: '조리육', emoji: '🍖', link: 'https://cjmd1.my.canva.site/rntqpdlzjs' },
+  { name: 'CJ 닭강정', category: '치킨', emoji: '🐓', link: 'https://cjmd1.my.canva.site/chicken-gangjeong', image:'https://img.cjthemarket.com/images/file/product/562/20260320082629632.jpg?SF=webp&RS=550' },
+  { name: '비후베: 비엔나, 후랑크, 베이컨', category: '조리육', emoji: '🍖', link: 'https://cjmd1.my.canva.site/sausage',image: 'https://img.cjthemarket.com/images/file/product/20260128/592_162592_5.jpg?SF=webp&RS=550' },
+  { name: '밥 싸먹는 햄', category: '조리육', emoji: '🍖', link: 'https://cjmd1.my.canva.site/qkqtkajrsmsgoa', image:'https://img.cjthemarket.com/images/file/product/20260121/848_214848_5.jpg?SF=webp&RS=550' },
+  { name: '슬라이스 씬', category: '조리육', emoji: '🍖', link: 'https://cjmd1.my.canva.site/tmftls',image:'https://img.cjthemarket.com/images/file/product/839/20260611171444706.jpg?SF=webp&RS=550' },
+  { name: '두툼한 굿 베이컨', category: '조리육', emoji: '🍖', link: 'https://cjmd1.my.canva.site/rntqpdlzjs', image:'https://img.cjthemarket.com/images/file/product/20260128/996_207996_5.jpg?SF=webp&RS=550' },
   { name: '육즙가득 떡갈비', category: '냉동반찬', emoji: '🌿', link: 'https://cjmd1.my.canva.site/tltlr-ejrrkfql' },
   { name: '도톰 동그랑땡', category: '냉동반찬', emoji: '💊', link: 'https://cjmd1.my.canva.site/ddaeng1' },
+];
+
+// 🏠 '메인으로' 버튼을 눌렀을 때 이동할 메인페이지 주소
+const MAIN_PAGE_URL = 'index.html';
+
+const CATEGORIES = ['라면류', '스낵류', '음료류', '간편식', '건강식품'];
+
+const PRODUCTS = [
+
 ];
 
 // ------------------------------------------------------------
@@ -261,10 +299,22 @@ const PRODUCTS = [
 let activeCategory = '전체';
 let searchTerm = '';
 
+// 메인페이지의 검색창/카테고리 바로가기에서 넘어온 값이 있으면 반영합니다.
+const urlParams = new URLSearchParams(window.location.search);
+const qParam = urlParams.get('q');
+const catParam = urlParams.get('cat');
+if(catParam && ['전체', ...CATEGORIES].includes(catParam)){
+  activeCategory = catParam;
+}
+if(qParam){
+  searchTerm = qParam;
+}
+
 const catNav = document.getElementById('catNav');
 const grid = document.getElementById('productGrid');
 const emptyState = document.getElementById('emptyState');
 const searchInput = document.getElementById('searchInput');
+if(searchTerm) searchInput.value = searchTerm;
 
 function renderChips(){
   const all = ['전체', ...CATEGORIES];
@@ -312,6 +362,11 @@ function renderGrid(){
 searchInput.addEventListener('input', (e) => {
   searchTerm = e.target.value;
   renderGrid();
+});
+
+document.getElementById('noticeBtn').href = NOTICE_LINK;
+document.getElementById('homeBtn').addEventListener('click', () => {
+  window.location.href = MAIN_PAGE_URL;
 });
 
 renderChips();
