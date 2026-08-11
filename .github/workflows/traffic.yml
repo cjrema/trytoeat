@@ -16,7 +16,7 @@ jobs:
 
       - name: Fetch traffic data
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.TRAFFIC_TOKEN }}
         run: |
           REPO="${{ github.repository }}"
           DATE=$(date -u +%Y-%m-%d)
