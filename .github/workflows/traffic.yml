@@ -1,0 +1,36 @@
+name: Track Repo Traffic
+
+on:
+  schedule:
+    - cron: '0 0 * * *'   # 매일 UTC 0시 (한국시간 오전 9시)
+  workflow_dispatch:        # 수동 실행 버튼도 생기게
+
+permissions:
+  contents: write
+
+jobs:
+  track:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch traffic data
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          REPO="${{ github.repository }}"
+          DATE=$(date -u +%Y-%m-%d)
+          
+          VIEWS=$(gh api repos/$REPO/traffic/views)
+          CLONES=$(gh api repos/$REPO/traffic/clones)
+          
+          mkdir -p traffic-data
+          echo "{\"date\":\"$DATE\",\"views\":$VIEWS,\"clones\":$CLONES}" >> traffic-data/history.jsonl
+
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add traffic-data/history.jsonl
+          git commit -m "chore: update traffic data ($(date -u +%Y-%m-%d))" || echo "No changes"
+          git push
