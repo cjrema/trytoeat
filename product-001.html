@@ -47,7 +47,7 @@
   .back:hover{ color: var(--accent); }
   .back svg{ width:18px; height:18px; }
 
-  /* 대표 제품 이미지 영역 */
+  /* 대표 제품 메인 이미지 영역 */
   .hero-img{
     width:100%;
     height:220px;
@@ -112,20 +112,51 @@
     flex-direction: column;
     gap: 12px;
   }
+  
+  /* 💡 이미지 + 텍스트 가로 배치 카드 스타일 */
   .point-item{
     background: #fff;
     border: 1.5px solid var(--line);
     border-radius: 14px;
-    padding: 16px 18px;
-    font-size: 14.5px;
-    line-height: 1.6;
+    padding: 14px 16px;
+    font-size: 14px;
+    line-height: 1.55;
     box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    display: flex;
+    align-items: center; /* 이미지 수직 중앙 정렬 */
+    gap: 14px;          /* 이미지와 글씨 사이 간격 */
   }
-  .point-item strong{
+
+  /* 💡 각 제품 썸네일 이미지 박스 (76x76px 규격) */
+  .point-thumb{
+    flex-shrink: 0;
+    width: 76px;
+    height: 76px;
+    border-radius: 10px;
+    background: #F4F3EE;
+    border: 1px solid var(--line);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .point-thumb img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* 💡 텍스트 영역 */
+  .point-content{
+    flex: 1;
+    min-width: 0;
+  }
+  .point-content strong{
     color: var(--accent);
     display: block;
-    margin-bottom: 6px;
-    font-size: 15.5px;
+    margin-bottom: 4px;
+    font-size: 15px;
   }
 
   /* 하단 가이드 연결 버튼 */
@@ -193,90 +224,140 @@
       <ul class="point-list">
         
         <li class="point-item">
-          <strong>1. 토마토 파스타소스</strong>
-          잘 익은 토마토의 상큼하고 진한 맛에 바질과 오레가노의 풍미가 어우러진 클래식 소스<br>
-          양파와 마늘의 고소함에 바질과 오레가노의 깊고 은은한 풍미<br>
-          파스타, 리조또, 스튜는 물론 오븐 요리까지 간편하게!
+          <div class="point-thumb">
+            <img src="https://via.placeholder.com/150/F4F3EE/9C988F?text=Tomato" alt="토마토 파스타소스">
+          </div>
+          <div class="point-content">
+            <strong>1. 토마토 파스타소스</strong>
+            잘 익은 토마토의 상큼하고 진한 맛에 바질과 오레가노의 풍미가 어우러진 클래식 소스<br>
+            양파와 마늘의 고소함에 은은한 향신료 풍미<br>
+            파스타, 리조또, 스튜는 물론 오븐 요리까지 간편하게!
+          </div>
         </li>
 
         <li class="point-item">
-          <strong>2. 아라비아따 파스타소스</strong>
-          청양고추의 알싸한 매운맛과 스모키한 불향이 가미된 정통 이탈리안 매콤 소스<br>
-          깔끔하고 감칠맛 나는 토마토 베이스<br>
-          입안 가득 퍼지는 스모키하고 칼칼한 풍미
+          <div class="point-thumb">
+            <img src="https://via.placeholder.com/150/F4F3EE/9C988F?text=Arrabbiata" alt="아라비아따 파스타소스">
+          </div>
+          <div class="point-content">
+            <strong>2. 아라비아따 파스타소스</strong>
+            청양고추의 알싸한 매운맛과 스모키한 불향이 가미된 정통 이탈리안 매콤 소스<br>
+            깔끔하고 감칠맛 나는 토마토 베이스<br>
+            입안 가득 퍼지는 스모키하고 칼칼한 풍미
+          </div>
         </li>
         
         <li class="point-item">
-          <strong>3. 치폴레 토마토 파스타소스</strong>
-          훈연 할라피뇨의 스모키하고 매콤한 풍미가 돋보이는 이국적인 소스<br>
-          큐민과 바질, 오레가노가 어우러져 깊고 풍부한 맛<br>
-          멕시칸 풍 요리나 스파이시 파스타에 안성맞춤
+          <div class="point-thumb">
+            <img src="https://via.placeholder.com/150/F4F3EE/9C988F?text=Chipotle" alt="치폴레 토마토 파스타소스">
+          </div>
+          <div class="point-content">
+            <strong>3. 치폴레 토마토 파스타소스</strong>
+            훈연 할라피뇨의 스모키하고 매콤한 풍미가 돋보이는 이국적인 소스<br>
+            큐민과 바질, 오레가노가 어우러져 깊고 풍부한 맛<br>
+            멕시칸 풍 요리나 스파이시 파스타에 안성맞춤
+          </div>
         </li>
 
         <li class="point-item">
-          <strong>4. 미트 토마토 파스타소스</strong>
-          소고기와 돼지고기를 듬뿍 갈아넣어 진하고 깊은 미트 풍미<br>
-          잘 익은 토마토 본연의 상큼한 풍미<br>
-          양파, 당근과 버섯을 뭉근하게 끓여 잡내없이 깔끔한 감칠맛
+          <div class="point-thumb">
+            <img src="https://via.placeholder.com/150/F4F3EE/9C988F?text=Meat" alt="미트 토마토 파스타소스">
+          </div>
+          <div class="point-content">
+            <strong>4. 미트 토마토 파스타소스</strong>
+            소고기와 돼지고기를 듬뿍 갈아넣어 진하고 깊은 미트 풍미<br>
+            잘 익은 토마토 본연의 상큼한 풍미<br>
+            양파, 당근과 버섯을 뭉근하게 끓여 잡내없이 깔끔한 감칠맛
+          </div>
         </li>
 
         <li class="point-item">
-          <strong>5. 꽃게 로제 파스타소스</strong>
-          크림치즈와 파마산치즈를 더해 부드럽고 진한 고소함<br>
-          잘 익은 토마토 본연의 상큼함<br>
-          꽃게의 풍미와 붉은 대게살을 담아 진하고 깊은 해산물 감칠맛 완성!
+          <div class="point-thumb">
+            <img src="https://via.placeholder.com/150/F4F3EE/9C988F?text=Rose" alt="꽃게 로제 파스타소스">
+          </div>
+          <div class="point-content">
+            <strong>5. 꽃게 로제 파스타소스</strong>
+            크림치즈와 파마산치즈를 더해 부드럽고 진한 고소함<br>
+            잘 익은 토마토 본연의 상큼함<br>
+            꽃게의 풍미와 붉은 대게살을 담아 진하고 깊은 해산물 감칠맛 완성!
+          </div>
         </li>
 
         <li class="point-item">
-          <strong>6. 베이컨 머쉬룸 크림 파스타소스</strong>
-          유크림과 화이트루로 부드럽고 깊은 크림 맛 완성<br>
-          베이컨과 양송이를 더해 외식에서 느끼던 진한 풍미<br>
-          파마산치즈·크림치즈·로마노치즈가 어우러져 진한 고소함
+          <div class="point-thumb">
+            <img src="https://via.placeholder.com/150/F4F3EE/9C988F?text=Mushroom" alt="베이컨 머쉬룸 크림 파스타소스">
+          </div>
+          <div class="point-content">
+            <strong>6. 베이컨 머쉬룸 크림 파스타소스</strong>
+            유크림과 화이트루로 부드럽고 깊은 크림 맛 완성<br>
+            베이컨과 양송이를 더해 외식에서 느끼던 진한 풍미<br>
+            파마산치즈·크림치즈·로마노치즈가 어우러져 진한 고소함
+          </div>
         </li>
               
         <li class="point-item">
-          <strong>7. 콰트로 치즈 크림 파스타소스</strong>
-          유크림과 화이트루로 진하면서도 부드러운 크림 베이스 완성<br>
-          크림·파마산·로마노·까망베르 4가지 치즈가 어우러져 꾸덕하고 진한 풍미<br>
-          은은한 후추의 알싸함으로 느끼함 없이 깔끔한 마무리
+          <div class="point-thumb">
+            <img src="https://via.placeholder.com/150/F4F3EE/9C988F?text=Quattro" alt="콰트로 치즈 크림 파스타소스">
+          </div>
+          <div class="point-content">
+            <strong>7. 콰트로 치즈 크림 파스타소스</strong>
+            유크림과 화이트루로 진하면서도 부드러운 크림 베이스 완성<br>
+            크림·파마산·로마노·까망베르 4가지 치즈의 꾸덕하고 진한 풍미<br>
+            은은한 후추의 알싸함으로 느끼함 없이 깔끔한 마무리
+          </div>
         </li>
 
         <li class="point-item">
-          <strong>8. 트러플 버터 크림 파스타소스</strong>
-          유크림과 버터가 어우러져 고소하고 부드러운 프리미엄 크림 맛<br>
-          양파에서 은은하게 올라오는 달큼한 감칠맛<br>
-          입 안 가득 은은하게 퍼지는 고급 트러플 향
+          <div class="point-thumb">
+            <img src="https://via.placeholder.com/150/F4F3EE/9C988F?text=Truffle" alt="트러플 버터 크림 파스타소스">
+          </div>
+          <div class="point-content">
+            <strong>8. 트러플 버터 크림 파스타소스</strong>
+            유크림과 버터가 어우러져 고소하고 부드러운 프리미엄 크림 맛<br>
+            양파에서 은은하게 올라오는 달큼한 감칠맛<br>
+            입 안 가득 은은하게 퍼지는 고급 트러플 향
+          </div>
         </li>
 
         <li class="point-item">
-          <strong>9. 알리오 올리오 파스타소스</strong>
-          고품질 올리브유를 더해 완성한 고소하고 담백한 풍미<br>
-          마늘의 알싸함으로 느끼함 없이 깔끔한 감칠맛<br>
-          입안에서 톡하고 살아나는 크러쉬드 레드페퍼의 매콤한 킥!
+          <div class="point-thumb">
+            <img src="https://via.placeholder.com/150/F4F3EE/9C988F?text=Aglio" alt="알리오 올리오 파스타소스">
+          </div>
+          <div class="point-content">
+            <strong>9. 알리오 올리오 파스타소스</strong>
+            고품질 올리브유를 더해 완성한 고소하고 담백한 풍미<br>
+            마늘의 알싸함으로 느끼함 없이 깔끔한 감칠맛<br>
+            입안에서 톡하고 살아나는 크러쉬드 레드페퍼의 매콤한 킥!
+          </div>
         </li>
         
         <li class="point-item">
-          <strong>10. 봉골레 파스타소스</strong>
-          올리브유의 고소함과 화이트와인의 깔끔함<br>
-          조개와 바지락 본연의 시원함과 깊은 해산물 감칠맛<br>
-          페페론치노와 크러쉬드 레드페퍼가 더해져 은은하게 퍼지는 매콤함
+          <div class="point-thumb">
+            <img src="https://via.placeholder.com/150/F4F3EE/9C988F?text=Vongole" alt="봉골레 파스타소스">
+          </div>
+          <div class="point-content">
+            <strong>10. 봉골레 파스타소스</strong>
+            올리브유의 고소함과 화이트와인의 깔끔함<br>
+            조개와 바지락 본연의 시원함과 깊은 해산물 감칠맛<br>
+            페페론치노와 크러쉬드 레드페퍼가 더해져 은은하게 퍼지는 매콤함
+          </div>
         </li>
 
       </ul>
     </div>
 
-  
-    <!-- 2. 진열시 참고사항 -->
     <div class="section">
-      <h2>🛒 진열 참고사항</h2>
+      <h2>🛒 진열 시 참고사항</h2>
       <ul class="point-list">
-        <li class="point-item">
-          <strong> 꼭 함께 진열해 주세요! </strong>
-          ✅ 파스타소스 매대 진열 및 시식 시 백설 스파게티면 꼭 진열하기
+        <li class="point-item" style="display:block;">
+          <strong> ✅ 분산/연관 진열 </strong>
+           파스타소스 매대 진열 및 시식 시 백설 스파게티면 꼭 진열하기
         </li>
-        <li class="point-item">
-          <strong> 파스타소스를 여기에 분산해 보세요! </strong>
-          👉 수산/버섯 매대 등에 분산진열 추천합니다!
+        <li class="point-item" style="display:block;">
+          <strong> 💡 분산 추천</strong>
+          수산🐟 - 오일, 토마토, 크림 모두 가능!
+          버섯🍄 - 토마토, 크림 추천
+          
         </li>
       </ul>
     </div>
