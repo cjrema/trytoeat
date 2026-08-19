@@ -297,7 +297,8 @@
 <!-- 상단 롤링 전광판 -->
 <div class="notice-bar">
   <div class="notice-track" id="noticeTrack">
-    📢 8월 주요 제품 가이드 확인 &nbsp; • &nbsp; 시식가이드 매뉴얼이 업데이트 되었습니다!
+    📢 8월 주요 시식가이드 제품 확인 
+    📢 현재 페이지 테스트 중입니다.
   </div>
 </div>
 
@@ -341,37 +342,37 @@ const initialCat = urlParams.get('cat') || '전체';
 const CATEGORIES = ['만두', '치킨', '냉동반찬', '조리육', '생선구이', '소스', '면', '기타',  '김치', '국물요리', '창고형 매장'];
 
 const PRODUCTS = [
-  { name: '큰채소가득 고기만두', category: '만두', emoji: '🥟', link: 'https://cjmd1.my.canva.site/bigmandu', badge: '인기', image: 'https://img.cjthemarket.com/images/file/product/384/20251210083038154.jpg?SF=webp&RS=550'},
-  { name: '유용욱 갈비만두', category: '만두', emoji: '🥟', link: 'https://cjmd1.my.canva.site/dahokfsitkq', badge: '신제품', image: 'https://img.cjthemarket.com/images/file/product/938/20260713122953639.jpg?SF=webp&RS=550' },
-  { name: '비비고 왕교자', category: '만두', emoji: '🥟', link: 'https://cjmd1.my.canva.site/dhkdrywk' , image: 'https://img.cjthemarket.com/images/file/product/20260319/217_212217_5.jpg?SF=webp&RS=550' },
-  { name: '진한 고기만두', category: '만두', emoji: '🥟', link: 'https://cjmd1.my.canva.site/mandu1', image: 'https://img.cjthemarket.com/images/file/product/506/20260409140029873.jpg?SF=webp&RS=550' },
-  { name: '딤섬 새우하가우', category: '만두', emoji: '🥟', link: 'https://cjmd1.my.canva.site/tltlr-todngkrkdn', image: 'https://img.cjthemarket.com/images/file/product/20260102/554_206554_5.jpg?SF=webp&RS=550' },
-  { name: '소바바 치킨', category: '치킨', emoji: '🐓', link: 'https://cjmd1.my.canva.site/sobaba1', badge: '인기', image:'https://img.cjthemarket.com/images/file/product/775/20260323083547100.jpg?SF=webp&RS=550' },
-  { name: 'CJ 닭강정', category: '치킨', emoji: '🐓', link: 'https://cjmd1.my.canva.site/chicken-gangjeong', image:'https://img.cjthemarket.com/images/file/product/562/20260320082629632.jpg?SF=webp&RS=550' },
-  { name: '비후베: 비엔나, 후랑크, 베이컨', category: '조리육', emoji: '🍖', link: 'https://cjmd1.my.canva.site/sausage',image: 'https://img.cjthemarket.com/images/file/product/20260128/592_162592_5.jpg?SF=webp&RS=550' },
-  { name: '밥 싸먹는 햄', category: '조리육', emoji: '🍖', link: 'https://cjmd1.my.canva.site/qkqtkajrsmsgoa', image:'https://img.cjthemarket.com/images/file/product/20260121/848_214848_5.jpg?SF=webp&RS=550' },
-  { name: '슬라이스 씬', category: '조리육', emoji: '🍖', link: 'https://cjmd1.my.canva.site/tmftls',image:'https://img.cjthemarket.com/images/file/product/839/20260611171444706.jpg?SF=webp&RS=550' },
-  { name: '두툼한 굿 베이컨', category: '조리육', emoji: '🍖', link: 'https://cjmd1.my.canva.site/rntqpdlzjs', image:'https://img.cjthemarket.com/images/file/product/20260128/996_207996_5.jpg?SF=webp&RS=550' },
-  { name: '육즙가득 떡갈비', category: '냉동반찬', emoji: '🥩', link: 'https://cjmd1.my.canva.site/yookjeup', badge: '강추', image:'https://img.cjthemarket.com/images/file/product/862/20260623101413809.jpg?SF=webp&RS=550' },
-  { name: '고메 동그랑땡', category: '냉동반찬', emoji: '🥩', link: 'https://cjmd1.my.canva.site/dongurangttang', image:'https://img.cjthemarket.com/images/file/product/783/20260429153545199.jpg?SF=webp&RS=550' },
-  { name: '고메 함박스테이크', category: '냉동반찬', emoji: '🥩', link: 'https://cjmd1.my.canva.site/hambark', image:'https://img.cjthemarket.com/images/file/product/862/20260623102436324.jpg?SF=webp&RS=550' },
-  { name: '고메 치즈함박스테이크', category: '냉동반찬', emoji: '🥩', link: 'https://cjmd1.my.canva.site/cheese-hambark', image:'https://img.cjthemarket.com/images/file/product/862/20260623102456488.jpg?SF=webp&RS=550' },
-  { name: '비비고 김치', category: '김치', emoji: '🥬', link: 'https://cjmd1.my.canva.site/bibigokimchi', badge:'인기', image:'https://img.cjthemarket.com/images/file/product/20260211/482_213482_5.jpg?SF=webp&RS=550' },
-  { name: '고메 소바바치킨', category: '치킨', emoji: '🍗', link: 'https://cjmd1.my.canva.site/sobaba', badge:'인기', image:'https://img.cjthemarket.com/images/file/product/20260323/775_216775_5.jpg?SF=webp&RS=550' },
-  { name: '고메 치킨', category: '치킨', emoji: '🍗', link: 'https://cjmd1.my.canva.site/gourmetchicken', image:'https://img.cjthemarket.com/images/file/product/20260406/432_208432_5.jpg?SF=webp&RS=550' },
-  { name: '비비고 생선구이', category: '생선구이', emoji: '🐟', link: 'https://cjmd1.my.canva.site/bibigofish', image:'https://img.cjthemarket.com/images/file/product/20260113/213_207213_5.jpg?SF=webp&RS=550' },
-  { name: '백설 덮밥소스', category: '소스', emoji: '🍛', link: 'https://cjmd1.my.canva.site/barksulsauce', image:'https://img.cjthemarket.com/images/file/product/20260420/834_217834_5.jpg?SF=webp&RS=550' },
-  { name: '백설 파스타소스', category: '소스', emoji: '🍝', link: 'https://cjmd1.my.canva.site/pastasauce', badge:'인기', image:'https://img.cjthemarket.com/images/file/product/20260511/334_218334_5.jpg?SF=webp&RS=550' },
-  { name: '제일제면소 면류', category: '면', emoji: '🍜', link: 'https://cjmd1.my.canva.site/jeilmyun', image:'https://img.cjthemarket.com/images/file/product/20260601/444_219444_5.jpg?SF=webp&RS=550' },
-  { name: '비비고 국물요리', category: '국물요리', emoji: '🍲', link: 'https://cjmd1.my.canva.site/bibigosoup', badge:'인기', image:'https://img.cjthemarket.com/images/file/product/20260615/555_220555_5.jpg?SF=webp&RS=550' },
-  { name: '햇반 솥반', category: '기타', emoji: '🍚', link: 'https://cjmd1.my.canva.site/hatbansotban', badge:'신제품', image:'https://img.cjthemarket.com/images/file/product/20260629/666_221666_5.jpg?SF=webp&RS=550' },
-  { name: '비비고 죽', category: '기타', emoji: '🥣', link: 'https://cjmd1.my.canva.site/bibigojook', image:'https://img.cjthemarket.com/images/file/product/20260713/777_222777_5.jpg?SF=webp&RS=550' },
-  { name: '맛밤/맛군밤', category: '기타', emoji: '🌰', link: 'https://cjmd1.my.canva.site/matbam', image:'https://img.cjthemarket.com/images/file/product/20260727/888_223888_5.jpg?SF=webp&RS=550' },
-  { name: '맥스봉', category: '기타', emoji: '🌭', link: 'https://cjmd1.my.canva.site/maxbon', image:'https://img.cjthemarket.com/images/file/product/20260810/999_224999_5.jpg?SF=webp&RS=550' },
-  { name: '쁘띠첼', category: '기타', emoji: '🍮', link: 'https://cjmd1.my.canva.site/petitzel', image:'https://img.cjthemarket.com/images/file/product/20260824/111_225111_5.jpg?SF=webp&RS=550' }
+
+  { name: '소바바 빠삭홀릭', category: '치킨', emoji: '🐓', link: 'https://cjmd1.my.canva.site/dahqefdpsaw', badge: '신제품', image:'https://img.cjthemarket.com/images/file/product/716/20260812081809161.jpg?SF=webp&RS=550' },
+{ name: '소바바/황금홀릭 치킨', category: '치킨', emoji: '🐓', link: 'https://cjmd1.my.canva.site/sobaba1', badge: '인기', image:'https://img.cjthemarket.com/images/file/product/775/20260323083547100.jpg?SF=webp&RS=550' },
+{ name: '백설 파스타소스', category: '소스&면', emoji: '🍝', link: 'https://cjmd1.my.canva.site/pasta', badge: '신제품', image: 'https://img.cjthemarket.com/images/file/product/221/20260625132547704.png?SF=webp&RS=550' },
+{ name: '비비고 왕교자', category: '만두', emoji: '🥟', link: 'https://cjmd1.my.canva.site/dhkdrywk' , image: 'https://img.cjthemarket.com/images/file/product/20260319/217_212217_5.jpg?SF=webp&RS=550' },
+{ name: 'Calvo 칼보 참치', category: '기타', emoji: '🐟', link: 'https://cjmd1.my.canva.site/zkfqh', badge: '신제품', image:'https://img.cjthemarket.com/images/file/product/049/20260708180556246.jpg?SF=webp&RS=550' },
+{ name: '비후베: 비엔나, 후랑크, 베이컨', category: '조리육', emoji: '🍖', link: 'https://cjmd1.my.canva.site/sausage', badge: '인기', image: 'https://img.cjthemarket.com/images/file/product/20260128/592_162592_5.jpg?SF=webp&RS=550' },
+{ name: '밥 싸먹는 햄', category: '조리육', emoji: '🍖', link: 'https://cjmd1.my.canva.site/qkqtkajrsmsgoa', badge: '인기', image:'https://img.cjthemarket.com/images/file/product/20260121/848_214848_5.jpg?SF=webp&RS=550' },
+{ name: '슬라이스 씬', category: '조리육', emoji: '🍖', link: 'https://cjmd1.my.canva.site/tmftls', badge: '인기', image:'https://img.cjthemarket.com/images/file/product/839/20260611171444706.jpg?SF=webp&RS=550' },
+{ name: '비비고 영양삼계탕', category: '국물요리', emoji: '🐓', link: 'https://cjmd1.my.canva.site/tkarpxkd', badge: '인기', image:'https://img.cjthemarket.com/images/file/product/417/20260518165518402.jpg?SF=webp&RS=550' },
+
+{ name: '큰채소가득 고기만두', category: '만두', emoji: '🥟', link: 'https://cjmd1.my.canva.site/bigmandu', badge: '인기', image: 'https://img.cjthemarket.com/images/file/product/384/20251210083038154.jpg?SF=webp&RS=550'},
+{ name: '유용욱 갈비만두', category: '만두', emoji: '🥟', link: 'https://cjmd1.my.canva.site/dahokfsitkq', badge: '신제품', image: 'https://img.cjthemarket.com/images/file/product/938/20260713122953639.jpg?SF=webp&RS=550' },
+{ name: '비비고 오마이갓 잡채', category: '소스&면', emoji: '🍜', link: 'https://cjmd1.my.canva.site/wkqco' , image: 'https://img.cjthemarket.com/images/file/product/382/20260319104309120.jpg?SF=webp&RS=550' },
+{ name: '밸런스밀 고단백면', category: '소스&면', emoji: '🍜', link: 'https://cjmd1.my.canva.site/rheksqoraus' , image: 'https://img.cjthemarket.com/images/file/product/222/20260213084633678.jpg?SF=webp&RS=550' },
+{ name: 'CJ 닭강정', category: '치킨', emoji: '🐓', link: 'https://cjmd1.my.canva.site/chicken-gangjeong', image:'https://img.cjthemarket.com/images/file/product/562/20260320082629632.jpg?SF=webp&RS=550' },
+{ name: '두툼한 굿 베이컨', category: '조리육', emoji: '🍖', link: 'https://cjmd1.my.canva.site/rntqpdlzjs', image:'https://img.cjthemarket.com/images/file/product/20260128/996_207996_5.jpg?SF=webp&RS=550' },
+{ name: '육즙가득 떡갈비', category: '냉동반찬', emoji: '🟧', link: 'https://cjmd1.my.canva.site/tltlr-ejrrkfql',image:'https://img.cjthemarket.com/images/file/product/627/20260318222821625.jpg?SF=webp&RS=550' },
+{ name: '도톰 동그랑땡', category: '냉동반찬', emoji: '🟧', link: 'https://cjmd1.my.canva.site/ddaeng1', image:'https://img.cjthemarket.com/images/file/product/20260114/393_201393_5.jpg?SF=webp&RS=550' },
+{ name: '생선구이류', category: '기타', emoji: '🟧', link: 'https://cjmd1.my.canva.site/todtjsrndl', image:'https://img.cjthemarket.com/images/file/product/595/20260318111216662.jpg?SF=webp&RS=550' },
+{ name: '진한 고기만두', category: '만두', emoji: '🥟', link: 'https://cjmd1.my.canva.site/mandu1', image: 'https://img.cjthemarket.com/images/file/product/506/20260409140029873.jpg?SF=webp&RS=550' },
+{ name: '딤섬 새우하가우', category: '만두', emoji: '🥟', link: 'https://cjmd1.my.canva.site/tltlr-todngkrkdn', image: 'https://img.cjthemarket.com/images/file/product/20260102/554_206554_5.jpg?SF=webp&RS=550' },
+{ name: '더건강한 직화구이햄', category: '조리육', emoji: '🍖', link: 'https://cjmd1.my.canva.site/sausage' },
+{ name: '흑백요리사 황태국', category: '국물요리', emoji: '🟧', link: 'https://cjmd1.my.canva.site/gmrqorrnrxkd', image:'https://img.cjthemarket.com/images/file/product/448/20260115173213902.jpg?SF=webp&RS=550' },
+{ name: '습 맵찔이 실비김치', category: '김치', emoji: '🟧', link: 'https://cjmd1.my.canva.site/kimchi1', image:'https://img.cjthemarket.com/images/file/product/20260107/695_215695_5.jpg?SF=webp&RS=550' },
+{ name: '습 실피 파김치', category: '김치', emoji: '🟧', link: 'https://cjmd1.my.canva.site/kimchi2', image:'https://img.cjthemarket.com/images/file/product/20260107/204_215204_5.jpg?SF=webp&RS=550' },
+{ name: '코스트코', category: '창고형', emoji: '😎', link: 'https://cjmd1.my.canva.site/cc', image:'https://azure-na-images.contentstack.com/v3/assets/bltfc0c2adf9ebb4217/blt5812f2d119ab56ce/689c2f093f551be24584a568/costcologo.png' },
+{ name: '트레이더스', category: '창고형', emoji: '😎', link: 'https://cjmd1.my.canva.site/tr', image:'https://eapp-cdn.emart.com/traders/common/logo-traders.png' },
 ];
 
-let activeCategory = initialCat;
+let activeCategory = '전체';
 let searchTerm = initialQuery;
 
 const catNav = document.getElementById('catNav');
