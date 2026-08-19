@@ -2,12 +2,12 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-<title>CJ리테일원 통합 시식가이드</title>
-<!-- 폰트 불러오기 속성 수정 완료 -->
-<link rel="stylesheet" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover" />
+<title>시식가이드</title>
+<link rel="stylesheet" as="style" crossorigin
+  href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
 <style>
-  :root {
+  :root{
     --bg: #FAFAF7;
     --ink: #1F2E22;
     --muted: #767065;
@@ -15,299 +15,379 @@
     --card: #FFFFFF;
     --accent: #E8622C;
     --accent-ink: #FFFFFF;
-    --chip-inactive: #FFFFFF;
-    --shadow: 0 2px 10px rgba(31,46,34,0.06);
+    --chip-inactive: #F7F6F2;
+    --shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    --hover-bg: #F0EFEA;
+    --green: #3fae2a;
+    --red: #e0392b;
+    --yellow: #f0c11e;
+    --blue: #2274A5;
   }
-  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-  html, body { margin: 0; padding: 0; }
-  body {
+  *{ box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html,body{ margin:0; padding:0; }
+  body{
     background: var(--bg);
     color: var(--ink);
-    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
   }
-  a { text-decoration: none; color: inherit; }
-  button { font-family: inherit; }
+  a{ text-decoration:none; color:inherit; }
+  button{ font-family: inherit; }
 
-  .top {
+  /* 상단 롤링 전광판 */
+  .notice-bar{
+    width: 100%;
+    background: var(--ink);
+    color: #fff;
+    padding: 10px 0;
+    overflow: hidden;
+    white-space: nowrap;
     position: sticky;
     top: 0;
-    z-index: 10;
-    background: var(--bg);
-    padding: 20px 18px 14px;
-    border-bottom: 1px solid var(--line);
+    z-index: 100;
   }
-  .top h1 {
-    margin: 0 0 4px;
+  .notice-track{
+    display: inline-block;
+    padding-left: 100%;
+    animation: marquee 22s linear infinite;
+    font-size: 13.5px;
+    font-weight: 600;
+    letter-spacing: -0.2px;
+  }
+  @keyframes marquee {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-100%, 0); }
+  }
+
+  .wrap {
+    width: 100%;
+    max-width: 480px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-bottom: 80px;
+  }
+
+  .top{
+    background: var(--bg);
+    padding: 24px 20px 14px;
+    border-bottom: 1px solid var(--line);
+    z-index: 10;
+  }
+  .top h1{
+    margin: 0 0 6px;
     font-size: 26px;
     font-weight: 800;
     letter-spacing: -0.02em;
     color: var(--ink);
   }
-  .top .sub {
-    margin: 0 0 16px;
-    font-size: 15px;
+  .top .sub{
+    margin: 0 0 20px;
+    font-size: 14.5px;
     color: var(--muted);
     font-weight: 500;
   }
-  .top-actions {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 12px;
-  }
-  .action-btn {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex: 1;
-    justify-content: center;
-    padding: 11px 10px;
-    border-radius: 12px;
-    border: 2px solid var(--line);
-    background: #fff;
-    color: var(--ink);
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-  }
-  .action-btn:active { transform: scale(0.97); }
-  .action-btn.notice {
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-  .search-wrap {
+
+  /* 검색창 */
+  .search-wrap{
     position: relative;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
   }
-  .search-wrap input {
+  .search-wrap input{
     width: 100%;
-    padding: 15px 18px 15px 46px;
-    font-size: 17px;
+    padding: 14px 18px 14px 44px;
+    font-size: 15.5px;
     font-weight: 600;
     border-radius: 14px;
-    border: 2px solid var(--line);
-    background: #fff;
+    border: none;
+    background: #F4F3EE;
     color: var(--ink);
     outline: none;
+    transition: background 0.2s, box-shadow 0.2s;
   }
-  .search-wrap input:focus {
-    border-color: var(--accent);
+  .search-wrap input:focus{
+    background: #ECEAE4;
+    box-shadow: 0 0 0 2px rgba(232, 98, 44, 0.25);
   }
-  .search-wrap input::placeholder { color: #B3AC9E; font-weight: 500; }
-  .search-icon {
-    position: absolute;
-    left: 16px;
+  .search-wrap input::placeholder{ color: #9C988F; font-weight: 500; }
+  .search-icon{
+    position:absolute;
+    left: 14px;
     top: 50%;
     transform: translateY(-50%);
     font-size: 18px;
     opacity: 0.6;
   }
-  .cats {
-    display: flex;
+
+  /* 카테고리 칩 */
+  .cats{
+    display:flex;
     gap: 8px;
     overflow-x: auto;
     scrollbar-width: none;
-    padding-bottom: 2px;
+    padding-bottom: 4px;
   }
-  .cats::-webkit-scrollbar { display: none; }
-  .chip {
+  .cats::-webkit-scrollbar{ display:none; }
+  .chip{
     flex: 0 0 auto;
-    padding: 11px 18px;
+    padding: 9px 16px;
     border-radius: 999px;
-    border: 2px solid var(--line);
+    border: none;
     background: var(--chip-inactive);
-    color: var(--ink);
-    font-size: 15px;
-    font-weight: 700;
+    color: var(--muted);
+    font-size: 14.5px;
+    font-weight: 600;
     cursor: pointer;
-    transition: transform 0.08s ease, background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    transition: transform 0.1s ease, background 0.15s ease, color 0.15s ease;
     white-space: nowrap;
   }
-  .chip:active { transform: scale(0.96); }
-  .chip.active {
+  .chip:active{ transform: scale(0.96); }
+  .chip:hover{
+    background: #ECEAE4;
+    color: var(--ink);
+  }
+  .chip.active{
     background: var(--ink);
-    border-color: var(--ink);
     color: #fff;
   }
 
-  main { padding: 18px; max-width: 720px; margin: 0 auto; }
+  main{ padding: 20px 18px; width: 100%; flex: 1; }
 
-  .grid {
+  .grid{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 14px;
+    gap: 16px;
   }
-  @media (max-width: 380px) {
-    .grid { grid-template-columns: 1fr; }
+  @media (max-width: 380px){
+    .grid{ grid-template-columns: 1fr; }
   }
 
-  .card {
+  /* 카드 스타일 */
+  .card{
     display: block;
     background: var(--card);
     border-radius: 18px;
     box-shadow: var(--shadow);
     overflow: hidden;
-    border: 1px solid var(--line);
-    transition: transform 0.1s ease;
+    border: 1.5px solid var(--line);
+    transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
   }
-  .card:active { transform: scale(0.98); }
+  .card:hover{ 
+    transform: translateY(-3px); 
+    border-color: var(--accent);
+    box-shadow: 0 6px 16px rgba(232,98,68,0.12);
+  }
+  .card:active{ transform: translateY(0); }
 
-  .card-media {
+  .card-media{
     width: 100%;
     aspect-ratio: 4 / 3;
-    background: #F1EEE5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: #F4F3EE;
+    display:flex;
+    align-items:center;
+    justify-content:center;
     font-size: 44px;
     position: relative;
     overflow: hidden;
+    border-bottom: 1px solid var(--line);
   }
-  .card-media img {
+  .card-media img{
     width: 100%; height: 100%; object-fit: cover;
   }
-  .badge {
-    position: absolute;
-    top: 8px;
-    left: 8px;
-    color: #fff;
-    font-size: 12px;
+
+  /* 뱃지 다형성 */
+  .badge{
+    position:absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 11.5px;
     font-weight: 800;
-    padding: 4px 9px;
-    border-radius: 999px;
+    padding: 4px 10px;
+    border-radius: 8px;
+    color: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   }
-  .badge-popular {
-    background: #FF3B30; /* 인기 - 빨간색 */
-  }
-  .badge-new {
-    background: #FFD700; /* 신제품 - 노란색 */
-    color: #333333; /* 노란 배경에 잘 보이도록 어두운 글자 */
-  }
-  .card-body { padding: 14px 14px 16px; }
-  .card-cat {
-    display: inline-block;
-    font-size: 12px;
+  /* 기본 뱃지 (accent) */
+  .badge[data-type] { background: var(--accent); }
+  /* 특정 단어에 따른 뱃지 색상 */
+  .badge[data-type*="신제"], .badge[data-type*="NEW"], .badge[data-type*="new"] { background: var(--green); }
+  .badge[data-type*="인기"], .badge[data-type*="HIT"], .badge[data-type*="hit"] { background: var(--red); }
+  .badge[data-type*="추천"], .badge[data-type*="강추"] { background: var(--blue); }
+
+  .card-body{ padding: 14px 16px 18px; }
+  
+  .card-cat{
+    display:inline-block;
+    font-size: 11.5px;
     font-weight: 700;
     color: var(--muted);
-    background: #F1EEE5;
-    padding: 3px 9px;
-    border-radius: 999px;
-    margin-bottom: 8px;
+    background: #F4F3EE;
+    padding: 4px 8px;
+    border-radius: 6px;
+    margin-bottom: 10px;
   }
-  .card-name {
-    font-size: 18px;
+  .card-name{
+    font-size: 16px;
     font-weight: 800;
-    line-height: 1.35;
-    margin: 0 0 12px;
+    line-height: 1.4;
+    margin: 0 0 14px;
     color: var(--ink);
-    min-height: 2.7em;
-  }
-  .card-cta {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    width: 100%;
-    padding: 13px 0;
-    background: var(--accent);
-    color: var(--accent-ink);
-    font-size: 15px;
-    font-weight: 800;
-    border-radius: 12px;
+    min-height: 2.8em;
   }
 
-  .empty {
-    text-align: center;
+  /* 시식가이드 보기 CTA 버튼 (Hover 효과 추가) */
+  .card-cta{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap: 4px;
+    width: 100%;
+    padding: 10px 0;
+    background: #F4F3EE;
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 10px;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .card:hover .card-cta {
+    background: var(--ink);
+    color: #fff;
+  }
+
+  .empty{
+    text-align:center;
     padding: 70px 20px;
     color: var(--muted);
   }
-  .empty .emoji { font-size: 40px; margin-bottom: 12px; }
-  .empty p { font-size: 16px; font-weight: 600; margin: 0; }
+  .empty .emoji{ font-size: 44px; margin-bottom: 14px; }
+  .empty p{ font-size: 16px; font-weight: 700; margin: 0; }
+
+  /* 플로팅 홈 버튼 */
+  .home-btn {
+    position: fixed;
+    left: 50%;
+    bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+    transform: translateX(-50%);
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+    z-index: 1000;
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .home-btn:hover { background: #2f4333; transform: translateX(-50%) translateY(-2px); }
+  .home-btn:active { transform: translateX(-50%) translateY(0); }
+  .home-btn svg { width: 22px; height: 22px; display: block; }
+
 </style>
 </head>
 <body>
 
-<header class="top">
-  <div class="top-actions">
-    <button id="homeBtn" class="action-btn" type="button">🏠 메인으로</button>
-    <a id="noticeBtn" class="action-btn notice" href="#">📋 알림장 바로가기</a>
+<!-- 상단 롤링 전광판 -->
+<div class="notice-bar">
+  <div class="notice-track" id="noticeTrack">
+    📢 8월 주요 제품 가이드 확인 &nbsp; • &nbsp; 시식가이드 매뉴얼이 업데이트 되었습니다!
   </div>
-  <h1>시식가이드</h1>
-  <p class="sub">제품을 눌러 시식가이드를 확인하세요</p>
-  <div class="search-wrap">
-    <span class="search-icon">🔍</span>
-    <input id="searchInput" type="text" placeholder="제품 이름으로 검색" />
-  </div>
-  <nav class="cats" id="catNav"></nav>
-</header>
+</div>
 
-<main>
-  <div class="grid" id="productGrid"></div>
-  <div class="empty" id="emptyState" hidden>
-    <div class="emoji">🔎</div>
-    <p>찾으시는 제품이 없어요</p>
-  </div>
-</main>
+<div class="wrap">
+  <header class="top">
+    <!-- 기존 버튼들 삭제됨 -->
+    <h1>🔍 통합 시식가이드</h1>
+    <p class="sub">다양한 제품의 시식 및 진열 노하우를 확인하세요</p>
+    
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input id="searchInput" type="text" placeholder="제품명 또는 키워드 검색" />
+    </div>
+    
+    <nav class="cats" id="catNav"></nav>
+  </header>
+
+  <main>
+    <div class="grid" id="productGrid"></div>
+    <div class="empty" id="emptyState" hidden>
+      <div class="emoji">🔎</div>
+      <p>찾으시는 제품이 없어요</p>
+    </div>
+  </main>
+</div>
+
+<!-- 플로팅 홈 버튼 -->
+<a class="home-btn" href="index.html" aria-label="홈으로">
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M3 11.5L12 4l9 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M5.5 10v9a1 1 0 0 0 1 1H9a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h2.5a1 1 0 0 0 1-1v-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</a>
 
 <script>
-const NOTICE_LINK = 'https://cjmd1.my.canva.site/6390';
-const MAIN_PAGE_URL = 'index.html';
+// URL 파라미터 처리 추가 (index.html에서 검색 연동용)
+const urlParams = new URLSearchParams(window.location.search);
+const initialQuery = urlParams.get('q') || '';
+const initialCat = urlParams.get('cat') || '전체';
 
-const CATEGORIES = ['만두', '치킨', '냉동반찬', '조리육', '소스&면', '김치', '기타', '국물요리', '창고형'];
+const CATEGORIES = ['만두', '치킨', '냉동반찬', '조리육', '생선구이', '소스', '면', '기타',  '김치', '국물요리', '창고형 매장'];
 
 const PRODUCTS = [
-  { name: '소바바 빠삭홀릭', category: '치킨', emoji: '🐓', link: 'https://cjmd1.my.canva.site/dahqefdpsaw', badge: '신제품', image:'https://img.cjthemarket.com/images/file/product/716/20260812081809161.jpg?SF=webp&RS=550' },
-  { name: '소바바/황금홀릭 치킨', category: '치킨', emoji: '🐓', link: 'https://cjmd1.my.canva.site/sobaba1', badge: '인기', image:'https://img.cjthemarket.com/images/file/product/775/20260323083547100.jpg?SF=webp&RS=550' },
-  { name: '백설 파스타소스', category: '소스&면', emoji: '🍝', link: 'https://cjmd1.my.canva.site/pasta', badge: '신제품', image: 'https://img.cjthemarket.com/images/file/product/221/20260625132547704.png?SF=webp&RS=550' },
-  { name: '비비고 왕교자', category: '만두', emoji: '🥟', link: 'https://cjmd1.my.canva.site/dhkdrywk' , image: 'https://img.cjthemarket.com/images/file/product/20260319/217_212217_5.jpg?SF=webp&RS=550' },
-  { name: 'Calvo 칼보 참치', category: '기타', emoji: '🐟', link: 'https://cjmd1.my.canva.site/zkfqh', badge: '신제품', image:'https://img.cjthemarket.com/images/file/product/049/20260708180556246.jpg?SF=webp&RS=550' },
-  { name: '비후베: 비엔나, 후랑크, 베이컨', category: '조리육', emoji: '🍖', link: 'https://cjmd1.my.canva.site/sausage', badge: '인기', image: 'https://img.cjthemarket.com/images/file/product/20260128/592_162592_5.jpg?SF=webp&RS=550' },
-  { name: '밥 싸먹는 햄', category: '조리육', emoji: '🍖', link: 'https://cjmd1.my.canva.site/qkqtkajrsmsgoa', badge: '인기', image:'https://img.cjthemarket.com/images/file/product/20260121/848_214848_5.jpg?SF=webp&RS=550' },
-  { name: '슬라이스 씬', category: '조리육', emoji: '🍖', link: 'https://cjmd1.my.canva.site/tmftls', badge: '인기', image:'https://img.cjthemarket.com/images/file/product/839/20260611171444706.jpg?SF=webp&RS=550' },
-  { name: '비비고 영양삼계탕', category: '국물요리', emoji: '🐓', link: 'https://cjmd1.my.canva.site/tkarpxkd', badge: '인기', image:'https://img.cjthemarket.com/images/file/product/417/20260518165518402.jpg?SF=webp&RS=550' },
-
   { name: '큰채소가득 고기만두', category: '만두', emoji: '🥟', link: 'https://cjmd1.my.canva.site/bigmandu', badge: '인기', image: 'https://img.cjthemarket.com/images/file/product/384/20251210083038154.jpg?SF=webp&RS=550'},
   { name: '유용욱 갈비만두', category: '만두', emoji: '🥟', link: 'https://cjmd1.my.canva.site/dahokfsitkq', badge: '신제품', image: 'https://img.cjthemarket.com/images/file/product/938/20260713122953639.jpg?SF=webp&RS=550' },
-  { name: '비비고 오마이갓 잡채', category: '소스&면', emoji: '🍜', link: 'https://cjmd1.my.canva.site/wkqco' , image: 'https://img.cjthemarket.com/images/file/product/382/20260319104309120.jpg?SF=webp&RS=550' },
-  { name: '밸런스밀 고단백면', category: '소스&면', emoji: '🍜', link: 'https://cjmd1.my.canva.site/rheksqoraus' , image: 'https://img.cjthemarket.com/images/file/product/222/20260213084633678.jpg?SF=webp&RS=550' },
-  { name: 'CJ 닭강정', category: '치킨', emoji: '🐓', link: 'https://cjmd1.my.canva.site/chicken-gangjeong', image:'https://img.cjthemarket.com/images/file/product/562/20260320082629632.jpg?SF=webp&RS=550' },
-  { name: '두툼한 굿 베이컨', category: '조리육', emoji: '🍖', link: 'https://cjmd1.my.canva.site/rntqpdlzjs', image:'https://img.cjthemarket.com/images/file/product/20260128/996_207996_5.jpg?SF=webp&RS=550' },
-  { name: '육즙가득 떡갈비', category: '냉동반찬', emoji: '🟧', link: 'https://cjmd1.my.canva.site/tltlr-ejrrkfql',image:'https://img.cjthemarket.com/images/file/product/627/20260318222821625.jpg?SF=webp&RS=550' },
-  { name: '도톰 동그랑땡', category: '냉동반찬', emoji: '🟧', link: 'https://cjmd1.my.canva.site/ddaeng1', image:'https://img.cjthemarket.com/images/file/product/20260114/393_201393_5.jpg?SF=webp&RS=550' },
-  { name: '생선구이류', category: '기타', emoji: '🟧', link: 'https://cjmd1.my.canva.site/todtjsrndl', image:'https://img.cjthemarket.com/images/file/product/595/20260318111216662.jpg?SF=webp&RS=550' },
+  { name: '비비고 왕교자', category: '만두', emoji: '🥟', link: 'https://cjmd1.my.canva.site/dhkdrywk' , image: 'https://img.cjthemarket.com/images/file/product/20260319/217_212217_5.jpg?SF=webp&RS=550' },
   { name: '진한 고기만두', category: '만두', emoji: '🥟', link: 'https://cjmd1.my.canva.site/mandu1', image: 'https://img.cjthemarket.com/images/file/product/506/20260409140029873.jpg?SF=webp&RS=550' },
   { name: '딤섬 새우하가우', category: '만두', emoji: '🥟', link: 'https://cjmd1.my.canva.site/tltlr-todngkrkdn', image: 'https://img.cjthemarket.com/images/file/product/20260102/554_206554_5.jpg?SF=webp&RS=550' },
-  { name: '더건강한 직화구이햄', category: '조리육', emoji: '🍖', link: 'https://cjmd1.my.canva.site/sausage' },
-  { name: '흑백요리사 황태국', category: '국물요리', emoji: '🟧', link: 'https://cjmd1.my.canva.site/gmrqorrnrxkd', image:'https://img.cjthemarket.com/images/file/product/448/20260115173213902.jpg?SF=webp&RS=550' },
-  { name: '습 맵찔이 실비김치', category: '김치', emoji: '🟧', link: 'https://cjmd1.my.canva.site/kimchi1', image:'https://img.cjthemarket.com/images/file/product/20260107/695_215695_5.jpg?SF=webp&RS=550' },
-  { name: '습 실피 파김치', category: '김치', emoji: '🟧', link: 'https://cjmd1.my.canva.site/kimchi2', image:'https://img.cjthemarket.com/images/file/product/20260107/204_215204_5.jpg?SF=webp&RS=550' },
-  { name: '코스트코', category: '창고형', emoji: '😎', link: 'https://cjmd1.my.canva.site/cc', image:'https://azure-na-images.contentstack.com/v3/assets/bltfc0c2adf9ebb4217/blt5812f2d119ab56ce/689c2f093f551be24584a568/costcologo.png' },
-  { name: '트레이더스', category: '창고형', emoji: '😎', link: 'https://cjmd1.my.canva.site/tr', image:'https://eapp-cdn.emart.com/traders/common/logo-traders.png' },
+  { name: '소바바 치킨', category: '치킨', emoji: '🐓', link: 'https://cjmd1.my.canva.site/sobaba1', badge: '인기', image:'https://img.cjthemarket.com/images/file/product/775/20260323083547100.jpg?SF=webp&RS=550' },
+  { name: 'CJ 닭강정', category: '치킨', emoji: '🐓', link: 'https://cjmd1.my.canva.site/chicken-gangjeong', image:'https://img.cjthemarket.com/images/file/product/562/20260320082629632.jpg?SF=webp&RS=550' },
+  { name: '비후베: 비엔나, 후랑크, 베이컨', category: '조리육', emoji: '🍖', link: 'https://cjmd1.my.canva.site/sausage',image: 'https://img.cjthemarket.com/images/file/product/20260128/592_162592_5.jpg?SF=webp&RS=550' },
+  { name: '밥 싸먹는 햄', category: '조리육', emoji: '🍖', link: 'https://cjmd1.my.canva.site/qkqtkajrsmsgoa', image:'https://img.cjthemarket.com/images/file/product/20260121/848_214848_5.jpg?SF=webp&RS=550' },
+  { name: '슬라이스 씬', category: '조리육', emoji: '🍖', link: 'https://cjmd1.my.canva.site/tmftls',image:'https://img.cjthemarket.com/images/file/product/839/20260611171444706.jpg?SF=webp&RS=550' },
+  { name: '두툼한 굿 베이컨', category: '조리육', emoji: '🍖', link: 'https://cjmd1.my.canva.site/rntqpdlzjs', image:'https://img.cjthemarket.com/images/file/product/20260128/996_207996_5.jpg?SF=webp&RS=550' },
+  { name: '육즙가득 떡갈비', category: '냉동반찬', emoji: '🥩', link: 'https://cjmd1.my.canva.site/yookjeup', badge: '강추', image:'https://img.cjthemarket.com/images/file/product/862/20260623101413809.jpg?SF=webp&RS=550' },
+  { name: '고메 동그랑땡', category: '냉동반찬', emoji: '🥩', link: 'https://cjmd1.my.canva.site/dongurangttang', image:'https://img.cjthemarket.com/images/file/product/783/20260429153545199.jpg?SF=webp&RS=550' },
+  { name: '고메 함박스테이크', category: '냉동반찬', emoji: '🥩', link: 'https://cjmd1.my.canva.site/hambark', image:'https://img.cjthemarket.com/images/file/product/862/20260623102436324.jpg?SF=webp&RS=550' },
+  { name: '고메 치즈함박스테이크', category: '냉동반찬', emoji: '🥩', link: 'https://cjmd1.my.canva.site/cheese-hambark', image:'https://img.cjthemarket.com/images/file/product/862/20260623102456488.jpg?SF=webp&RS=550' },
+  { name: '비비고 김치', category: '김치', emoji: '🥬', link: 'https://cjmd1.my.canva.site/bibigokimchi', badge:'인기', image:'https://img.cjthemarket.com/images/file/product/20260211/482_213482_5.jpg?SF=webp&RS=550' },
+  { name: '고메 소바바치킨', category: '치킨', emoji: '🍗', link: 'https://cjmd1.my.canva.site/sobaba', badge:'인기', image:'https://img.cjthemarket.com/images/file/product/20260323/775_216775_5.jpg?SF=webp&RS=550' },
+  { name: '고메 치킨', category: '치킨', emoji: '🍗', link: 'https://cjmd1.my.canva.site/gourmetchicken', image:'https://img.cjthemarket.com/images/file/product/20260406/432_208432_5.jpg?SF=webp&RS=550' },
+  { name: '비비고 생선구이', category: '생선구이', emoji: '🐟', link: 'https://cjmd1.my.canva.site/bibigofish', image:'https://img.cjthemarket.com/images/file/product/20260113/213_207213_5.jpg?SF=webp&RS=550' },
+  { name: '백설 덮밥소스', category: '소스', emoji: '🍛', link: 'https://cjmd1.my.canva.site/barksulsauce', image:'https://img.cjthemarket.com/images/file/product/20260420/834_217834_5.jpg?SF=webp&RS=550' },
+  { name: '백설 파스타소스', category: '소스', emoji: '🍝', link: 'https://cjmd1.my.canva.site/pastasauce', badge:'인기', image:'https://img.cjthemarket.com/images/file/product/20260511/334_218334_5.jpg?SF=webp&RS=550' },
+  { name: '제일제면소 면류', category: '면', emoji: '🍜', link: 'https://cjmd1.my.canva.site/jeilmyun', image:'https://img.cjthemarket.com/images/file/product/20260601/444_219444_5.jpg?SF=webp&RS=550' },
+  { name: '비비고 국물요리', category: '국물요리', emoji: '🍲', link: 'https://cjmd1.my.canva.site/bibigosoup', badge:'인기', image:'https://img.cjthemarket.com/images/file/product/20260615/555_220555_5.jpg?SF=webp&RS=550' },
+  { name: '햇반 솥반', category: '기타', emoji: '🍚', link: 'https://cjmd1.my.canva.site/hatbansotban', badge:'신제품', image:'https://img.cjthemarket.com/images/file/product/20260629/666_221666_5.jpg?SF=webp&RS=550' },
+  { name: '비비고 죽', category: '기타', emoji: '🥣', link: 'https://cjmd1.my.canva.site/bibigojook', image:'https://img.cjthemarket.com/images/file/product/20260713/777_222777_5.jpg?SF=webp&RS=550' },
+  { name: '맛밤/맛군밤', category: '기타', emoji: '🌰', link: 'https://cjmd1.my.canva.site/matbam', image:'https://img.cjthemarket.com/images/file/product/20260727/888_223888_5.jpg?SF=webp&RS=550' },
+  { name: '맥스봉', category: '기타', emoji: '🌭', link: 'https://cjmd1.my.canva.site/maxbon', image:'https://img.cjthemarket.com/images/file/product/20260810/999_224999_5.jpg?SF=webp&RS=550' },
+  { name: '쁘띠첼', category: '기타', emoji: '🍮', link: 'https://cjmd1.my.canva.site/petitzel', image:'https://img.cjthemarket.com/images/file/product/20260824/111_225111_5.jpg?SF=webp&RS=550' }
 ];
 
-let activeCategory = '전체';
-let searchTerm = '';
-
-const urlParams = new URLSearchParams(window.location.search);
-const qParam = urlParams.get('q');
-const catParam = urlParams.get('cat');
-if(catParam && ['전체', ...CATEGORIES].includes(catParam)){
-  activeCategory = catParam;
-}
-if(qParam){
-  searchTerm = qParam;
-}
+let activeCategory = initialCat;
+let searchTerm = initialQuery;
 
 const catNav = document.getElementById('catNav');
 const grid = document.getElementById('productGrid');
-const emptyState = document.getElementById('emptyState');
 const searchInput = document.getElementById('searchInput');
-if(searchTerm) searchInput.value = searchTerm;
+const emptyState = document.getElementById('emptyState');
+
+// 검색창 초기값 설정
+if(initialQuery) {
+  searchInput.value = initialQuery;
+}
 
 function renderChips(){
-  const all = ['전체', ...CATEGORIES];
-  catNav.innerHTML = all.map(cat =>
-    `<button class="chip ${cat === activeCategory ? 'active' : ''}" data-cat="${cat}">${cat}</button>`
+  const allCats = ['전체', ...CATEGORIES];
+  catNav.innerHTML = allCats.map(cat => 
+    `<button type="button" class="chip ${cat === activeCategory ? 'active' : ''}" data-cat="${cat}">${cat}</button>`
   ).join('');
   catNav.querySelectorAll('.chip').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -321,9 +401,7 @@ function renderChips(){
 function renderGrid(){
   const filtered = PRODUCTS.filter(p => {
     const matchesCat = activeCategory === '전체' || p.category === activeCategory;
-    // 제품 이름뿐만 아니라 카테고리로 검색해도 나오게끔 개선
-    const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                          p.category.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesCat && matchesSearch;
   });
 
@@ -335,15 +413,20 @@ function renderGrid(){
   emptyState.hidden = true;
 
   grid.innerHTML = filtered.map(p => `
-    <a class="card" href="${p.link}">
+    <a class="card" href="${p.link}" target="_blank" rel="noopener">
       <div class="card-media">
-        ${p.badge ? `<span class="badge ${p.badge === '인기' ? 'badge-popular' : 'badge-new'}">${p.badge}</span>` : ''}
-        ${p.image ? `<img src="${p.image}" alt="${p.name}" />` : `<span>${p.emoji || '🍽️'}</span>`}
+        ${p.badge ? `<span class="badge" data-type="${p.badge}">${p.badge}</span>` : ''}
+        ${p.image ? `<img src="${p.image}" alt="${p.name}" loading="lazy" />` : `<span>${p.emoji || '🍽️'}</span>`}
       </div>
       <div class="card-body">
         <span class="card-cat">${p.category}</span>
         <p class="card-name">${p.name}</p>
-        <div class="card-cta">시식가이드 보기 →</div>
+        <div class="card-cta">
+          시식가이드 보기 
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+        </div>
       </div>
     </a>
   `).join('');
@@ -354,15 +437,8 @@ searchInput.addEventListener('input', (e) => {
   renderGrid();
 });
 
-document.getElementById('noticeBtn').href = NOTICE_LINK;
-
-document.getElementById('homeBtn').addEventListener('click', () => {
-  window.location.href = MAIN_PAGE_URL;
-});
-
 renderChips();
 renderGrid();
 </script>
-
 </body>
 </html>

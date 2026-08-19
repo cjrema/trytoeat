@@ -2,272 +2,401 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-<title>CJ리테일원 통합 시식가이드 메인</title>
-<link rel="stylesheet" as="style" crossorigin
-  href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover" />
+<title>CJ리테일원 알림장</title>
+<!-- Pretendard 폰트 CDN -->
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
 <style>
-  :root{
+  :root {
     --bg: #FAFAF7;
+    --card-bg: #FFFFFF;
     --ink: #1F2E22;
     --muted: #767065;
     --line: #E6E1D6;
     --accent: #E8622C;
+    --hover-bg: #F4F3EE;
+    --green: #2E7D32;
   }
-  *{ box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-  html,body{ margin:0; padding:0; height:100%; }
-  body{
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    overflow-y: scroll;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+  }
+
+  body {
     background: var(--bg);
     color: var(--ink);
-    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Malgun Gothic', sans-serif;
     -webkit-font-smoothing: antialiased;
-    min-height: 100dvh;
-    display:flex;
+    display: flex;
     flex-direction: column;
+    align-items: center;
   }
-  a{ text-decoration:none; color:inherit; }
-  button{ font-family: inherit; }
 
-  .notice-bar{
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  button {
+    font-family: inherit;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+
+  /* 상단 롤링 공지 바 */
+  .notice-bar {
     width: 100%;
     background: var(--ink);
     color: #fff;
+    padding: 10px 0;
     overflow: hidden;
     white-space: nowrap;
-    padding: 11px 0;
-    flex: 0 0 auto;
+    position: sticky;
+    top: 0;
+    z-index: 100;
   }
-  .notice-track{
+
+  .notice-track {
     display: inline-block;
     padding-left: 100%;
-    font-size: 14px;
-    font-weight: 700;
     animation: marquee 22s linear infinite;
-  }
-  @keyframes marquee{
-    from{ transform: translateX(0); }
-    to{ transform: translateX(-100%); }
-  }
-  @media (prefers-reduced-motion: reduce){
-    .notice-track{ animation: none; padding-left: 16px; }
+    font-size: 13.5px;
+    font-weight: 600;
+    letter-spacing: -0.2px;
   }
 
-  .hero-wrap{
-    flex: 1;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+  @keyframes marquee {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-100%, 0); }
   }
 
-  .hero{
+  /* 메인 래퍼 */
+  .wrap {
     width: 100%;
     max-width: 480px;
-    padding: 32px 24px 40px;
-  }
-  .eyebrow{
-    margin: 0 0 6px;
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--accent);
-    letter-spacing: 0.02em;
-  }
-  h1{
-    margin: 0 0 10px;
-    font-size: 30px;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    line-height: 1.25;
-  }
-  .desc{
-    margin: 0 0 26px;
-    font-size: 16px;
-    color: var(--muted);
-    font-weight: 500;
-    line-height: 1.5;
+    padding: 20px 20px 70px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
 
-  .search-wrap{
-    position: relative;
-    margin-bottom: 14px;
+  /* 상단 헤더 */
+  .page-header {
+    text-align: center;
+    padding: 10px 0 4px;
   }
-  .search-wrap input{
-    width: 100%;
-    padding: 16px 18px 16px 46px;
-    font-size: 17px;
-    font-weight: 600;
-    border-radius: 14px;
-    border: 2px solid var(--line);
-    background: #fff;
+
+  .main-title {
+    font-size: 26px;
+    font-weight: 800;
     color: var(--ink);
+    margin: 0 0 6px 0;
+    letter-spacing: -0.5px;
+  }
+
+  .update-date {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    margin: 0;
+    letter-spacing: -0.2px;
+  }
+
+  /* 섹션 카드 공통 */
+  .section-card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 22px 20px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+  }
+
+  .section-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--ink);
+    margin: 0 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    letter-spacing: -0.3px;
+  }
+
+  /* 버튼 리스트 */
+  .btn-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 18px;
+    background: #F7F6F2;
+    border-radius: 14px;
+    font-size: 15.5px;
+    font-weight: 700;
+    color: var(--ink);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .nav-btn:hover {
+    background: var(--hover-bg);
+    color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+
+  .nav-btn:active {
+    transform: translateY(0);
+  }
+
+  .nav-btn .arrow {
+    width: 18px;
+    height: 18px;
+    color: var(--muted);
+    transition: transform 0.2s, color 0.2s;
+  }
+
+  .nav-btn:hover .arrow {
+    color: var(--accent);
+    transform: translateX(4px);
+  }
+
+  /* 검색창 */
+  .search-box {
+    display: flex;
+    align-items: center;
+    background: #F4F3EE;
+    border-radius: 14px;
+    padding: 6px 8px 6px 16px;
+    transition: background 0.2s, box-shadow 0.2s;
+  }
+
+  .search-box:focus-within {
+    background: #ECEAE4;
+    box-shadow: 0 0 0 2px rgba(232, 98, 44, 0.25);
+  }
+
+  .search-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    padding: 8px 0;
     outline: none;
   }
-  .search-wrap input:focus{ border-color: var(--accent); }
-  .search-wrap input::placeholder{ color: #B3AC9E; font-weight: 500; }
-  .search-icon{
-    position:absolute;
-    left: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 18px;
-    opacity: 0.6;
+
+  .search-input::placeholder {
+    color: #9C988F;
+    font-weight: 500;
   }
 
-  .cta-btn{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap: 8px;
-    width: 100%;
-    padding: 16px 0;
+  .search-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
     background: var(--accent);
     color: #fff;
-    font-size: 17px;
-    font-weight: 800;
-    border: none;
-    border-radius: 14px;
-    cursor: pointer;
-    margin-bottom: 22px;
+    border-radius: 10px;
+    transition: background 0.2s, transform 0.1s;
   }
-  .cta-btn:active{ transform: scale(0.98); }
 
-  .quick-label{
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--muted);
-    margin: 0 0 10px;
+  .search-btn:hover {
+    background: #d45320;
   }
-  .quick-cats{
-    display:flex;
+
+  .search-btn:active {
+    transform: scale(0.95);
+  }
+
+  .search-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* 카테고리 칩 */
+  .category-chips {
+    display: flex;
     flex-wrap: wrap;
     gap: 8px;
+    margin-top: 14px;
   }
-  .quick-chip{
-    padding: 10px 16px;
-    border-radius: 999px;
-    border: 2px solid var(--line);
-    background: #fff;
-    color: var(--ink);
-    font-size: 14px;
-    font-weight: 700;
-  }
-  .quick-chip:active{ transform: scale(0.96); }
 
-  .survey-wrap{
-    margin-top: 28px;
-    text-align: center;
-  }
-  .survey-btn{
-    display: inline-block;
-    width: 33%;
-    min-width: 160px;
-    padding: 12px 0;
-    border-radius: 999px;
-    border: 2px solid var(--accent);
-    background: #fff;
-    color: var(--accent);
-    font-size: 14px;
-    font-weight: 800;
-  }
-  .survey-btn:active{ transform: scale(0.97); }
-  .survey-note{
-    margin: 10px 0 0;
-    font-size: 13px;
+  .cat-tag {
+    background: #F7F6F2;
+    border-radius: 20px;
+    padding: 7px 13px;
+    font-size: 13.5px;
     font-weight: 600;
     color: var(--muted);
+    transition: all 0.2s;
+  }
+
+  .cat-tag:hover {
+    background: #ECEAE4;
+    color: var(--ink);
+    transform: translateY(-1px);
+  }
+
+  /* 하단 설문 및 포털 버튼 */
+  .survey-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 15px 0;
+    background: var(--ink);
+    color: #fff;
+    border-radius: 14px;
+    font-size: 15px;
+    font-weight: 700;
+    margin-top: 14px;
+    transition: all 0.2s;
+  }
+
+  .survey-btn:hover {
+    background: #2E3E32;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
   }
 </style>
 </head>
 <body>
 
-<div class="notice-bar">
-  <span class="notice-track" id="noticeTrack"></span>
-</div>
-
-<div class="hero-wrap">
-<div class="hero">
-  <p class="eyebrow">CJ리테일원</p>
-  <h1>통합 시식가이드입니다.</h1>
-  <p class="desc">궁금한 제품을 검색하거나, 전체 목록에서 둘러보세요</p>
-
-  <form id="searchForm" class="search-wrap">
-    <span class="search-icon">🔍</span>
-    <input id="searchInput" type="text" placeholder="제품 이름으로 검색" />
-  </form>
-
-  <button id="goAllBtn" class="cta-btn" type="button">전체 시식가이드 보기 →</button>
-
-  <p class="quick-label">카테고리로 바로가기</p>
-  <div class="quick-cats" id="quickCats"></div>
-
-  <div class="survey-wrap">
-    <a id="surveyBtn" class="survey-btn" href="https://forms.gle/sDzjvPPnZBy4PhL57">📝 시식 설문 바로가기</a>
-    <p class="survey-note">설문참여 부탁드립니다.<br/>(3~5분 소요)</p>
+  <!-- 상단 공지 롤링 전광판 -->
+  <div class="notice-bar">
+    <div class="notice-track" id="noticeTrack">
+      📢 페이지 테스트 진행 중 입니다! 
+      📢 현재 시식가이드 창은 사용 가능하나, 그 외에는 사용 불가능 합니다!
+    </div>
   </div>
-</div>
-</div>
+
+  <div class="wrap">
+
+    <!-- 상단 헤더 / 타이틀 -->
+    <header class="page-header">
+      <h1 class="main-title">CJ리테일원 알림장</h1>
+      <p class="update-date">Update. 2026. 08. 19</p>
+    </header>
+
+    <!-- 1. 업무 전 보고가기! -->
+    <section class="section-card">
+      <h2 class="section-title">📌 업무 전 보고가기!</h2>
+      <div class="btn-group">
+        
+        <!-- 이달의 주요 제품 -->
+        <a class="nav-btn" href="이달의_주요제품.html">
+          <span>이달의 주요 제품</span>
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+        </a>
+
+        <!-- 진열의 달인 -->
+        <a class="nav-btn" href="진열의_달인.html">
+          <span>분산&연계 진열의 달인</span>
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+        </a>
+
+        <!-- 현장의 온도차 -->
+        <a class="nav-btn" href="https://cjmd1.my.canva.site/field-temp-8">
+          <span>현장의 온도차</span>
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- 2. 시식가이드 알아보기! -->
+    <section class="section-card">
+      <h2 class="section-title">🔍 시식가이드 알아보기!</h2>
+      
+      <!-- 테두리 없는 깔끔한 검색창 -->
+      <form id="searchForm" class="search-box">
+        <input type="text" id="searchInput" class="search-input" placeholder="제품명이나 키워드를 검색해보세요" />
+        <button type="submit" class="search-btn" aria-label="검색">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="7"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </button>
+      </form>
+
+      <!-- 카테고리 태그 칩 -->
+      <div class="category-chips" id="quickCats">
+        <!-- JavaScript로 카테고리 태그 렌더링 -->
+      </div>
+
+      <!-- 통합 시식가이드 전체보기 버튼 -->
+      <a class="survey-btn" id="surveyBtn" href="https://cjrema.github.io/trytoeat/tasting-guide.html">
+        통합 시식가이드 바로가기 〉
+      </a>
+    </section>
+
+  </div>
 
 <script>
-/* ============================================================
-   ⚙️ 설정
+  // 🔗 시식가이드 연동 주소 설정
+  const TASTING_GUIDE_URL = 'https://cjrema.github.io/trytoeat/tasting-guide.html';
+  const CATEGORIES = ['만두', '치킨', '냉동반찬', '조리육', '생선구이', '소스', '면', '김치', '국물요리'];
 
-   1) TASTING_GUIDE_URL
-      - 시식가이드 목록 페이지 파일 이름/경로를 적어주세요.
-      - 실제 서버에 올리셨을 때 파일명이 다르면 여기만 바꾸면 됩니다.
+  const quickCats = document.getElementById('quickCats');
+  
+  // 카테고리 칩 버튼 생성 및 연동 (cat 파라미터 전달)
+  CATEGORIES.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'cat-tag';
+    btn.textContent = cat;
+    btn.onclick = () => goToCategory(cat);
+    quickCats.appendChild(btn);
+  });
 
-   2) CATEGORIES
-      - 시식가이드 페이지(tasting-guide.html)의 CATEGORIES 배열과
-        똑같은 목록으로 맞춰주세요. 카테고리 바로가기 칩이 만들어집니다.
+  const searchForm = document.getElementById('searchForm');
+  const searchInput = document.getElementById('searchInput');
 
-   3) SURVEY_LINK
-      - '시식 설문 바로가기' 버튼이 이동할 실제 설문(구글폼 등) 주소로 바꿔주세요.
-============================================================ */
+  // 검색창 입력 후 이동 (q 파라미터 전달)
+  function goToSearch(query){
+    const url = new URL(TASTING_GUIDE_URL);
+    if(query) url.searchParams.set('q', query);
+    window.location.href = url.toString();
+  }
 
-const TASTING_GUIDE_URL = 'tasting-guide.html';
-const CATEGORIES = ['만두', '치킨', '냉동반찬', '조리육', '소스&면', '김치', '기타', '국물요리', '창고형'];
+  // 카테고리 클릭 시 이동 (cat 파라미터 전달)
+  function goToCategory(category){
+    const url = new URL(TASTING_GUIDE_URL);
+    if(category) url.searchParams.set('cat', category);
+    window.location.href = url.toString();
+  }
 
-// 📢 상단에 흘러가는 공지 배너 문구 - 여러 개 넣으면 순서대로 이어서 흘러갑니다.
-const NOTICES = [
-  '할인점 8월 2차 시식행사 진행중 입니다.', 
-  '✅ NEW: 소바바 빠삭홀릭 후라이드 순살',
-  '📢 시식 반응 및 이슈사항 관련하여 설문 참여 부탁드립니다~!'
-];
-
-// 📝 '시식 설문 바로가기' 버튼이 이동할 주소
-const SURVEY_LINK = 'https://forms.gle/sDzjvPPnZBy4PhL57';
-
-// ------------------------------------------------------------
-// 아래부터는 화면을 동작시키는 코드입니다. (수정하지 않아도 됩니다)
-// ------------------------------------------------------------
-
-const searchForm = document.getElementById('searchForm');
-const searchInput = document.getElementById('searchInput');
-const quickCats = document.getElementById('quickCats');
-const noticeTrack = document.getElementById('noticeTrack');
-
-noticeTrack.textContent = '📢 ' + NOTICES.join('     •     ');
-document.getElementById('surveyBtn').href = SURVEY_LINK;
-
-function goToGuide(query){
-  const url = new URL(TASTING_GUIDE_URL, window.location.href);
-  if(query) url.searchParams.set('q', query);
-  window.location.href = url.toString();
-}
-
-searchForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  goToGuide(searchInput.value.trim());
-});
-
-document.getElementById('goAllBtn').addEventListener('click', () => {
-  goToGuide('');
-});
-
-quickCats.innerHTML = CATEGORIES.map(cat => {
-  const url = new URL(TASTING_GUIDE_URL, window.location.href);
-  url.searchParams.set('cat', cat);
-  return `<a class="quick-chip" href="${url.toString()}">${cat}</a>`;
-}).join('');
+  searchForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    goToSearch(searchInput.value.trim());
+  });
 </script>
-
 </body>
 </html>
