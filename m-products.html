@@ -106,22 +106,22 @@
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap: 12px;
+    gap: 14px; /* 간격 살짝 넓힘 */
   }
 
   .card-text{ flex: 1; min-width:0; }
 
   .card-title{
-    font-size: 20px;
+    font-size: 19px; /* 살짝 조정 */
     font-weight: 800;
-    margin: 0 0 6px;
+    margin: 0 0 4px;
     line-height:1.3;
   }
   .card-sub{
     font-size: 13.5px;
     color: var(--muted);
     font-weight: 500;
-    margin:0;
+    margin:0 0 4px;
   }
   .card.dark .card-sub{ color:#c9c9c9; }
 
@@ -129,7 +129,7 @@
     display:inline-flex;
     align-items:center;
     gap: 4px;
-    margin-top: 10px;
+    margin-top: 6px;
     padding: 7px 12px;
     background: var(--green);
     color:#fff;
@@ -138,10 +138,11 @@
     border-radius: 999px;
   }
 
+  /* 💡 이미지 크기를 이전처럼 딱 맞게(120x90) 고정 */
   .card-img{
     flex-shrink:0;
-    width: 140px;
-    height: 100px;
+    width: 120px;
+    height: 90px;
     border-radius: 12px;
     background: #eee;
     display:flex;
@@ -168,9 +169,10 @@
     width: 100%;
     height: 150px;
     border-radius: 20px 20px 0 0;
+    margin-bottom: 0;
   }
   .card.full-media .card-caption-wrap{
-    padding: 10px 10px 10px;
+    padding: 14px 18px 18px;
   }
 
   .dot{
@@ -186,7 +188,7 @@
   .badge-row{
     position:absolute;
     top: 14px;
-    left: 14px;
+    left: 16px;
     z-index:2;
     display:flex;
     gap: 5px;
@@ -196,17 +198,17 @@
     font-size: 11px;
     font-weight: 800;
     letter-spacing: 0.03em;
-    padding: 3px 8px;
+    padding: 4px 9px;
     border-radius: 999px;
   }
   .badge-new{
     background: var(--red);
-    box-shadow: 0 2px 6px rgba(224,57,43,0.35);
+    box-shadow: 0 2px 6px rgba(224,57,43,0.25);
   }
   .badge-hit{
     background: var(--yellow);
     color: #4a3600;
-    box-shadow: 0 2px 6px rgba(240,193,30,0.4);
+    box-shadow: 0 2px 6px rgba(240,193,30,0.3);
   }
 
   /* 하단 고정 홈 버튼 */
@@ -244,39 +246,45 @@
 
     <div class="card-list">
 
-      <!-- 카드 1 -->
-      <a class="card" href="product-001.html">
-            <div class="card-img">
-      <img src="https://img.cjthemarket.com/images/file/product/221/20260625132547704.png?SF=webp&RS=550" alt="백설 파스타소스 10종">
-    </div>
-  <div class="card-dot"></div>
-  <div class="card-top"> 백설 파스타소스 분산 & 연계 진열도 챙기기 </div>
-  <div class="card-body">
-    <div class="card-text">
-      <p class="card-title"> 🍅백설 파스타소스 10종🍅 </p>
-      <span class="card-guide-btn">제품 정보 바로가기 〉</span>
-    </div>
-  </div>
-</a>
+      <a class="card" href="제품_소개페이지.html" style="padding-top:44px;">
+        <span class="badge-row">
+          <span class="badge badge-new">NEW</span>
+          <span class="badge badge-hit">HIT</span>
+        </span>
+        
+        <div class="card-body">
+          <div class="card-img">
+            <img src="https://img.cjthemarket.com/images/file/product/221/20260625132547704.png?SF=webp&RS=550" alt="백설 파스타소스 10종">
+          </div>
+          
+          <div class="card-text">
+            <p class="card-title">백설 파스타소스</p>
+            <p class="card-sub">분산 & 연계 진열도 챙기기</p>
+            <span class="guide-btn">제품 정보 바로가기 〉</span>
+          </div>
+        </div>
+      </a>
 
-      <!-- 카드 2 (컨테이너 전체 폭 일치 와이드 카드) -->
-<a class="card" href="product-002.html">
-  <div class="card-img wide">
-    <img src="https://img.cjthemarket.com/images/file/product/852/20260708175733219.jpg?SF=webp&RS=550" alt="Calvo 참치 2종">
-  </div>
-  <p class="card-title" style="text-align:center;">Calvo 참치 2종</p>
-</a>
+      <a class="card full-media" href="product-002.html">
+        <div class="card-img wide">
+          <img src="https://img.cjthemarket.com/images/file/product/852/20260708175733219.jpg?SF=webp&RS=550" alt="Calvo 참치 2종">
+        </div>
+        <div class="card-caption-wrap">
+          <p class="card-title" style="text-align:center; margin:0;">Calvo 참치 2종</p>
+        </div>
+      </a>
+      
+      <a class="card full-media" href="product-003.html">
+        <div class="card-img wide">
+          <img src="https://via.placeholder.com/600x300/F1EEE5/9C988F.png?text=Image" alt="제품명">
+        </div>
+        <div class="card-caption-wrap">
+          <p class="card-title" style="text-align:center; margin:0;">제품명</p>
+        </div>
+      </a>
+
     </div>
   </div>
-  
-      <!-- 카드 3 (컨테이너 전체 폭 일치 와이드 카드) -->
-  <a class="card" href="product-003.html">
-  <div class="card-img wide">
-    <img src="https://이미지주소.jpg" alt="제품명">
-  </div>
-  <p class="card-title" style="text-align:center;">제품명</p>
-</a>
-
   
   <a class="home-btn" href="index.html" aria-label="홈으로">
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
