@@ -20,7 +20,7 @@
   html{ overflow-y: scroll; }
   html,body{ margin:0; padding:0; min-height:100vh; }
   body{
-    font-family:'Pretendard', -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif;
+    font-family:'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Malgun Gothic', sans-serif;
     -webkit-font-smoothing: antialiased;
     color: var(--ink);
     background: var(--bg);
@@ -67,6 +67,7 @@
     gap: 16px;
   }
 
+  /* 일반 카드 공통 */
   .card{
     position:relative;
     display:block;
@@ -80,12 +81,6 @@
   }
   .card:hover{ transform: translateY(-2px); border-color: var(--accent); }
 
-  .card.dark{
-    background: #1F2E22;
-    border-color: #1F2E22;
-    color:#fff;
-  }
-
   .card-top{
     display:inline-flex;
     align-items:center;
@@ -97,33 +92,29 @@
     font-weight: 700;
     margin-bottom: 12px;
   }
-  .card.dark .card-top{
-    border-color: rgba(255,255,255,0.6);
-    color:#fff;
-  }
 
   .card-body{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap: 14px; /* 간격 살짝 넓힘 */
+    gap: 14px;
   }
 
   .card-text{ flex: 1; min-width:0; }
 
   .card-title{
-    font-size: 19px; /* 살짝 조정 */
+    font-size: 19px;
     font-weight: 800;
     margin: 0 0 4px;
-    line-height:1.3;
+    line-height:1.35;
   }
   .card-sub{
     font-size: 13.5px;
     color: var(--muted);
     font-weight: 500;
-    margin:0 0 4px;
+    margin:0 0 6px;
+    line-height:1.4;
   }
-  .card.dark .card-sub{ color:#c9c9c9; }
 
   .guide-btn{
     display:inline-flex;
@@ -138,7 +129,7 @@
     border-radius: 999px;
   }
 
-  /* 💡 이미지 크기를 이전처럼 딱 맞게(120x90) 고정 */
+  /* 좌/우 배치형 이미지 박스 (120x90) */
   .card-img{
     flex-shrink:0;
     width: 120px;
@@ -151,40 +142,22 @@
     overflow:hidden;
   }
   .card-img img{ width:100%; height:100%; object-fit:cover; display:block; }
-  .card-img.placeholder{
-    font-size: 11px;
-    font-weight:700;
-    color:#9c9c96;
-    text-align:center;
-    line-height:1.3;
-    padding: 4px;
-    background: repeating-linear-gradient(45deg,#eeeeeb,#eeeeeb 6px,#e4e4df 6px,#e4e4df 12px);
-  }
 
-  /* 전체 카드 가로 폭(432px)과 완전히 일치하도록 구성된 와이드 이미지 카드 */
+  /* 풀이미지(Wide) 전용 카드 스타일 */
   .card.full-media{
     padding: 0;
   }
   .card.full-media .card-img.wide{
     width: 100%;
-    height: 150px;
+    height: 160px;
     border-radius: 20px 20px 0 0;
     margin-bottom: 0;
   }
   .card.full-media .card-caption-wrap{
-    padding: 14px 18px 18px;
+    padding: 16px 18px;
   }
 
-  .dot{
-    position:absolute;
-    left: 18px;
-    bottom: 16px;
-    width: 16px;
-    height: 16px;
-    border-radius:50%;
-    background:#1fb6a8;
-  }
-
+  /* 뱃지 스타일 */
   .badge-row{
     position:absolute;
     top: 14px;
@@ -211,7 +184,7 @@
     box-shadow: 0 2px 6px rgba(240,193,30,0.3);
   }
 
-  /* 하단 고정 홈 버튼 */
+  /* 하단 동동 떠있는 플로팅 홈 버튼 */
   .home-btn {
     position: fixed;
     left: 50%;
@@ -251,12 +224,10 @@
           <span class="badge badge-new">NEW</span>
           <span class="badge badge-hit">HIT</span>
         </span>
-        
         <div class="card-body">
           <div class="card-img">
             <img src="https://img.cjthemarket.com/images/file/product/221/20260625132547704.png?SF=webp&RS=550" alt="백설 파스타소스 10종">
           </div>
-          
           <div class="card-text">
             <p class="card-title">백설 파스타소스</p>
             <p class="card-sub">분산 & 연계 진열도 챙기기</p>
@@ -273,19 +244,44 @@
           <p class="card-title" style="text-align:center; margin:0;">Calvo 참치 2종</p>
         </div>
       </a>
-      
-      <a class="card full-media" href="product-003.html">
+
+      <a class="card" href="product-003.html">
+        <div class="card-top">🔥 이달의 추천 치킨</div>
+        <div class="card-body">
+          <div class="card-text">
+            <p class="card-title">소바바 빠삭홀릭</p>
+            <p class="card-sub">바삭함이 오래가는 순살 치킨</p>
+            <span class="guide-btn">제품 정보 바로가기 〉</span>
+          </div>
+          <div class="card-img">
+            <img src="https://img.cjthemarket.com/images/file/product/716/20260812081809161.jpg?SF=webp&RS=550" alt="소바바 빠삭홀릭">
+          </div>
+        </div>
+      </a>
+
+      <a class="card" href="product-004.html">
+        <div class="card-top">📋 매대 연출 가이드</div>
+        <div class="card-body">
+          <div class="card-text">
+            <p class="card-title">비비고 국물요리 모음전</p>
+            <p class="card-sub">원스톱 기획 매대 연출법 및 POP 활용 팁 확인하기</p>
+            <span class="guide-btn">상세 가이드 보기 〉</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="card full-media" href="product-005.html">
         <div class="card-img wide">
-          <img src="https://via.placeholder.com/600x300/F1EEE5/9C988F.png?text=Image" alt="제품명">
+          <img src="https://img.cjthemarket.com/images/file/product/384/20251210083038154.jpg?SF=webp&RS=550" alt="큰채소가득 고기만두">
         </div>
         <div class="card-caption-wrap">
-          <p class="card-title" style="text-align:center; margin:0;">제품명</p>
+          <p class="card-title" style="text-align:center; margin:0;">큰채소가득 고기만두</p>
         </div>
       </a>
 
     </div>
   </div>
-  
+
   <a class="home-btn" href="index.html" aria-label="홈으로">
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M3 11.5L12 4l9 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
