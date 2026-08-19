@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+<title>제품 상세 소개</title>
+<style>
+  :root{
+    --bg: #FAFAF7;
+    --ink: #1F2E22;
+    --muted: #767065;
+    --green: #2E7D32;
+    --line: #E6E1D6;
+    --accent: #E8622C;
+  }
+  *, *::before, *::after{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+  html{ overflow-y: scroll; }
+  html,body{ margin:0; padding:0; min-height:100vh; }
+  body{
+    font-family:'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background: var(--bg);
+    color: var(--ink);
+    display:flex;
+    justify-content:center;
+  }
+  a{ text-decoration:none; color:inherit; }
+  
+  .wrap{
+    width:100%;
+    max-width:480px;
+    padding: 32px 24px 100px;
+  }
+
+  /* 뒤로가기 버튼 */
+  .back{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-size:14.5px;
+    font-weight:700;
+    color: var(--muted);
+    margin-bottom: 20px;
+    transition: color .15s ease;
+  }
+  .back:hover{ color: var(--accent); }
+  .back svg{ width:18px; height:18px; }
+
+  /* 대표 제품 이미지 영역 */
+  .hero-img{
+    width:100%;
+    height:220px;
+    border-radius:20px;
+    border: 1.5px solid var(--line);
+    background: repeating-linear-gradient(45deg,#eeeeeb,#eeeeeb 6px,#e4e4df 6px,#e4e4df 12px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#9c9c96;
+    font-weight:700;
+    font-size:14px;
+    text-align:center;
+    margin-bottom: 24px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  }
+  .hero-img img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+  .eyebrow{
+    margin: 0 0 6px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+  }
+
+  h1{
+    font-size:26px;
+    font-weight:800;
+    margin:0 0 8px;
+    letter-spacing:-0.02em;
+    line-height: 1.3;
+  }
+  .desc{
+    font-size:15px;
+    color:var(--muted);
+    font-weight:500;
+    line-height:1.6;
+    margin:0 0 28px;
+  }
+
+  /* 섹션 스타일 */
+  .section{
+    border-top:1px solid var(--line);
+    padding-top:24px;
+    margin-top:24px;
+  }
+  .section h2{
+    font-size:17px;
+    font-weight:800;
+    margin:0 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--ink);
+  }
+
+  /* 포인트 항목 리스트 (진열 상세페이지 스타일 통일) */
+  .point-list{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .point-item{
+    background: #fff;
+    border: 1.5px solid var(--line);
+    border-radius: 14px;
+    padding: 16px 18px;
+    font-size: 14.5px;
+    line-height: 1.6;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+  }
+  .point-item strong{
+    color: var(--accent);
+    display: block;
+    margin-bottom: 6px;
+    font-size: 15.5px;
+  }
+
+  /* 하단 가이드 연결 버튼 */
+  .guide-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    width:100%;
+    margin-top:32px;
+    padding:16px 0;
+    background: var(--ink);
+    color:#fff;
+    font-size:16px;
+    font-weight:700;
+    border-radius:14px;
+    transition: all .2s;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  .guide-btn:active{ transform: scale(0.98); }
+  .guide-btn:hover{ background: #2f4333; }
+
+  /* 플로팅 목록 버튼 */
+  .list-btn{
+    position:fixed;
+    left:50%;
+    bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+    transform: translateX(-50%);
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+    z-index: 1000;
+    margin: 0;
+    padding: 0;
+  }
+  .list-btn svg{ width:22px; height:22px; display:block; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    
+    <!-- 뒤로가기 -->
+    <a class="back" href="이달의_주요제품.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+      목록으로 돌아가기
+    </a>
+
+    <!-- 대표 이미지 -->
+    <div class="hero-img">
+      대표 제품 이미지를 넣어주세요<br>(파스타소스 10종)
+    </div>
+
+    <!-- 타이틀 영역 -->
+    <p class="eyebrow">이달의 추천 제품</p>
+    <h1>파스타소스 10종</h1>
+    <p class="desc">잘 챙겨주세요! 다양한 고객의 입맛을 사로잡을 파스타소스 10종 라인업입니다.</p>
+
+    <!-- 1. 제품 특징 -->
+    <div class="section">
+      <h2>✨ 제품 특징 (Selling Point)</h2>
+      <ul class="point-list">
+        <li class="point-item">
+          <strong>1. 취향 저격 다양한 라인업</strong>
+          토마토, 로제, 크림 등 호불호 없는 베스트셀러부터 프리미엄 라인까지 완벽한 10종 구성!
+        </li>
+        <li class="point-item">
+          <strong>2. 극강의 조리 편의성</strong>
+          면만 삶아서 바로 붓고 비비면 3분 만에 근사한 파스타 완성.
+        </li>
+      </ul>
+    </div>
+
+    <!-- 2. 진열 / 발주 참고사항 -->
+    <div class="section">
+      <h2>🛒 진열 및 발주 시 참고사항</h2>
+      <ul class="point-list">
+        <li class="point-item">
+          <strong>진열 노하우</strong>
+          스파게티 면 매대 옆에 스탠드형이나 띠지로 연계 진열하여 동시 구매(Cross-Selling)를 적극 유도하세요.
+        </li>
+        <li class="point-item">
+          <strong>발주/재고 관리</strong>
+          베스트셀러 3종(토마토, 로제, 크림)은 상시 결품이 나지 않도록 최소 1.5배 이상 발주를 권장합니다.
+        </li>
+      </ul>
+    </div>
+
+    <!-- 시식가이드 바로가기 -->
+    <a class="guide-btn" href="https://cjrema.github.io/trytoeat/tasting-guide.html?q=파스타소스" target="_blank" rel="noopener">
+      해당 제품 시식가이드 보기 〉
+    </a>
+  </div>
+
+  <!-- 플로팅 목록 버튼 -->
+  <a class="list-btn" href="이달의_주요제품.html" aria-label="목록으로">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="8" y1="6" x2="20" y2="6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="8" y1="12" x2="20" y2="12" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="8" y1="18" x2="20" y2="18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="4" cy="6" r="1.5" fill="currentColor"/>
+      <circle cx="4" cy="12" r="1.5" fill="currentColor"/>
+      <circle cx="4" cy="18" r="1.5" fill="currentColor"/>
+    </svg>
+  </a>
+</body>
+</html>
