@@ -4,111 +4,117 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
-<title>제품 상세 소개</title>
+<title>Calvo 참치 상세 소개</title>
 <style>
-  :root{
-    --bg: #FAFAF7;
-    --ink: #1F2E22;
-    --muted: #767065;
-    --green: #2E7D32;
-    --line: #E6E1D6;
-    --accent: #E8622C;
+  /* =========================================================
+     🎨 1. 색상 및 기본 화면 설정 (건드릴 필요 없음)
+  ========================================================= */
+  :root {
+    --bg: #FAFAF7;       /* 전체 배경색 */
+    --ink: #1F2E22;      /* 기본 글자색 */
+    --muted: #767065;    /* 회색 보조 글자색 */
+    --green: #2E7D32;    /* 초록색 */
+    --line: #E6E1D6;     /* 테두리 선 색상 */
+    --accent: #E8622C;   /* 강조 주황색 */
   }
-  *, *::before, *::after{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
-  html{ overflow-y: scroll; }
-  html,body{ margin:0; padding:0; min-height:100vh; }
-  body{
-    font-family:'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  *, *::before, *::after { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { overflow-y: scroll; }
+  html, body { margin: 0; padding: 0; min-height: 100vh; }
+  body {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
     background: var(--bg);
     color: var(--ink);
-    display:flex;
-    justify-content:center;
+    display: flex;
+    justify-content: center;
   }
-  a{ text-decoration:none; color:inherit; }
-  
-  .wrap{
-    width:100%;
-    max-width:480px;
+  a { text-decoration: none; color: inherit; }
+
+  /* =========================================================
+     📱 2. 전체 레이아웃 (모바일 폭 480px 고정)
+  ========================================================= */
+  .wrap {
+    width: 100%;
+    max-width: 480px;
     padding: 32px 24px 100px;
   }
 
-  /* 뒤로가기 버튼 */
-  .back{
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-    font-size:14.5px;
-    font-weight:700;
+  /* 상단 뒤로가기 버튼 */
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14.5px;
+    font-weight: 700;
     color: var(--muted);
     margin-bottom: 20px;
     transition: color .15s ease;
   }
-  .back:hover{ color: var(--accent); }
-  .back svg{ width:18px; height:18px; }
+  .back:hover { color: var(--accent); }
+  .back svg { width: 18px; height: 18px; }
 
-  /* 대표 제품 이미지 영역 */
-  .hero-img{
-    width:100%;
-    height:220px;
-    border-radius:20px;
+  /* 상단 메인 대표 이미지 박스 */
+  .hero-img {
+    width: 100%;
+    height: 220px;
+    border-radius: 20px;
     border: 1.5px solid var(--line);
-    background: repeating-linear-gradient(45deg,#eeeeeb,#eeeeeb 6px,#e4e4df 6px,#e4e4df 12px);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#9c9c96;
-    font-weight:700;
-    font-size:14px;
-    text-align:center;
+    background: #EAE8E1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-bottom: 24px;
     overflow: hidden;
     position: relative;
     box-shadow: 0 4px 12px rgba(0,0,0,0.03);
   }
-  .hero-img img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .hero-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-  .eyebrow{
+  /* 상단 타이틀 영역 글씨 스타일 */
+  .eyebrow {
     margin: 0 0 6px;
     font-size: 14px;
     font-weight: 700;
     color: var(--accent);
     letter-spacing: 0.02em;
   }
-
-  h1{
-    font-size:26px;
-    font-weight:800;
-    margin:0 0 8px;
-    letter-spacing:-0.02em;
+  h1 {
+    font-size: 26px;
+    font-weight: 800;
+    margin: 0 0 8px;
+    letter-spacing: -0.02em;
     line-height: 1.3;
   }
-  .desc{
-    font-size:15px;
-    color:var(--muted);
-    font-weight:500;
-    line-height:1.6;
-    margin:0 0 28px;
+  .desc {
+    font-size: 15px;
+    color: var(--muted);
+    font-weight: 500;
+    line-height: 1.6;
+    margin: 0 0 28px;
   }
 
-  /* 섹션 스타일 */
-  .section{
-    border-top:1px solid var(--line);
-    padding-top:24px;
-    margin-top:24px;
+  /* =========================================================
+     📦 3. 섹션 및 리스트 (카드) 스타일
+  ========================================================= */
+  /* 각 섹션(단락)을 나누는 구분선과 간격 */
+  .section {
+    border-top: 1px solid var(--line);
+    padding-top: 24px;
+    margin-top: 24px;
   }
-  .section h2{
-    font-size:17px;
-    font-weight:800;
-    margin:0 0 14px;
+  .section h2 {
+    font-size: 17px;
+    font-weight: 800;
+    margin: 0 0 14px;
     display: flex;
     align-items: center;
     gap: 6px;
     color: var(--ink);
   }
 
-  /* 포인트 항목 리스트 (진열 상세페이지 스타일 통일) */
-  .point-list{
+  /* 제품 항목들을 감싸는 리스트 틀 */
+  .point-list {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -116,7 +122,9 @@
     flex-direction: column;
     gap: 12px;
   }
-  .point-item{
+
+  /* 💡 텍스트 전용 카드 스타일 (이미지가 없는 형태) */
+  .point-item {
     background: #fff;
     border: 1.5px solid var(--line);
     border-radius: 14px;
@@ -125,37 +133,42 @@
     line-height: 1.6;
     box-shadow: 0 2px 8px rgba(0,0,0,0.02);
   }
-  .point-item strong{
+  
+  /* 카드 안의 제목(굵은 주황색 글씨) */
+  .point-item strong {
     color: var(--accent);
     display: block;
     margin-bottom: 6px;
     font-size: 15.5px;
   }
 
-  /* 하단 가이드 연결 버튼 */
-  .guide-btn{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-    width:100%;
-    margin-top:32px;
-    padding:16px 0;
+  /* =========================================================
+     🔘 4. 하단 버튼 스타일
+  ========================================================= */
+  /* 화면 맨 아래 넓은 검은색 버튼 (현재 코드엔 안 쓰이지만 필요시 사용 가능) */
+  .guide-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    margin-top: 32px;
+    padding: 16px 0;
     background: var(--ink);
-    color:#fff;
-    font-size:16px;
-    font-weight:700;
-    border-radius:14px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 14px;
     transition: all .2s;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   }
-  .guide-btn:active{ transform: scale(0.98); }
-  .guide-btn:hover{ background: #2f4333; }
+  .guide-btn:active { transform: scale(0.98); }
+  .guide-btn:hover { background: #2f4333; }
 
-  /* 플로팅 목록 버튼 */
-  .list-btn{
-    position:fixed;
-    left:50%;
+  /* 우측 하단 동동 떠다니는 목록(홈) 버튼 */
+  .list-btn {
+    position: fixed;
+    left: 50%;
     bottom: calc(24px + env(safe-area-inset-bottom, 0px));
     transform: translateX(-50%);
     width: 52px;
@@ -171,13 +184,13 @@
     margin: 0;
     padding: 0;
   }
-  .list-btn svg{ width:22px; height:22px; display:block; }
+  .list-btn svg { width: 22px; height: 22px; display: block; }
 </style>
 </head>
 <body>
+
   <div class="wrap">
     
-    <!-- 뒤로가기 -->
     <a class="back" href="m-products.html">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M15 18l-6-6 6-6"/>
@@ -185,54 +198,83 @@
       목록으로 돌아가기
     </a>
 
-    <!-- 대표 이미지 -->
     <div class="hero-img">
-      대표 제품 이미지를 넣어주세요<br>(파스타소스 10종)
+      <img src="https://img.cjthemarket.com/images/file/product/049/20260708180556246.jpg?SF=webp&RS=550" alt="Calvo 참치 대표 이미지">
     </div>
 
-    <!-- 타이틀 영역 -->
     <p class="eyebrow">이달의 추천 제품</p>
-    <h1>파스타소스 10종</h1>
-    <p class="desc">잘 챙겨주세요! 다양한 고객의 입맛을 사로잡을 파스타소스 10종 라인업입니다.</p>
+    <h1>백설 메뉴형 1분링(3종)</h1>
+    <p class="desc">🥘찌개 양념을 1분링 한 알에!</p>
 
-    <!-- 1. 제품 특징 -->
+
     <div class="section">
-      <h2>✨ 제품 특징 (Selling Point)</h2>
+      <h2>✨ 된장찌개 1분링</h2>
       <ul class="point-list">
+        
         <li class="point-item">
-          <strong>1. 취향 저격 다양한 라인업</strong>
-          토마토, 로제, 크림 등 호불호 없는 베스트셀러부터 프리미엄 라인까지 완벽한 10종 구성!
+          <strong>1분이면 찌개양념 완성</strong>
+          두부, 감자, 애호박 등만 넣으면<br>
+          완성되는 된장찌개 양념!
         </li>
+
         <li class="point-item">
-          <strong>2. 극강의 조리 편의성</strong>
-          면만 삶아서 바로 붓고 비비면 3분 만에 근사한 파스타 완성.
-        </li>
+          <strong>1분링으로 계량 끝!</strong>
+          된장양념부터 감자, 야채까지 <br>
+          링에 그대로 담아 실패없는 찌개의 맛
+        </li>      
       </ul>
     </div>
 
-    <!-- 2. 진열 / 발주 참고사항 -->
+
     <div class="section">
-      <h2>🛒 진열 및 발주 시 참고사항</h2>
+      <h2>✨ 순두부찌개 1분링</h2>
       <ul class="point-list">
+        
         <li class="point-item">
-          <strong>진열 노하우</strong>
-          스파게티 면 매대 옆에 스탠드형이나 띠지로 연계 진열하여 동시 구매(Cross-Selling)를 적극 유도하세요.
+          <strong>1분이면 찌개양념 완성</strong>
+          순두부, 양파, 대파 등만 넣으면<br>
+          완성되는 순두부찌개 양념!
         </li>
+
         <li class="point-item">
-          <strong>발주/재고 관리</strong>
-          베스트셀러 3종(토마토, 로제, 크림)은 상시 결품이 나지 않도록 최소 1.5배 이상 발주를 권장합니다.
+          <strong>1분링으로 계량 끝!</strong>
+          순두부찌개양념부터 바지락, 해물, 멸치,<br>
+          야채까지 링에 그대로 담아 실패 없는 맛!
         </li>
+        
+    <div class="section">
+      <h2>✨ 부대찌개 1분링</h2>
+      <ul class="point-list">
+        
+        <li class="point-item">
+          <strong>1분이면 찌개양념 완성</strong>
+          햄, 소시지, 대파 등만 넣으면<br>
+          완성되는 부대찌개 양념!
+        </li>
+
+        <li class="point-item">
+          <strong>1분링으로 계량 끝!</strong>
+          양념부터 돼지고기, 베이크드빈, 치즈, <br>
+          김치까지 링에 그대로 담아 실패 없는 맛!
+        </li>              
+
       </ul>
     </div>
 
-    <!-- 시식가이드 바로가기 -->
-    <a class="guide-btn" href="https://cjrema.github.io/trytoeat/tasting-guide.html?q=파스타소스" target="_blank" rel="noopener">
-      해당 제품 시식가이드 보기 〉
-    </a>
-  </div>
 
-  <!-- 플로팅 목록 버튼 -->
-  <a class="list-btn" href="m-products.html" aria-label="목록으로">
+    <div class="section">
+      <h2>🛒 참고사항</h2>
+      <ul class="point-list">
+        
+        <li class="point-item">
+          <strong>✅ 분산/연관 진열</strong>
+          - 두부, 감자, 양파, 대파 코너에 함께 진열해 보세요~
+        </li>
+
+      </ul>
+    </div>
+
+  </div> <a class="list-btn" href="m-products.html" aria-label="목록으로">
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <line x1="8" y1="6" x2="20" y2="6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
       <line x1="8" y1="12" x2="20" y2="12" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
@@ -242,5 +284,6 @@
       <circle cx="4" cy="18" r="1.5" fill="currentColor"/>
     </svg>
   </a>
+
 </body>
 </html>
