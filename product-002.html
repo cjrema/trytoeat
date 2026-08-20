@@ -4,15 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
-<title>제품 상세 소개</title>
+<title>Calvo 참치 상세 소개</title>
 <style>
+  /* =========================================================
+     🎨 1. 색상 및 기본 화면 설정 (건드릴 필요 없음)
+  ========================================================= */
   :root {
-    --bg: #FAFAF7;
-    --ink: #1F2E22;
-    --muted: #767065;
-    --green: #2E7D32;
-    --line: #E6E1D6;
-    --accent: #E8622C;
+    --bg: #FAFAF7;       /* 전체 배경색 */
+    --ink: #1F2E22;      /* 기본 글자색 */
+    --muted: #767065;    /* 회색 보조 글자색 */
+    --green: #2E7D32;    /* 초록색 */
+    --line: #E6E1D6;     /* 테두리 선 색상 */
+    --accent: #E8622C;   /* 강조 주황색 */
   }
   
   *, *::before, *::after { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -28,7 +31,9 @@
   }
   a { text-decoration: none; color: inherit; }
 
-  /* 전체 레이아웃 틀 */
+  /* =========================================================
+     📱 2. 전체 레이아웃 (모바일 폭 480px 고정)
+  ========================================================= */
   .wrap {
     width: 100%;
     max-width: 480px;
@@ -49,7 +54,7 @@
   .back:hover { color: var(--accent); }
   .back svg { width: 18px; height: 18px; }
 
-  /* 상단 메인 대표 이미지 */
+  /* 상단 메인 대표 이미지 박스 */
   .hero-img {
     width: 100%;
     height: 220px;
@@ -66,7 +71,7 @@
   }
   .hero-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-  /* 타이틀 및 기획 문구 */
+  /* 상단 타이틀 영역 글씨 스타일 */
   .eyebrow {
     margin: 0 0 6px;
     font-size: 14px;
@@ -89,7 +94,10 @@
     margin: 0 0 28px;
   }
 
-  /* 구분선 섹션 스타일 */
+  /* =========================================================
+     📦 3. 섹션 및 리스트 (카드) 스타일
+  ========================================================= */
+  /* 각 섹션(단락)을 나누는 구분선과 간격 */
   .section {
     border-top: 1px solid var(--line);
     padding-top: 24px;
@@ -105,7 +113,7 @@
     color: var(--ink);
   }
 
-  /* 제품 항목 리스트 공통 */
+  /* 제품 항목들을 감싸는 리스트 틀 */
   .point-list {
     list-style: none;
     padding: 0;
@@ -115,7 +123,7 @@
     gap: 12px;
   }
 
-  /* 💡 텍스트 전용 카드 스타일 (이미지 없음) */
+  /* 💡 텍스트 전용 카드 스타일 (이미지가 없는 형태) */
   .point-item {
     background: #fff;
     border: 1.5px solid var(--line);
@@ -125,6 +133,8 @@
     line-height: 1.6;
     box-shadow: 0 2px 8px rgba(0,0,0,0.02);
   }
+  
+  /* 카드 안의 제목(굵은 주황색 글씨) */
   .point-item strong {
     color: var(--accent);
     display: block;
@@ -132,7 +142,10 @@
     font-size: 15.5px;
   }
 
-  /* 하단 큰 시식가이드 버튼 */
+  /* =========================================================
+     🔘 4. 하단 버튼 스타일
+  ========================================================= */
+  /* 화면 맨 아래 넓은 검은색 버튼 (현재 코드엔 안 쓰이지만 필요시 사용 가능) */
   .guide-btn {
     display: flex;
     align-items: center;
@@ -152,7 +165,7 @@
   .guide-btn:active { transform: scale(0.98); }
   .guide-btn:hover { background: #2f4333; }
 
-  /* 우측 하단 플로팅(동동 뜨는) 목록 버튼 */
+  /* 우측 하단 동동 떠다니는 목록(홈) 버튼 */
   .list-btn {
     position: fixed;
     left: 50%;
@@ -186,15 +199,16 @@
     </a>
 
     <div class="hero-img">
-      <img src="https://img.cjthemarket.com/images/file/product/049/20260708180556246.jpg?SF=webp&RS=550" alt="제품 대표 이미지">
+      <img src="https://img.cjthemarket.com/images/file/product/049/20260708180556246.jpg?SF=webp&RS=550" alt="Calvo 참치 대표 이미지">
     </div>
 
     <p class="eyebrow">이달의 추천 제품</p>
     <h1>Calvo 참치 2종</h1>
     <p class="desc">까다로운 유럽 시장에서 검증된 스페인 국민 참치캔🐟</p>
 
+
     <div class="section">
-      <h2>✨ Calvo 올리브유 참치 </h2>
+      <h2>✨ Calvo 올리브유 참치</h2>
       <ul class="point-list">
         
         <li class="point-item">
@@ -218,12 +232,12 @@
           뒤처리도 편해요.
         </li>
 
-
       </ul>
     </div>
 
-        <div class="section">
-      <h2>✨ Calvo 해바라기유 참치 </h2>
+
+    <div class="section">
+      <h2>✨ Calvo 해바라기유 참치</h2>
       <ul class="point-list">
         
         <li class="point-item">
@@ -256,19 +270,18 @@
         
         <li class="point-item">
           <strong>✅ 분산/연관 진열</strong>
-          -
+          - 
         </li>
 
         <li class="point-item">
           <strong>💡 분산 추천 매대</strong>
-          -
+          - 
         </li>
 
       </ul>
     </div>
-  </div>
 
-  <a class="list-btn" href="m-products.html" aria-label="목록으로">
+  </div> <a class="list-btn" href="m-products.html" aria-label="목록으로">
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <line x1="8" y1="6" x2="20" y2="6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
       <line x1="8" y1="12" x2="20" y2="12" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
