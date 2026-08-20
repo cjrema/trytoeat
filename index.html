@@ -4,18 +4,21 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover" />
 <title>CJ리테일원 알림장</title>
-<!-- Pretendard 폰트 CDN -->
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+
 <style>
+  /* =========================================================
+     🎨 1. 전체 색상 변수 설정 (브랜드 컬러 모음)
+  ========================================================= */
   :root {
-    --bg: #FAFAF7;
-    --card-bg: #FFFFFF;
-    --ink: #1F2E22;
-    --muted: #767065;
-    --line: #E6E1D6;
-    --accent: #E8622C;
-    --hover-bg: #F4F3EE;
-    --green: #2E7D32;
+    --bg: #FAFAF7;       /* 화면 전체 바탕색 */
+    --card-bg: #FFFFFF;  /* 카드 하얀색 배경 */
+    --ink: #1F2E22;      /* 기본 메인 글자색 (진한 쑥색) */
+    --muted: #767065;    /* 회색 설명 글자색 */
+    --line: #E6E1D6;     /* 연한 테두리 선 색상 */
+    --accent: #E8622C;   /* 강조 포인트 주황색 */
+    --hover-bg: #F4F3EE; /* 마우스 올렸을 때 배경색 */
+    --green: #2E7D32;    /* 초록색 포인트 */
   }
 
   *, *::before, *::after {
@@ -23,15 +26,8 @@
     -webkit-tap-highlight-color: transparent;
   }
 
-  html {
-    overflow-y: scroll;
-  }
-
-  html, body {
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-  }
+  html { overflow-y: scroll; }
+  html, body { margin: 0; padding: 0; min-height: 100vh; }
 
   body {
     background: var(--bg);
@@ -43,46 +39,12 @@
     align-items: center;
   }
 
-  a {
-    text-decoration: none;
-    color: inherit;
-  }
+  a { text-decoration: none; color: inherit; }
+  button { font-family: inherit; border: none; outline: none; cursor: pointer; }
 
-  button {
-    font-family: inherit;
-    border: none;
-    outline: none;
-    cursor: pointer;
-  }
-
-  /* 상단 롤링 공지 바 */
-  .notice-bar {
-    width: 100%;
-    background: var(--ink);
-    color: #fff;
-    padding: 10px 0;
-    overflow: hidden;
-    white-space: nowrap;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-
-  .notice-track {
-    display: inline-block;
-    padding-left: 100%;
-    animation: marquee 22s linear infinite;
-    font-size: 13.5px;
-    font-weight: 600;
-    letter-spacing: -0.2px;
-  }
-
-  @keyframes marquee {
-    0% { transform: translate(0, 0); }
-    100% { transform: translate(-100%, 0); }
-  }
-
-  /* 메인 래퍼 */
+  /* =========================================================
+     📱 2. 메인 화면 레이아웃 (모바일 폭 480px 고정)
+  ========================================================= */
   .wrap {
     width: 100%;
     max-width: 480px;
@@ -92,12 +54,11 @@
     gap: 20px;
   }
 
-  /* 상단 헤더 */
+  /* 상단 제목 헤더 */
   .page-header {
     text-align: center;
     padding: 10px 0 4px;
   }
-
   .main-title {
     font-size: 26px;
     font-weight: 800;
@@ -105,7 +66,6 @@
     margin: 0 0 6px 0;
     letter-spacing: -0.5px;
   }
-
   .update-date {
     font-size: 13px;
     font-weight: 600;
@@ -114,14 +74,15 @@
     letter-spacing: -0.2px;
   }
 
-  /* 섹션 카드 공통 */
+  /* =========================================================
+     📦 3. 흰색 섹션 카드 & 메뉴 버튼 스타일
+  ========================================================= */
   .section-card {
     background: var(--card-bg);
     border-radius: 20px;
     padding: 22px 20px;
     box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
   }
-
   .section-title {
     font-size: 17px;
     font-weight: 800;
@@ -133,13 +94,12 @@
     letter-spacing: -0.3px;
   }
 
-  /* 버튼 리스트 */
+  /* 메뉴 이동 버튼 세로 리스트 */
   .btn-group {
     display: flex;
     flex-direction: column;
     gap: 10px;
   }
-
   .nav-btn {
     display: flex;
     align-items: center;
@@ -152,31 +112,27 @@
     color: var(--ink);
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
-
   .nav-btn:hover {
     background: var(--hover-bg);
     color: var(--accent);
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   }
-
-  .nav-btn:active {
-    transform: translateY(0);
-  }
-
+  .nav-btn:active { transform: translateY(0); }
   .nav-btn .arrow {
     width: 18px;
     height: 18px;
     color: var(--muted);
     transition: transform 0.2s, color 0.2s;
   }
-
   .nav-btn:hover .arrow {
     color: var(--accent);
     transform: translateX(4px);
   }
 
-  /* 검색창 */
+  /* =========================================================
+     🔍 4. 시식 가이드 검색창 & 카테고리 태그
+  ========================================================= */
   .search-box {
     display: flex;
     align-items: center;
@@ -185,12 +141,10 @@
     padding: 6px 8px 6px 16px;
     transition: background 0.2s, box-shadow 0.2s;
   }
-
   .search-box:focus-within {
     background: #ECEAE4;
     box-shadow: 0 0 0 2px rgba(232, 98, 44, 0.25);
   }
-
   .search-input {
     flex: 1;
     border: none;
@@ -202,12 +156,10 @@
     padding: 8px 0;
     outline: none;
   }
-
   .search-input::placeholder {
     color: #9C988F;
     font-weight: 500;
   }
-
   .search-btn {
     display: flex;
     align-items: center;
@@ -219,28 +171,17 @@
     border-radius: 10px;
     transition: background 0.2s, transform 0.1s;
   }
+  .search-btn:hover { background: #d45320; }
+  .search-btn:active { transform: scale(0.95); }
+  .search-btn svg { width: 18px; height: 18px; }
 
-  .search-btn:hover {
-    background: #d45320;
-  }
-
-  .search-btn:active {
-    transform: scale(0.95);
-  }
-
-  .search-btn svg {
-    width: 18px;
-    height: 18px;
-  }
-
-  /* 카테고리 칩 */
+  /* 카테고리 알약 모양 태그들 */
   .category-chips {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
     margin-top: 14px;
   }
-
   .cat-tag {
     background: #F7F6F2;
     border-radius: 20px;
@@ -250,14 +191,13 @@
     color: var(--muted);
     transition: all 0.2s;
   }
-
   .cat-tag:hover {
     background: #ECEAE4;
     color: var(--ink);
     transform: translateY(-1px);
   }
 
-  /* 하단 설문 및 포털 버튼 */
+  /* 하단 큰 바로가기 버튼 */
   .survey-btn {
     display: flex;
     align-items: center;
@@ -273,7 +213,6 @@
     margin-top: 14px;
     transition: all 0.2s;
   }
-
   .survey-btn:hover {
     background: #2E3E32;
     transform: translateY(-1px);
@@ -283,29 +222,17 @@
 </head>
 <body>
 
-  <!-- 상단 공지 롤링 전광판 -->
-  <div class="notice-bar">
-    <div class="notice-track" id="noticeTrack">
-      📢 할인점 8월 2차 행사 진행 중
-      📢 신제품 와사비 제품 정보 업데이트 완료 😎
-      📢 현재 분산&연계 진열의 달인 페이지는 테스트 중입니다!
-    </div>
-  </div>
-
   <div class="wrap">
 
-    <!-- 상단 헤더 / 타이틀 -->
     <header class="page-header">
       <h1 class="main-title">CJ리테일원 알림장</h1>
       <p class="update-date">Update. 2026. 08. 20</p>
     </header>
 
-    <!-- 1. 업무 전 보고가기! -->
     <section class="section-card">
       <h2 class="section-title">📌 필독! 알림장 </h2>
       <div class="btn-group">
         
-        <!-- 이달의 주요 제품 -->
         <a class="nav-btn" href="m-products.html">
           <span> 이달의 주요 제품 👩‍🍳 </span>
           <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
@@ -313,7 +240,6 @@
           </svg>
         </a>
 
-        <!-- 진열의 달인 -->
         <a class="nav-btn" href="display.html">
           <span> 분산&연계 진열의 달인 (TEST) 👷‍♀️ </span>
           <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
@@ -321,8 +247,7 @@
           </svg>
         </a>
 
-        <!-- 현장의 온도차 -->
-        <a class="nav-btn" href="https://cjmd1.my.canva.site/field-temp-8">
+        <a class="nav-btn" href="https://cjmd1.my.canva.site/field-temp-8" target="_blank">
           <span> 08월 현장의 온도차 🥇</span>
           <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
             <path d="M9 18l6-6-6-6"/>
@@ -332,11 +257,9 @@
       </div>
     </section>
 
-    <!-- 2. 시식가이드 알아보기! -->
     <section class="section-card">
       <h2 class="section-title">🔍 시식가이드 알아보기!</h2>
       
-      <!-- 테두리 없는 깔끔한 검색창 -->
       <form id="searchForm" class="search-box">
         <input type="text" id="searchInput" class="search-input" placeholder="제품명이나 키워드를 검색해보세요" />
         <button type="submit" class="search-btn" aria-label="검색">
@@ -347,27 +270,23 @@
         </button>
       </form>
 
-      <!-- 카테고리 태그 칩 -->
-      <div class="category-chips" id="quickCats">
-        <!-- JavaScript로 카테고리 태그 렌더링 -->
-      </div>
+      <div class="category-chips" id="quickCats"></div>
 
-      <!-- 통합 시식가이드 전체보기 버튼 -->
-      <a class="survey-btn" id="surveyBtn" href="https://cjrema.github.io/trytoeat/tasting-guide.html">
+      <a class="survey-btn" id="surveyBtn" href="https://cjrema.github.io/trytoeat/tasting-guide.html" target="_blank">
         통합 시식가이드 바로가기 〉
       </a>
     </section>
 
-  </div>
+  </div> <script src="notice.js"></script>
+
 
 <script>
-  // 🔗 시식가이드 연동 주소 설정
   const TASTING_GUIDE_URL = 'https://cjrema.github.io/trytoeat/tasting-guide.html';
   const CATEGORIES = ['만두', '치킨', '냉동반찬', '조리육', '생선구이', '소스', '면', '김치', '국물요리','창고형'];
 
   const quickCats = document.getElementById('quickCats');
   
-  // 카테고리 칩 버튼 생성 및 연동 (cat 파라미터 전달)
+  // 카테고리 태그 버튼 자동 생성
   CATEGORIES.forEach(cat => {
     const btn = document.createElement('button');
     btn.type = 'button';
@@ -380,14 +299,14 @@
   const searchForm = document.getElementById('searchForm');
   const searchInput = document.getElementById('searchInput');
 
-  // 검색창 입력 후 이동 (q 파라미터 전달)
+  // 검색창 입력 시 시식가이드 페이지로 검색어 전달하며 이동
   function goToSearch(query){
     const url = new URL(TASTING_GUIDE_URL);
     if(query) url.searchParams.set('q', query);
     window.location.href = url.toString();
   }
 
-  // 카테고리 클릭 시 이동 (cat 파라미터 전달)
+  // 카테고리 태그 클릭 시 시식가이드 페이지로 이동
   function goToCategory(category){
     const url = new URL(TASTING_GUIDE_URL);
     if(category) url.searchParams.set('cat', category);
@@ -399,5 +318,6 @@
     goToSearch(searchInput.value.trim());
   });
 </script>
+
 </body>
 </html>
