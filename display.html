@@ -6,16 +6,20 @@
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
 <title>분산/연계 진열의 달인</title>
 <style>
+  /* =========================================================
+     🎨 1. 색상 및 기본 화면 설정 (건드릴 필요 없음)
+  ========================================================= */
   :root{
-    --bg: #FAFAF7;
-    --ink: #1F2E22;
-    --muted: #767065;
-    --green: #3fae2a;
-    --red: #e0392b;
-    --yellow: #f0c11e;
-    --line: #E6E1D6;
-    --accent: #E8622C;
+    --bg: #FAFAF7;       /* 배경색 */
+    --ink: #1F2E22;      /* 기본 글자색 */
+    --muted: #767065;    /* 흐린 글자색 */
+    --green: #3fae2a;    /* 초록색 */
+    --red: #e0392b;      /* 빨간색 */
+    --yellow: #f0c11e;   /* 노란색 */
+    --line: #E6E1D6;     /* 테두리 선 색상 */
+    --accent: #E8622C;   /* 강조 주황색 */
   }
+
   *, *::before, *::after{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
   html{ overflow-y: scroll; }
   html,body{ margin:0; padding:0; min-height:100vh; }
@@ -29,12 +33,16 @@
   }
   a{ text-decoration:none; color:inherit; }
 
+  /* =========================================================
+     📱 2. 전체 레이아웃 (모바일 폭 480px 고정)
+  ========================================================= */
   .wrap{
     width:100%;
     max-width: 480px;
     padding: 32px 24px 100px;
   }
 
+  /* 상단 제목 영역 */
   .eyebrow{
     margin: 0 0 6px;
     font-size: 14px;
@@ -43,7 +51,6 @@
     letter-spacing: 0.02em;
     text-align: center;
   }
-
   h1{
     text-align:center;
     font-size: 28px;
@@ -52,7 +59,6 @@
     margin: 0 0 8px;
     line-height: 1.25;
   }
-
   .caption{
     text-align:center;
     color: var(--muted);
@@ -62,12 +68,16 @@
     line-height: 1.5;
   }
 
+  /* =========================================================
+     📦 3. 카드 디자인 공통 스타일
+  ========================================================= */
   .card-list{
     display:flex;
     flex-direction:column;
-    gap: 16px;
+    gap: 16px; /* 카드 사이 간격 */
   }
 
+  /* 카드 기본 틀 */
   .card{
     position:relative;
     display:block;
@@ -85,6 +95,7 @@
     box-shadow: 0 6px 16px rgba(232,98,68,0.12);
   }
 
+  /* 카드 상단 네모 라벨 (예: 🍝 연계진열) */
   .card-top-tag{
     display:inline-flex;
     align-items:center;
@@ -98,6 +109,7 @@
     margin-bottom: 10px;
   }
 
+  /* 카드 안쪽 글씨와 이미지 가로 배치 */
   .card-body{
     display:flex;
     align-items:center;
@@ -105,8 +117,8 @@
     gap: 12px;
   }
 
+  /* 텍스트 영역 */
   .card-text{ flex: 1; min-width:0; }
-
   .card-title{
     font-size: 17.5px;
     font-weight: 800;
@@ -122,6 +134,7 @@
     line-height: 1.45;
   }
 
+  /* 강조 버튼 (진열 가이드 보기) */
   .guide-btn{
     display:inline-flex;
     align-items:center;
@@ -135,6 +148,7 @@
     border-radius: 999px;
   }
 
+  /* 작은 정사각형 이미지 박스 (96x80px) */
   .card-img{
     flex-shrink:0;
     width: 96px;
@@ -147,6 +161,8 @@
     overflow:hidden;
   }
   .card-img img{ width:100%; height:100%; object-fit:cover; display:block; }
+  
+  /* 이미지가 없을 때 임시로 보여주는 회색 박스 */
   .card-img.placeholder{
     font-size: 11px;
     font-weight:700;
@@ -157,20 +173,40 @@
     background: repeating-linear-gradient(45deg,#eeeeeb,#eeeeeb 6px,#e4e4df 6px,#e4e4df 12px);
   }
 
-  /* 와이드 형태의 카드 */
-  .card.full-media{
-    padding: 0;
-  }
+  /* =========================================================
+     4. 특수 카드 스타일 모음 (풀이미지형, 텍스트형, 비활성형)
+  ========================================================= */
+  
+  /* [타입 3] 큰 이미지가 들어가는 와이드 카드 */
+  .card.full-media{ padding: 0; }
   .card.full-media .card-img.wide{
     width: 100%;
     height: 160px;
     border-radius: 20px 20px 0 0;
   }
-  .card.full-media .card-caption-wrap{
-    padding: 16px 18px 18px;
+  .card.full-media .card-caption-wrap{ padding: 16px 18px 18px; }
+
+  /* [타입 4] 글씨만 있는 카드 (가운데 정렬) */
+  .card.text-only { text-align: center; }
+  .card.text-only .card-top-tag { margin-left: auto; margin-right: auto; }
+  .card.text-only .card-body { justify-content: center; }
+  .card.text-only .card-text { text-align: center; }
+
+  /* [타입 5] 비활성화(준비중) 버튼 및 카드 스타일 */
+  .guide-btn.disabled {
+    background: #B5B0A4 !important; /* 회색 버튼 */
+    color: #ffffff !important;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  .card.disabled-card {
+    pointer-events: none; /* 클릭 방지 */
+    opacity: 0.75;        /* 반투명 처리 */
   }
 
-  /* 플로팅 홈 버튼 */
+  /* =========================================================
+     5. 화면 하단 동동 뜨는 홈 버튼
+  ========================================================= */
   .home-btn {
     position: fixed;
     left: 50%;
@@ -189,11 +225,7 @@
     margin: 0;
     padding: 0;
   }
-  .home-btn svg {
-    width: 22px;
-    height: 22px;
-    display: block;
-  }
+  .home-btn svg { width: 22px; height: 22px; display: block; }
 </style>
 </head>
 <body>
@@ -201,66 +233,74 @@
   <div class="wrap">
     <p class="eyebrow">CJ리테일원 노하우</p>
     <h1>분산/연계 진열의 달인</h1>
-    <p class="caption">구매 욕구를 자극하는 최적의 분산·연계진열법!<br>각 항목을 클릭해 상세 가이드를 확인해보세요.</p>
+    <p class="caption">구매 욕구를 자극하는 최적의 분산·연계진열법!<br>아래에서 필요한 카드 템플릿을 확인해 보세요.</p>
 
     <div class="card-list">
 
-      <!-- 카드 1: 파스타소스 x 스파게티면 -->
-      <a class="card" href="진열_상세페이지.html?guide=pasta">
-        <span class="card-top-tag">🍝 연계진열</span>
+      <a class="card" href="연결할주소.html">
+        <span class="card-top-tag">🍝 연계진열 (타입 1)</span>
         <div class="card-body">
           <div class="card-text">
-            <p class="card-title">파스타소스 × 스파게티면</p>
-            <p class="card-sub">면 매대 옆 연출로 동시 구매율 UP!</p>
+            <p class="card-title">텍스트 좌측 + 이미지 우측</p>
+            <p class="card-sub">가장 기본적으로 많이 쓰이는 레이아웃입니다.</p>
             <span class="guide-btn">진열 가이드 보기 〉</span>
           </div>
-          <div class="card-img placeholder">진열 이미지<br>(파스타)</div>
+          <div class="card-img placeholder">진열 이미지<br>여기에 넣기</div>
         </div>
       </a>
 
-      <!-- 카드 2: 찌개양념 x 정육/두부 -->
-      <a class="card" href="진열_상세페이지.html?guide=stew">
-        <span class="card-top-tag">🥩 분산진열</span>
+
+      <a class="card" href="연결할주소.html">
+        <span class="card-top-tag">🥩 분산진열 (타입 2)</span>
         <div class="card-body">
+          <div class="card-img placeholder">진열 이미지<br>여기에 넣기</div>
+          
           <div class="card-text">
-            <p class="card-title">백설 찌개양념 × 정육/두부 매대</p>
-            <p class="card-sub">신선 매대 옆 스탠드형 배치 노하우</p>
+            <p class="card-title">이미지 좌측 + 텍스트 우측</p>
+            <p class="card-sub">사진을 먼저 강조하고 싶을 때 사용하세요.</p>
             <span class="guide-btn">진열 가이드 보기 〉</span>
           </div>
-          <div class="card-img placeholder">진열 이미지<br>(찌개양념)</div>
         </div>
       </a>
 
-      <!-- 카드 3: 소바바치킨 x 고추마요/소스 -->
-      <a class="card full-media" href="진열_상세페이지.html?guide=chicken">
-        <div class="card-img placeholder wide">대표 진열 가이드 이미지 (소바바치킨 × 소스류)</div>
+
+      <a class="card full-media" href="연결할주소.html">
+        <div class="card-img placeholder wide">대표 진열 가이드 이미지 전체 넓게 (타입 3)</div>
+        
         <div class="card-caption-wrap">
-          <span class="card-top-tag">🍗 연계 &amp; 크로스진열</span>
-          <p class="card-title" style="margin-top:4px;">소바바치킨 × 전용 소스 크로스진열</p>
-          <p class="card-sub">냉동 안주 코너와 연계한 동선 배치 기법</p>
+          <span class="card-top-tag">🍗 크로스진열 (타입 3)</span>
+          <p class="card-title" style="margin-top:4px;">상단 꽉 차는 풀 이미지 카드</p>
+          <p class="card-sub">큰 진열 사진을 시원하게 보여주고 싶을 때 아주 좋습니다.</p>
           <span class="guide-btn" style="margin-top:10px;">진열 가이드 보기 〉</span>
         </div>
       </a>
 
-      <!-- 카드 4: 시즌 기획 매대 연출 -->
-      <a class="card" href="진열_상세페이지.html?guide=season">
-        <span class="card-top-tag">⛺ 시즌 기획전</span>
+
+      <a class="card text-only" href="연결할주소.html">
+        <span class="card-top-tag">⛺ 텍스트 전용 (타입 4)</span>
         <div class="card-body">
           <div class="card-text">
-            <p class="card-title">캠핑/나들이 시즌 연계 매대</p>
-            <p class="card-sub">간편식 모음전과 함께 구성하는 모듈 연출</p>
-            <span class="guide-btn">진열 가이드 보기 〉</span>
+            <p class="card-title">이미지 없는 중앙 정렬 카드</p>
+            <p class="card-sub">공지사항이나 글씨 위주의 내용에 적합합니다.</p>
+            <span class="guide-btn">상세 내용 보기 〉</span>
           </div>
-          <div class="card-img placeholder">진열 이미지<br>(시즌기획)</div>
         </div>
       </a>
 
-    </div>
 
-  </div>
+      <a class="card disabled-card" href="javascript:void(0);">
+        <span class="card-top-tag">🚧 준비중 (타입 5)</span>
+        <div class="card-body">
+          <div class="card-text">
+            <p class="card-title">아직 준비중인 페이지입니다</p>
+            <p class="card-sub">클릭이 안 되며 약간 투명한 회색으로 보입니다.</p>
+            <span class="guide-btn disabled">업데이트 준비중</span>
+          </div>
+          <div class="card-img placeholder">준비중<br>이미지</div>
+        </div>
+      </a>
 
-  <!-- 플로팅 홈 버튼 (메인 알림장으로 이동) -->
-  <a class="home-btn" href="index.html" aria-label="홈으로">
+    </div> </div> <a class="home-btn" href="index.html" aria-label="홈으로">
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M3 11.5L12 4l9 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       <path d="M5.5 10v9a1 1 0 0 0 1 1H9a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h2.5a1 1 0 0 0 1-1v-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
