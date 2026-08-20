@@ -4,195 +4,198 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
-<title>주요 제품 알아보기</title>
+<title>이달의 주요 제품</title>
 <style>
   /* =========================================================
-     🎨 1. 색상 및 기본 화면 설정 (건드릴 필요 없음)
+     🎨 1. 색상 및 기본 화면 설정 (분산진열 페이지와 동일한 테마)
   ========================================================= */
-  :root {
+  :root{
     --bg: #FAFAF7;       /* 화면 전체 배경색 (연한 아이보리) */
     --ink: #1F2E22;      /* 기본 글자색 (진한 쑥색) */
-    --muted: #767065;    /* 회색 보조 글자색 */
-    --green: #3fae2a;    /* 초록색 버튼 색상 */
-    --red: #e0392b;      /* NEW 뱃지 빨간색 */
-    --yellow: #f0c11e;   /* HIT 뱃지 노란색 */
+    --muted: #767065;    /* 흐린 글자색 */
+    --green: #3fae2a;    /* 초록색 */
+    --red: #e0392b;      /* 빨간색 */
+    --yellow: #f0c11e;   /* 노란색 */
     --line: #E6E1D6;     /* 테두리 선 색상 */
-    --accent: #E8622C;   /* 강조 주황색 */
+    --accent: #E8622C;   /* 강조 주황색 (버튼, 태그 색상) */
   }
 
-  *, *::before, *::after { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-  html { overflow-y: scroll; }
-  html, body { margin: 0; padding: 0; min-height: 100vh; }
-  body {
-    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  *, *::before, *::after{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+  html{ overflow-y: scroll; }
+  html,body{ margin:0; padding:0; min-height:100vh; }
+  body{
+    font-family:'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
     color: var(--ink);
     background: var(--bg);
-    display: flex;
-    justify-content: center;
+    display:flex;
+    justify-content:center;
   }
-  a { text-decoration: none; color: inherit; }
+  a{ text-decoration:none; color:inherit; }
 
   /* =========================================================
      📱 2. 전체 레이아웃 (모바일 폭 480px 고정)
   ========================================================= */
-  .wrap {
-    width: 100%;
+  .wrap{
+    width:100%;
     max-width: 480px;
     padding: 32px 24px 100px;
   }
 
-  /* 상단 타이틀 글씨들 */
-  .eyebrow {
+  /* 상단 제목 영역 */
+  .eyebrow{
     margin: 0 0 6px;
     font-size: 14px;
     font-weight: 700;
     color: var(--accent);
+    letter-spacing: 0.02em;
     text-align: center;
   }
-  h1 {
-    text-align: center;
-    font-size: 30px;
+  h1{
+    text-align:center;
+    font-size: 28px;
     font-weight: 800;
+    letter-spacing: -0.02em;
     margin: 0 0 8px;
     line-height: 1.25;
   }
-  .caption {
-    text-align: center;
+  .caption{
+    text-align:center;
     color: var(--muted);
     font-size: 14px;
     font-weight: 500;
     margin: 0 0 24px;
+    line-height: 1.5;
   }
 
   /* =========================================================
-     📦 3. 카드 디자인 스타일
+     📦 3. 카드 디자인 공통 스타일
   ========================================================= */
-  .card-list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px; /* 카드와 카드 사이의 간격 */
+  .card-list{
+    display:flex;
+    flex-direction:column;
+    gap: 16px; /* 카드 사이 간격 */
   }
 
-  /* 카드 기본 틀 */
-  .card {
-    position: relative;
-    display: block;
-    background: #fff;
+  /* 카드 기본 틀 (마우스를 올리면 살짝 위로 뜨는 효과) */
+  .card{
+    position:relative;
+    display:block;
+    background:#fff;
     border-radius: 20px;
     border: 1.5px solid var(--line);
     padding: 18px 18px 20px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-    overflow: hidden;
-    transition: transform .15s ease, border-color .15s ease;
+    overflow:hidden;
+    transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
   }
-  .card:hover { transform: translateY(-2px); border-color: var(--accent); }
+  .card:hover{
+    transform: translateY(-2px);
+    border-color: var(--accent);
+    box-shadow: 0 6px 16px rgba(232,98,68,0.12);
+  }
 
-  /* 상단 네모 라벨 (예: 🐓 이달의 추천 치킨) */
-  .card-top {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    border: 1.5px solid var(--ink);
+  /* 💡 카드 상단 네모 라벨 (예: ✨ NEW 신제품) */
+  .card-top-tag{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    background: #F4F3EE;
+    color: var(--accent);
     border-radius: 8px;
     padding: 4px 10px;
-    font-size: 12.5px;
-    font-weight: 700;
-    margin-bottom: 12px;
+    font-size: 12px;
+    font-weight: 800;
+    margin-bottom: 10px;
   }
 
-  /* 카드 내부 내용물 (텍스트 & 이미지) 배치 */
-  .card-body {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 14px;
+  /* 카드 안쪽 글씨와 이미지 가로 배치 */
+  .card-body{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap: 12px;
   }
-  .card-text { flex: 1; min-width: 0; }
-  .card-title { font-size: 19px; font-weight: 800; margin: 0 0 4px; line-height: 1.35; }
-  .card-sub { font-size: 13.5px; color: var(--muted); font-weight: 500; margin: 0 0 6px; line-height: 1.4; }
 
-  /* 초록색 바로가기 버튼 */
-  .guide-btn {
-    display: inline-flex;
-    align-items: center;
+  /* 텍스트 영역 */
+  .card-text{ flex: 1; min-width:0; }
+  .card-title{
+    font-size: 17.5px;
+    font-weight: 800;
+    margin: 0 0 6px;
+    line-height: 1.35;
+    color: var(--ink);
+  }
+  .card-sub{
+    font-size: 13.5px;
+    color: var(--muted);
+    font-weight: 500;
+    margin:0;
+    line-height: 1.45;
+  }
+
+  /* 주황색 강조 버튼 (제품 정보 보러가기) */
+  .guide-btn{
+    display:inline-flex;
+    align-items:center;
     gap: 4px;
-    margin-top: 6px;
+    margin-top: 12px;
     padding: 7px 12px;
-    background: var(--green);
-    color: #fff;
+    background: var(--accent);
+    color:#fff;
     font-size: 12.5px;
     font-weight: 800;
     border-radius: 999px;
   }
 
-  /* 💡 '제품 자료 준비중' 비활성화 버튼 스타일 */
+  /* 작은 네모 이미지 박스 (96x80px) */
+  .card-img{
+    flex-shrink:0;
+    width: 96px;
+    height: 80px;
+    border-radius: 12px;
+    background: #eee;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+  .card-img img{ width:100%; height:100%; object-fit:cover; display:block; }
+  
+  /* =========================================================
+     4. 특수 카드 스타일 모음 (풀이미지형, 텍스트형, 비활성형)
+  ========================================================= */
+  
+  /* 큰 이미지가 들어가는 와이드 카드 */
+  .card.full-media{ padding: 0; }
+  .card.full-media .card-img.wide{
+    width: 100%;
+    height: 160px;
+    border-radius: 20px 20px 0 0;
+  }
+  .card.full-media .card-caption-wrap{ padding: 16px 18px 18px; }
+
+  /* 글씨만 있는 카드 (가운데 정렬) */
+  .card.text-only { text-align: center; }
+  .card.text-only .card-top-tag { margin-left: auto; margin-right: auto; }
+  .card.text-only .card-body { justify-content: center; }
+  .card.text-only .card-text { text-align: center; }
+
+  /* 비활성화(준비중) 버튼 및 카드 스타일 */
   .guide-btn.disabled {
-    background: #B5B0A4 !important;
+    background: #B5B0A4 !important; /* 회색 버튼 */
     color: #ffffff !important;
     cursor: not-allowed;
     pointer-events: none;
   }
   .card.disabled-card {
-    pointer-events: none;
-    opacity: 0.75;
+    pointer-events: none; /* 클릭 방지 */
+    opacity: 0.75;        /* 반투명 처리 */
   }
 
-  /* 일반 카드용 작은 이미지 상자 (120x90px) */
-  .card-img {
-    flex-shrink: 0;
-    width: 120px;
-    height: 90px;
-    border-radius: 12px;
-    background: #eee;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
-  .card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-  /* 글씨만 있는 카드 스타일 */
-  .card.text-only { text-align: center; }
-  .card.text-only .card-top { margin-left: auto; margin-right: auto; }
-  .card.text-only .card-body { justify-content: center; }
-  .card.text-only .card-text { text-align: center; }
-
-  /* 큰 이미지(Wide) 전용 카드 스타일 */
-  .card.full-media { padding: 0; }
-  .card.full-media .card-img.wide {
-    width: 100%;
-    height: 140px;
-    border-radius: 20px 20px 0 0;
-    margin-bottom: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-  }
-  .card.full-media .card-img.wide img { width: 100%; height: 100%; object-fit: contain; display: block; }
-  .card.full-media .card-caption-wrap { padding: 16px 18px; }
-
-  /* NEW / HIT 동그란 뱃지 */
-  .badge-row {
-    position: absolute;
-    top: 14px;
-    left: 16px;
-    z-index: 2;
-    display: flex;
-    gap: 5px;
-  }
-  .badge {
-    color: #fff;
-    font-size: 11px;
-    font-weight: 800;
-    padding: 4px 9px;
-    border-radius: 999px;
-  }
-  .badge-new { background: var(--red); }
-  .badge-hit { background: var(--yellow); color: #4a3600; }
-
-  /* 화면 아래 동동 뜨는 홈 버튼 */
+  /* =========================================================
+     5. 화면 하단 동동 뜨는 플로팅 홈 버튼
+  ========================================================= */
   .home-btn {
     position: fixed;
     left: 50%;
@@ -208,6 +211,8 @@
     justify-content: center;
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
     z-index: 1000;
+    margin: 0;
+    padding: 0;
   }
   .home-btn svg { width: 22px; height: 22px; display: block; }
 </style>
@@ -217,21 +222,20 @@
   <div class="wrap">
     
     <p class="eyebrow">CJ리테일원</p>
-    <h1>주요 제품 알아보기</h1>
-    <p class="caption">주요 제품이 변경되면 업데이트 됩니다!</p>
+    <h1>이달의 주요 제품</h1>
+    <p class="caption">이번 달 현장에서 집중해야 할<br>핵심 신제품과 인기 제품을 확인하세요!</p>
 
     <div class="card-list">
-      
+
       <a class="card" href="product-003.html">
-        <span class="badge badge-new">NEW</span>
-        <span class="badge badge-hit">HIT</span>
         
-        <div class="card-top">🐓 이달의 추천 치킨</div>
-        
+        <span class="card-top-tag">✨ NEW 신제품</span>
+        <span class="card-top-tag">🟨 이마트 선출시</span>
         <div class="card-body">
           <div class="card-text">
             <p class="card-title">소바바 빠삭홀릭</p>
             <p class="card-sub">바삭함이 오래가는 순살 치킨</p>
+            <span class="guide-btn">제품 정보 보기 〉</span>
           </div>
           <div class="card-img">
             <img src="https://img.cjthemarket.com/images/file/product/716/20260812081809161.jpg?SF=webp&RS=550" alt="소바바 빠삭홀릭">
@@ -239,76 +243,66 @@
         </div>
       </a>
 
-
-      <a class="card" href="product-001.html" style="padding-top:44px;">
-        <span class="badge-row">
-          <span class="badge badge-hit">HIT</span>
-        </span>
+      <a class="card" href="product-001.html">
+        <span class="card-top-tag">🔥 HIT 인기제품</span>
         <div class="card-body">
-          <div class="card-img">
-            <img src="https://img.cjthemarket.com/images/file/product/221/20260625132547704.png?SF=webp&RS=550" alt="백설 파스타소스 10종">
-          </div>
           <div class="card-text">
             <p class="card-title">백설 파스타소스</p>
             <p class="card-sub">분산 & 연계 진열도 챙기기</p>
+            <span class="guide-btn">제품 정보 보기 〉</span>
+          </div>
+          <div class="card-img">
+            <img src="https://img.cjthemarket.com/images/file/product/221/20260625132547704.png?SF=webp&RS=550" alt="백설 파스타소스">
           </div>
         </div>
       </a>
-
-
-      <a class="card text-only" href="product-004.html">
-        <span class="badge badge-new">NEW</span>
-        <div class="card-top">🔥 신제품 출시</div>
-        <div class="card-body">
-          <div class="card-text">
-            <p class="card-title">백설x움트리 와사비 3종 출시</p>
-            <p class="card-sub">오리지널, 레몬, 후추</p>
-          </div>
-        </div>
-      </a>
-
-
-      <a class="card text-only disabled-card" href="javascript:void(0);">
-        <span class="badge badge-new">NEW</span>
-        <div class="card-top">🔥 신제품 출시</div>
-        <div class="card-body">
-          <div class="card-text">
-            <p class="card-title">백설 후추 2종</p>
-            <p class="card-sub">후추도 이제 백설이다 !</p>
-            <span class="guide-btn disabled"> 제품 자료 준비중 </span>
-          </div>
-        </div>
-      </a>
-
-
-      <a class="card full-media" href="product-005.html">
-        <div class="card-img wide">
-          <img src="https://img.cjthemarket.com/images/file/product/357/20260728095605608.jpg?SF=webp&RS=550" alt="메뉴형 1분링">
-        </div>
-        <div class="card-caption-wrap">
-          <p class="card-title" style="text-align:center; margin:0;">메뉴형 1분링 3종</p>
-        </div>
-      </a>
-
 
       <a class="card full-media" href="product-002.html">
         <div class="card-img wide">
           <img src="https://img.cjthemarket.com/images/file/product/852/20260708175733219.jpg?SF=webp&RS=550" alt="Calvo 참치 2종">
         </div>
+        
         <div class="card-caption-wrap">
-          <p class="card-title" style="text-align:center; margin:0;">Calvo 참치 2종</p>
+          <span class="card-top-tag">🐟 이달의 추천</span>
+          <p class="card-title" style="margin-top:4px;">Calvo 참치 2종</p>
+          <p class="card-sub">유럽에서 검증된 스페인 1등 프리미엄 참치</p>
+          <span class="guide-btn" style="margin-top:10px;">제품 정보 보기 〉</span>
         </div>
       </a>
 
-    </div>
-  </div>
-  
-  <a class="home-btn" href="index.html" aria-label="홈으로">
+      <a class="card text-only" href="product-004.html">
+        <span class="card-top-tag">🌿 신규 라인업</span>
+        <div class="card-body">
+          <div class="card-text">
+            <p class="card-title">백설x움트리 와사비 3종</p>
+            <p class="card-sub">오리지널, 레몬, 후추 완벽 구성!</p>
+            <span class="guide-btn">제품 정보 보기 〉</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="card disabled-card" href="javascript:void(0);">
+        <span class="card-top-tag">🚧 출시 완료 /수정중</span>
+        <div class="card-body">
+          <div class="card-text">
+            <p class="card-title">백설 후추 2종</p>
+            <p class="card-sub">후추도 이제 백설이다!</p>
+            <span class="guide-btn disabled">제품 정보 준비중</span>
+          </div>
+          <div class="card-img">
+            <img src="https://img.cjthemarket.com/images/file/product/716/20260812081809161.jpg?SF=webp&RS=550" style="filter: grayscale(100%); opacity: 0.5;">
+          </div>
+        </div>
+      </a>
+
+    </div> </div> <a class="home-btn" href="index.html" aria-label="홈으로">
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M3 11.5L12 4l9 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M5.5 10v9a1 1 0 0 0 1 1H9a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h2.5a1 1 0 0 0 1-1v-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M5.5 10v9a1 1 0 0 0 1 1H9a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h2.5a1 1 0 0 0 1-1v-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </a>
+
 <script src="notice.js"></script>
+
 </body>
 </html>
