@@ -6,7 +6,7 @@
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
 <title>백설 파스타소스 10종 상세소개</title>
 <style>
-  :root{
+  :root {
     --bg: #FAFAF7;
     --ink: #1F2E22;
     --muted: #767065;
@@ -14,97 +14,99 @@
     --line: #E6E1D6;
     --accent: #E8622C;
   }
-  *, *::before, *::after{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
-  html{ overflow-y: scroll; }
-  html,body{ margin:0; padding:0; min-height:100vh; }
-  body{
-    font-family:'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  *, *::before, *::after { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { overflow-y: scroll; }
+  html, body { margin: 0; padding: 0; min-height: 100vh; }
+  body {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
     background: var(--bg);
     color: var(--ink);
-    display:flex;
-    justify-content:center;
+    display: flex;
+    justify-content: center;
   }
-  a{ text-decoration:none; color:inherit; }
-  
-  .wrap{
-    width:100%;
-    max-width:480px;
+  a { text-decoration: none; color: inherit; }
+
+  /* 전체 레이아웃 틀 */
+  .wrap {
+    width: 100%;
+    max-width: 480px;
     padding: 32px 24px 100px;
   }
 
-  /* 뒤로가기 버튼 */
-  .back{
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-    font-size:14.5px;
-    font-weight:700;
+  /* 상단 뒤로가기 버튼 */
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14.5px;
+    font-weight: 700;
     color: var(--muted);
     margin-bottom: 20px;
     transition: color .15s ease;
   }
-  .back:hover{ color: var(--accent); }
-  .back svg{ width:18px; height:18px; }
+  .back:hover { color: var(--accent); }
+  .back svg { width: 18px; height: 18px; }
 
-  /* 대표 제품 메인 이미지 영역 */
-  .hero-img{
-    width:100%;
-    height:220px;
-    border-radius:20px;
+  /* 상단 메인 대표 이미지 */
+  .hero-img {
+    width: 100%;
+    height: 220px;
+    border-radius: 20px;
     border: 1.5px solid var(--line);
     background: #EAE8E1;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-bottom: 24px;
     overflow: hidden;
     position: relative;
     box-shadow: 0 4px 12px rgba(0,0,0,0.03);
   }
-  .hero-img img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .hero-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-  .eyebrow{
+  /* 타이틀 및 기획 문구 */
+  .eyebrow {
     margin: 0 0 6px;
     font-size: 14px;
     font-weight: 700;
     color: var(--accent);
     letter-spacing: 0.02em;
   }
-
-  h1{
-    font-size:26px;
-    font-weight:800;
-    margin:0 0 8px;
-    letter-spacing:-0.02em;
+  h1 {
+    font-size: 26px;
+    font-weight: 800;
+    margin: 0 0 8px;
+    letter-spacing: -0.02em;
     line-height: 1.3;
   }
-  .desc{
-    font-size:15px;
-    color:var(--muted);
-    font-weight:500;
-    line-height:1.6;
-    margin:0 0 28px;
+  .desc {
+    font-size: 15px;
+    color: var(--muted);
+    font-weight: 500;
+    line-height: 1.6;
+    margin: 0 0 28px;
   }
 
-  /* 섹션 스타일 */
-  .section{
-    border-top:1px solid var(--line);
-    padding-top:24px;
-    margin-top:24px;
+  /* 구분선 섹션 스타일 */
+  .section {
+    border-top: 1px solid var(--line);
+    padding-top: 24px;
+    margin-top: 24px;
   }
-  .section h2{
-    font-size:17px;
-    font-weight:800;
-    margin:0 0 14px;
+  .section h2 {
+    font-size: 17px;
+    font-weight: 800;
+    margin: 0 0 14px;
     display: flex;
     align-items: center;
     gap: 6px;
     color: var(--ink);
   }
 
-  /* 포인트 항목 리스트 */
-  .point-list{
+  /* 제품 항목 리스트 공통 */
+  .point-list {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -112,9 +114,9 @@
     flex-direction: column;
     gap: 12px;
   }
-  
-  /* 💡 이미지 + 텍스트 가로 배치 카드 스타일 */
-  .point-item{
+
+  /* 이미지 + 텍스트 제품 카드 스타일 */
+  .point-item {
     background: #fff;
     border: 1.5px solid var(--line);
     border-radius: 14px;
@@ -123,12 +125,12 @@
     line-height: 1.55;
     box-shadow: 0 2px 8px rgba(0,0,0,0.02);
     display: flex;
-    align-items: center; /* 이미지 수직 중앙 정렬 */
-    gap: 14px;          /* 이미지와 글씨 사이 간격 */
+    align-items: center;
+    gap: 14px;
   }
 
-  /* 💡 각 제품 썸네일 이미지 박스 (76x76px 규격) */
-  .point-thumb{
+  /* 제품 썸네일 이미지 상자 (76x76px) */
+  .point-thumb {
     flex-shrink: 0;
     width: 76px;
     height: 76px;
@@ -140,49 +142,49 @@
     align-items: center;
     justify-content: center;
   }
-  .point-thumb img{
+  .point-thumb img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
   }
 
-  /* 💡 텍스트 영역 */
-  .point-content{
+  /* 제품 텍스트 영역 */
+  .point-content {
     flex: 1;
     min-width: 0;
   }
-  .point-content strong{
+  .point-content strong {
     color: var(--accent);
     display: block;
     margin-bottom: 4px;
     font-size: 15px;
   }
 
-  /* 하단 가이드 연결 버튼 */
-  .guide-btn{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-    width:100%;
-    margin-top:32px;
-    padding:16px 0;
+  /* 하단 큰 시식가이드 버튼 */
+  .guide-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    margin-top: 32px;
+    padding: 16px 0;
     background: var(--ink);
-    color:#fff;
-    font-size:16px;
-    font-weight:700;
-    border-radius:14px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 14px;
     transition: all .2s;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   }
-  .guide-btn:active{ transform: scale(0.98); }
-  .guide-btn:hover{ background: #2f4333; }
+  .guide-btn:active { transform: scale(0.98); }
+  .guide-btn:hover { background: #2f4333; }
 
-  /* 플로팅 목록 버튼 */
-  .list-btn{
-    position:fixed;
-    left:50%;
+  /* 우측 하단 플로팅(동동 뜨는) 목록 버튼 */
+  .list-btn {
+    position: fixed;
+    left: 50%;
     bottom: calc(24px + env(safe-area-inset-bottom, 0px));
     transform: translateX(-50%);
     width: 52px;
@@ -198,13 +200,14 @@
     margin: 0;
     padding: 0;
   }
-  .list-btn svg{ width:22px; height:22px; display:block; }
+  .list-btn svg { width: 22px; height: 22px; display: block; }
 </style>
 </head>
 <body>
+
   <div class="wrap">
     
-    <a class="back" href="이달의_주요제품.html">
+    <a class="back" href="m-products.html">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M15 18l-6-6 6-6"/>
       </svg>
@@ -225,7 +228,7 @@
         
         <li class="point-item">
           <div class="point-thumb">
-            <img src="https://private-user-images.githubusercontent.com/307332708/638530931-d544844a-8245-4eff-853e-3999abd69d07.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODcxODM5NDQsIm5iZiI6MTc4NzE4MzY0NCwicGF0aCI6Ii8zMDczMzI3MDgvNjM4NTMwOTMxLWQ1NDQ4NDRhLTgyNDUtNGVmZi04NTNlLTM5OTlhYmQ2OWQwNy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwODE5JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDgxOVQyMzU0MDRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1kMzhhMjQxZTQ2MjFkOTUzNjE4MDdmZTAwZjJhZDc0ZjlmYmRiZTUxMjQ2OTllYjM1ODlhMzdiNTM4M2ZmYWM1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZyZXNwb25zZS1jb250ZW50LXR5cGU9aW1hZ2UlMkZwbmcifQ.QUepgKdPSxN0nuGaLATFumMPsl3NlAxk2_StZV30D38" alt="토마토 파스타소스">
+            <img src="https://private-user-images.githubusercontent.com/307332708/638530931-d544844a-8245-4eff-853e-3999abd69d07.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODcxODM5NDQsIm5iZiI6MTc4NzE4MzY0NCwicGF0aCI6Ii8zMDczMzI3MDgvNjM4NTMwOTMxLWQ1NDQ4NDRhLTgyNDUtNGVmZi04NTNlLTM5OTlhYmQ2OWQwNy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwODE5JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDgxOVQyMzU0MDRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1kMzhhMjQxZTQ2MjFkOTUzNjE4MDdmZTAwZjJhZDc0ZjlmYmRiZTUxMjQ2OTllYjM1ODlhMzdiNTM4M3ZmYWM1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZyZXNwb25zZS1jb250ZW50LXR5cGU9aW1hZ2UlMkZwbmcifQ.QUepgKdPSxN0nuGaLATFumMPsl3NlAxk2_StZV30D38" alt="토마토 파스타소스">
           </div>
           <div class="point-content">
             <strong>1. 토마토 파스타소스</strong>
@@ -246,7 +249,7 @@
             입안 가득 퍼지는 스모키하고 칼칼한 풍미
           </div>
         </li>
-        
+
         <li class="point-item">
           <div class="point-thumb">
             <img src="https://private-user-images.githubusercontent.com/307332708/638530930-97c2fbb2-6a3e-42cb-b1b1-6f9fac41c471.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODcxODM5NDQsIm5iZiI6MTc4NzE4MzY0NCwicGF0aCI6Ii8zMDczMzI3MDgvNjM4NTMwOTMwLTk3YzJmYmIyLTZhM2UtNDJjYi1iMWIxLTZmOWZhYzQxYzQ3MS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwODE5JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDgxOVQyMzU0MDRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0wYzljNDcxZDk3NDFkODRmYjc0MjFmMTA3ZjhlNDZiOWE0YzIxMDBlYzIzNGE0NjQyOGU2ZDBlOGQ5YTE3ZDY2JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZyZXNwb25zZS1jb250ZW50LXR5cGU9aW1hZ2UlMkZwbmcifQ.oJFBx7zf98sAI5emvFcLsLivuuNzeiuQ62EXl_iVaow" alt="치폴레 토마토 파스타소스">
@@ -294,7 +297,7 @@
             파마산치즈·크림치즈·로마노치즈가 어우러져 진한 고소함
           </div>
         </li>
-              
+
         <li class="point-item">
           <div class="point-thumb">
             <img src="https://private-user-images.githubusercontent.com/307332708/638529299-0fb05bd6-852d-4959-b87c-34bb50f1642f.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODcxODM1OTUsIm5iZiI6MTc4NzE4MzI5NSwicGF0aCI6Ii8zMDczMzI3MDgvNjM4NTI5Mjk5LTBmYjA1YmQ2LTg1MmQtNDk1OS1iODdjLTM0YmI1MGYxNjQyZi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwODE5JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDgxOVQyMzQ4MTVaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0yNTliOGEzY2JmOTBjOGY2NTQ5MDVmNmQ2MmE4OGNjNmNmNDk1NTY5MTE3YTA4MWQ5MzAzYmI2MjdjOTA5NjhlJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZyZXNwb25zZS1jb250ZW50LXR5cGU9aW1hZ2UlMkZwbmcifQ.8pqg5uhAhB51RSe2AZ5BnA_qhZFTm0EjV9yLyrs7sYU" alt="콰트로 치즈 크림 파스타소스">
@@ -330,10 +333,10 @@
             입안에서 톡하고 살아나는 크러쉬드 레드페퍼의 매콤한 킥!
           </div>
         </li>
-        
+
         <li class="point-item">
           <div class="point-thumb">
-            <img src="https://private-user-images.githubusercontent.com/307332708/638529302-20c56a84-c3fa-4d85-83ce-27a7fc201c38.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODcxODM1OTUsIm5iZiI6MTc4NzE4MzI5NSwicGF0aCI6Ii8zMDczMzI3MDgvNjM4NTI5MzAyLTIwYzU2YTg0LWMzZmEtNGQ4NS04M2NlLTI3YTdmYzIwMWMzOC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwODE5JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDgxOVQyMzQ4MTVaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0yM2UzYzVmNzQzZmUyNGEzOTI0MDcyMjg1YWQ2NGRlMzEzZDc3NDAxMDJjZjVhZTNkMjNlMjRhY2EzMzJhNjBlJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZyZXNwb25zZS1jb250ZW50LXR5cGU9aW1hZ2UlMkZwbmcifQ.oyvjEL7IogWo6lmdOCEcq03TXKXqAvTd8XCeMEjq15s" alt="봉골레 파스타소스">
+            <img src="https://private-user-images.githubusercontent.com/307332708/638529302-20c56a84-c3fa-4d85-83ce-27a7fc201c38.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODcxODM1OTUsIm5iZiI6MTc4NzE4MzI5NSwicGF0aCI6Ii8zMDczMzI3MDgvNjM4NTI5MzAyLTIwYzU2YTg4LWMzZmEtNGQ4NS04M2NlLTI3YTdmYzIwMWMzOC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwODE5JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDgxOVQyMzQ4MTVaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0yM2UzYzVmNzQzZmUyNGEzOTI0MDcyMjg1YWQ2NGRlMzEzZDc3NDAxMDJjZjVhZTNkMjNlMjRhY2EzMzJhNjBlJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZyZXNwb25zZS1jb250ZW50LXR5cGU9aW1hZ2UlMkZwbmcifQ.oyvjEL7IogWo6lmdOCEcq03TXKXqAvTd8XCeMEjq15s" alt="봉골레 파스타소스">
           </div>
           <div class="point-content">
             <strong>10. 봉골레 파스타소스</strong>
@@ -349,16 +352,14 @@
     <div class="section">
       <h2>🛒 진열 시 참고사항</h2>
       <ul class="point-list">
-        <li class="point-item" style="display:block;">
-          <strong> ✅ 분산/연관 진열 </strong><br>
-           파스타소스 매대 진열 및 시식 시<br> 
-           백설 스파게티면 꼭 진열하기 
+        <li class="point-item" style="display: block;">
+          <strong>✅ 분산/연관 진열</strong>
+          파스타소스 매대 진열 및 시식 시 백설 스파게티면 꼭 함께 진열하기
         </li>
-        <li class="point-item" style="display:block;">
-          <strong> 💡 분산 추천</strong> <br>
-          수산🐟 - 오일, 토마토, 크림 모두 가능!<br>
-          버섯🍄 - 토마토, 크림 추천
-          
+        <li class="point-item" style="display: block;">
+          <strong>💡 분산 추천 매대</strong>
+          • 수산 코너🐟: 오일, 토마토, 크림 소스 모두 추천<br>
+          • 버섯 코너🍄: 토마토, 크림 소스 추천
         </li>
       </ul>
     </div>
@@ -366,9 +367,10 @@
     <a class="guide-btn" href="https://cjrema.github.io/trytoeat/tasting-guide.html?q=파스타소스" target="_blank" rel="noopener">
       해당 제품 시식가이드 보기 〉
     </a>
+
   </div>
 
-  <a class="list-btn" href="이달의_주요제품.html" aria-label="목록으로">
+  <a class="list-btn" href="m-products.html" aria-label="목록으로">
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <line x1="8" y1="6" x2="20" y2="6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
       <line x1="8" y1="12" x2="20" y2="12" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
@@ -378,5 +380,6 @@
       <circle cx="4" cy="18" r="1.5" fill="currentColor"/>
     </svg>
   </a>
+
 </body>
 </html>
