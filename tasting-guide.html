@@ -8,7 +8,7 @@
   href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
 <style>
   /* =========================================================
-     🎨 1. 전체 테마 색상 설정
+     🎨 1. 전체 테마 색상 설정 (원하는 색으로 변경 가능)
   ========================================================= */
   :root{
     --bg: #FAFAF7;         /* 배경 아이보리색 */
@@ -40,11 +40,8 @@
   a{ text-decoration:none; color:inherit; }
   button{ font-family: inherit; }
 
-  /* 💡 주의: 이전에 있던 상단 롤링 전광판(notice-bar) CSS는 지웠습니다. 
-     (notice.js 파일에서 불러옵니다!) */
-
   /* =========================================================
-     📱 2. 전체 레이아웃 & 상단 검색창
+     📱 2. 전체 레이아웃 & 상단 검색창 디자인
   ========================================================= */
   .wrap {
     width: 100%;
@@ -76,7 +73,7 @@
     font-weight: 500;
   }
 
-  /* 검색창 디자인 */
+  /* 검색창 둥근 네모 디자인 */
   .search-wrap{
     position: relative;
     margin-bottom: 16px;
@@ -107,7 +104,7 @@
     opacity: 0.6;
   }
 
-  /* 카테고리 칩(가로 스크롤 버튼) */
+  /* 가로로 스크롤되는 카테고리 알약 버튼들 */
   .cats{
     display:flex;
     gap: 8px;
@@ -138,15 +135,18 @@
   ========================================================= */
   main{ padding: 20px 18px; width: 100%; flex: 1; }
 
+  /* 카드가 두 줄로 나오게 하는 마법의 CSS */
   .grid{
     display: grid;
-    grid-template-columns: 1fr 1fr; /* 화면을 2칸으로 나눕니다 */
+    grid-template-columns: 1fr 1fr;
     gap: 16px;
   }
+  /* 핸드폰 화면이 너무 작으면 1줄로 바뀝니다 */
   @media (max-width: 380px){
-    .grid{ grid-template-columns: 1fr; } /* 화면이 너무 좁으면 1칸으로 변경 */
+    .grid{ grid-template-columns: 1fr; }
   }
 
+  /* 개별 카드 기본 틀 */
   .card{
     display: block;
     background: var(--card);
@@ -163,6 +163,7 @@
   }
   .card:active{ transform: translateY(0); }
 
+  /* 카드 상단 이미지 들어가는 부분 */
   .card-media{
     width: 100%;
     aspect-ratio: 4 / 3;
@@ -177,7 +178,7 @@
   }
   .card-media img{ width: 100%; height: 100%; object-fit: cover; }
 
-  /* 뱃지(NEW, HIT) 자동 색상 변경 로직 */
+  /* 카드 왼쪽 위 뱃지(NEW, HIT 등) 자동 색상 변경 로직 */
   .badge{
     position:absolute;
     top: 10px;
@@ -194,6 +195,7 @@
   .badge[data-type*="인기"], .badge[data-type*="HIT"], .badge[data-type*="hit"] { background: var(--red); }
   .badge[data-type*="추천"], .badge[data-type*="강추"] { background: var(--blue); }
 
+  /* 카드 하단 텍스트 부분 */
   .card-body{ padding: 14px 16px 18px; }
   
   .card-cat{
@@ -215,7 +217,7 @@
     min-height: 2.8em;
   }
 
-  /* 시식가이드 보기 작은 회색 버튼 */
+  /* 시식가이드 보기 회색 버튼 */
   .card-cta{
     display:flex;
     align-items:center;
@@ -283,6 +285,7 @@
 
   <main>
     <div class="grid" id="productGrid"></div>
+    
     <div class="empty" id="emptyState" hidden>
       <div class="emoji">🔎</div>
       <p>찾으시는 제품이 없어요</p>
@@ -297,30 +300,31 @@
   </svg>
 </a>
 
-
 <script src="notice.js"></script>
-
 
 <script>
 // =========================================================
 // ✏️ [수정 포인트 1] 상단 카테고리 메뉴 이름 바꾸기
+// - 상단에서 스와이프 되는 카테고리 탭 이름들입니다.
 // - 콤마(,)로 구분해서 따옴표('') 안에 원하는 이름을 적으세요.
-// - 여기에 쓴 이름과, 아래 제품 리스트의 'category' 이름이 무조건 똑같아야 분류가 됩니다!
+// - 🚨 주의: 여기에 쓴 이름과, 아래 제품 리스트의 'category' 이름이 무조건 글자 하나 안 틀리고 똑같아야 합니다!
 // =========================================================
 const CATEGORIES = ['만두', '치킨', '냉동반찬', '조리육', '생선구이', '소스', '면', '기타',  '김치', '국물요리', '창고형 매장'];
 
+
 // =========================================================
 // ✏️ [수정 포인트 2] 시식가이드 제품 데이터 (추가/수정/삭제)
-// - 새로운 제품을 추가하고 싶으면 중괄호 { ... } 하나를 통째로 복사해서 붙여넣으세요.
+// - 새로운 제품을 추가하고 싶으면 중괄호 { ... }, 하나를 통째로 복사해서 콤마(,) 뒤에 붙여넣으세요.
+// - 필요 없는 제품은 중괄호 덩어리를 삭제하시면 됩니다.
 // =========================================================
 const PRODUCTS = [
-  /* 💡 [작성 가이드]
-   name: 제품 이름 (화면에 보임)
-   category: 카테고리 (위에 CATEGORIES에 적힌 이름과 똑같아야 함!)
-   link: 버튼 누르면 이동할 캔바/노션 주소
-   badge: 사진 위에 뜨는 뱃지 글씨 (예: '신제품', '인기' 등 / 안 쓰면 뱃지 안 나옴)
-   image: 제품 사진 주소
-   keywords: 고객이 검색창에 오타를 내거나 줄임말을 쳤을 때 걸리도록 하는 유사 검색어
+  /* 💡 [작성 가이드 - 초보자 필독!]
+   name: 제품 이름 (화면에 진하게 보임)
+   category: 카테고리 (위에 CATEGORIES에 적힌 이름 중 하나를 꼭 써야 함!)
+   link: 카드를 누르면 넘어갈 상세 캔바/노션/페이지 주소
+   badge: 사진 왼쪽 위에 뜨는 뱃지 글씨 (예: '신제품', '인기', '강추' / 안 쓸거면 그냥 빼셔도 됩니다)
+   image: 제품 썸네일 사진 주소
+   keywords: 고객이 검색창에 오타나 줄임말을 쳤을 때 걸리도록 돕는 비밀 검색어들
   */
 
   { 
@@ -343,7 +347,7 @@ const PRODUCTS = [
   },
   { 
     name: '백설 파스타소스', 
-    category: '소스', /* 카테고리 이름 오류 수정: '소스&면' -> '소스' (상단 CATEGORIES에 맞춤) */
+    category: '소스', 
     emoji: '🍝', 
     link: 'https://cjmd1.my.canva.site/pasta', 
     badge: '신제품', 
@@ -377,8 +381,8 @@ const PRODUCTS = [
 
 
 // =========================================================
-// 🚫 아래부터는 복잡한 동작(검색, 렌더링)을 담당하는 코드입니다.
-// 가급적 수정하지 않으시는 것이 좋습니다!
+// 🚫 아래부터는 복잡한 동작(검색, 렌더링)을 담당하는 자바스크립트 코드입니다.
+// 가급적 이 아래쪽은 수정하지 않으시는 것이 안전합니다!
 // =========================================================
 
 const urlParams = new URLSearchParams(window.location.search);
@@ -393,15 +397,18 @@ const grid = document.getElementById('productGrid');
 const searchInput = document.getElementById('searchInput');
 const emptyState = document.getElementById('emptyState');
 
+// 초기 검색어가 있다면 검색창에 띄워줍니다.
 if(initialQuery) {
   searchInput.value = initialQuery;
 }
 
+// 상단 카테고리 알약 버튼들을 화면에 그려주는 함수
 function renderChips(){
   const allCats = ['전체', ...CATEGORIES];
   catNav.innerHTML = allCats.map(cat => 
     `<button type="button" class="chip ${cat === activeCategory ? 'active' : ''}" data-cat="${cat}">${cat}</button>`
   ).join('');
+  
   catNav.querySelectorAll('.chip').forEach(btn => {
     btn.addEventListener('click', () => {
       activeCategory = btn.dataset.cat;
@@ -413,6 +420,7 @@ function renderChips(){
   });
 }
 
+// 제품 카드들을 화면에 그려주는 함수
 function renderGrid(){
   const cleanSearchTerm = searchTerm.replace(/\s+/g, '').toLowerCase();
 
@@ -438,6 +446,7 @@ function renderGrid(){
     return matchesCat && matchesSearch;
   });
 
+  // 검색 결과가 없으면 빈 화면(emptyState)을 보여줍니다.
   if(filtered.length === 0){
     grid.innerHTML = '';
     emptyState.hidden = false;
@@ -445,8 +454,9 @@ function renderGrid(){
   }
   emptyState.hidden = true;
 
+  // 💡 카드 클릭 시 현재 창에서 열리도록 href 속성만 남겨두었습니다. (target="_blank" 제거 완료)
   grid.innerHTML = filtered.map(p => `
-    <a class="card" href="${p.link}" target="_blank" rel="noopener">
+    <a class="card" href="${p.link}">
       <div class="card-media">
         ${p.badge ? `<span class="badge" data-type="${p.badge}">${p.badge}</span>` : ''}
         ${p.image ? `<img src="${p.image}" alt="${p.name}" loading="lazy" />` : `<span>${p.emoji || '🍽️'}</span>`}
@@ -465,6 +475,7 @@ function renderGrid(){
   `).join('');
 }
 
+// 검색창에 글자를 칠 때마다 즉시 검색해주는 이벤트
 searchInput.addEventListener('input', (e) => {
   searchTerm = e.target.value;
   if (searchTerm.trim() !== '') {
@@ -474,6 +485,7 @@ searchInput.addEventListener('input', (e) => {
   renderGrid();
 });
 
+// 처음에 화면에 버튼과 카드들을 그립니다.
 renderChips();
 renderGrid();
 
