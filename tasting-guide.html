@@ -7,22 +7,24 @@
 <link rel="stylesheet" as="style" crossorigin
   href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
 <style>
+  /* =========================================================
+     🎨 1. 전체 테마 색상 설정
+  ========================================================= */
   :root{
-    --bg: #FAFAF7;
-    --ink: #1F2E22;
-    --muted: #767065;
-    --line: #E6E1D6;
-    --card: #FFFFFF;
-    --accent: #E8622C;
-    --accent-ink: #FFFFFF;
-    --chip-inactive: #F7F6F2;
+    --bg: #FAFAF7;         /* 배경 아이보리색 */
+    --ink: #1F2E22;        /* 기본 진한 글자색 */
+    --muted: #767065;      /* 설명용 회색 글자 */
+    --line: #E6E1D6;       /* 연한 테두리 선 */
+    --card: #FFFFFF;       /* 카드 배경색(흰색) */
+    --accent: #E8622C;     /* 메인 강조 주황색 */
+    --chip-inactive: #F7F6F2; /* 선택 안 된 카테고리 버튼 색상 */
     --shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
     --hover-bg: #F0EFEA;
-    --green: #3fae2a;
-    --red: #e0392b;
-    --yellow: #f0c11e;
-    --blue: #2274A5;
+    --green: #3fae2a;      /* 신제품 뱃지 색상 */
+    --red: #e0392b;        /* 인기 뱃지 색상 */
+    --blue: #2274A5;       /* 추천 뱃지 색상 */
   }
+  
   *{ box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html,body{ margin:0; padding:0; }
   body{
@@ -38,31 +40,12 @@
   a{ text-decoration:none; color:inherit; }
   button{ font-family: inherit; }
 
-  /* 상단 롤링 전광판 */
-  .notice-bar{
-    width: 100%;
-    background: var(--ink);
-    color: #fff;
-    padding: 10px 0;
-    overflow: hidden;
-    white-space: nowrap;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .notice-track{
-    display: inline-block;
-    padding-left: 100%;
-    animation: marquee 22s linear infinite;
-    font-size: 13.5px;
-    font-weight: 600;
-    letter-spacing: -0.2px;
-  }
-  @keyframes marquee {
-    0% { transform: translate(0, 0); }
-    100% { transform: translate(-100%, 0); }
-  }
+  /* 💡 주의: 이전에 있던 상단 롤링 전광판(notice-bar) CSS는 지웠습니다. 
+     (notice.js 파일에서 불러옵니다!) */
 
+  /* =========================================================
+     📱 2. 전체 레이아웃 & 상단 검색창
+  ========================================================= */
   .wrap {
     width: 100%;
     max-width: 480px;
@@ -93,7 +76,7 @@
     font-weight: 500;
   }
 
-  /* 검색창 */
+  /* 검색창 디자인 */
   .search-wrap{
     position: relative;
     margin-bottom: 16px;
@@ -124,7 +107,7 @@
     opacity: 0.6;
   }
 
-  /* 카테고리 칩 */
+  /* 카테고리 칩(가로 스크롤 버튼) */
   .cats{
     display:flex;
     gap: 8px;
@@ -147,27 +130,23 @@
     white-space: nowrap;
   }
   .chip:active{ transform: scale(0.96); }
-  .chip:hover{
-    background: #ECEAE4;
-    color: var(--ink);
-  }
-  .chip.active{
-    background: var(--ink);
-    color: #fff;
-  }
+  .chip:hover{ background: #ECEAE4; color: var(--ink); }
+  .chip.active{ background: var(--ink); color: #fff; }
 
+  /* =========================================================
+     📦 3. 제품 카드 리스트 (그리드 2단 배열)
+  ========================================================= */
   main{ padding: 20px 18px; width: 100%; flex: 1; }
 
   .grid{
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr; /* 화면을 2칸으로 나눕니다 */
     gap: 16px;
   }
   @media (max-width: 380px){
-    .grid{ grid-template-columns: 1fr; }
+    .grid{ grid-template-columns: 1fr; } /* 화면이 너무 좁으면 1칸으로 변경 */
   }
 
-  /* 카드 스타일 */
   .card{
     display: block;
     background: var(--card);
@@ -196,11 +175,9 @@
     overflow: hidden;
     border-bottom: 1px solid var(--line);
   }
-  .card-media img{
-    width: 100%; height: 100%; object-fit: cover;
-  }
+  .card-media img{ width: 100%; height: 100%; object-fit: cover; }
 
-  /* 뱃지 다형성 */
+  /* 뱃지(NEW, HIT) 자동 색상 변경 로직 */
   .badge{
     position:absolute;
     top: 10px;
@@ -212,9 +189,7 @@
     color: #fff;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   }
-  /* 기본 뱃지 (accent) */
   .badge[data-type] { background: var(--accent); }
-  /* 특정 단어에 따른 뱃지 색상 */
   .badge[data-type*="신제"], .badge[data-type*="NEW"], .badge[data-type*="new"] { background: var(--green); }
   .badge[data-type*="인기"], .badge[data-type*="HIT"], .badge[data-type*="hit"] { background: var(--red); }
   .badge[data-type*="추천"], .badge[data-type*="강추"] { background: var(--blue); }
@@ -240,7 +215,7 @@
     min-height: 2.8em;
   }
 
-  /* 시식가이드 보기 CTA 버튼 (Hover 효과 추가) */
+  /* 시식가이드 보기 작은 회색 버튼 */
   .card-cta{
     display:flex;
     align-items:center;
@@ -255,11 +230,9 @@
     border-radius: 10px;
     transition: background 0.2s ease, color 0.2s ease;
   }
-  .card:hover .card-cta {
-    background: var(--ink);
-    color: #fff;
-  }
+  .card:hover .card-cta { background: var(--ink); color: #fff; }
 
+  /* 검색 결과가 없을 때 보여주는 빈 화면 */
   .empty{
     text-align:center;
     padding: 70px 20px;
@@ -268,7 +241,9 @@
   .empty .emoji{ font-size: 44px; margin-bottom: 14px; }
   .empty p{ font-size: 16px; font-weight: 700; margin: 0; }
 
-  /* 플로팅 홈 버튼 */
+  /* =========================================================
+     🏠 4. 하단 동동 플로팅 홈 버튼
+  ========================================================= */
   .home-btn {
     position: fixed;
     left: 50%;
@@ -289,22 +264,12 @@
   .home-btn:hover { background: #2f4333; transform: translateX(-50%) translateY(-2px); }
   .home-btn:active { transform: translateX(-50%) translateY(0); }
   .home-btn svg { width: 22px; height: 22px; display: block; }
-
 </style>
 </head>
 <body>
 
-<!-- 상단 롤링 전광판 -->
-<div class="notice-bar">
-  <div class="notice-track" id="noticeTrack">
-    📢 8월 주요 시식가이드 제품 확인 
-    📢 현재 페이지 테스트 중입니다.
-  </div>
-</div>
-
 <div class="wrap">
   <header class="top">
-    <!-- 기존 버튼들 삭제됨 -->
     <h1>🔍 통합 시식가이드</h1>
     <p class="sub">다양한 제품의 시식 가이드를 확인하세요</p>
     
@@ -325,7 +290,6 @@
   </main>
 </div>
 
-<!-- 플로팅 홈 버튼 -->
 <a class="home-btn" href="index.html" aria-label="홈으로">
   <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M3 11.5L12 4l9 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -333,67 +297,93 @@
   </svg>
 </a>
 
+
+<script src="notice.js"></script>
+
+
 <script>
-// URL 파라미터 처리 추가 (index.html에서 검색 연동용)
+// =========================================================
+// ✏️ [수정 포인트 1] 상단 카테고리 메뉴 이름 바꾸기
+// - 콤마(,)로 구분해서 따옴표('') 안에 원하는 이름을 적으세요.
+// - 여기에 쓴 이름과, 아래 제품 리스트의 'category' 이름이 무조건 똑같아야 분류가 됩니다!
+// =========================================================
+const CATEGORIES = ['만두', '치킨', '냉동반찬', '조리육', '생선구이', '소스', '면', '기타',  '김치', '국물요리', '창고형 매장'];
+
+// =========================================================
+// ✏️ [수정 포인트 2] 시식가이드 제품 데이터 (추가/수정/삭제)
+// - 새로운 제품을 추가하고 싶으면 중괄호 { ... } 하나를 통째로 복사해서 붙여넣으세요.
+// =========================================================
+const PRODUCTS = [
+  /* 💡 [작성 가이드]
+   name: 제품 이름 (화면에 보임)
+   category: 카테고리 (위에 CATEGORIES에 적힌 이름과 똑같아야 함!)
+   link: 버튼 누르면 이동할 캔바/노션 주소
+   badge: 사진 위에 뜨는 뱃지 글씨 (예: '신제품', '인기' 등 / 안 쓰면 뱃지 안 나옴)
+   image: 제품 사진 주소
+   keywords: 고객이 검색창에 오타를 내거나 줄임말을 쳤을 때 걸리도록 하는 유사 검색어
+  */
+
+  { 
+    name: '소바바 빠삭홀릭', 
+    category: '치킨', 
+    emoji: '🐓', 
+    link: 'https://cjmd1.my.canva.site/dahqefdpsaw', 
+    badge: '신제품', 
+    image: 'https://img.cjthemarket.com/images/file/product/716/20260812081809161.jpg?SF=webp&RS=550',  
+    keywords: ['바삭홀릭', '소바바빠삭', '빠삭', '소바바','바삭', '치킨'] 
+  },
+  { 
+    name: '소바바/황금홀릭 치킨', 
+    category: '치킨', 
+    emoji: '🐓', 
+    link: 'https://cjmd1.my.canva.site/sobaba1', 
+    badge: '인기', 
+    image: 'https://img.cjthemarket.com/images/file/product/775/20260323083547100.jpg?SF=webp&RS=550',
+    keywords: ['황금홀릭', '소바바', '치킨','황홀','순살' ] 
+  },
+  { 
+    name: '백설 파스타소스', 
+    category: '소스', /* 카테고리 이름 오류 수정: '소스&면' -> '소스' (상단 CATEGORIES에 맞춤) */
+    emoji: '🍝', 
+    link: 'https://cjmd1.my.canva.site/pasta', 
+    badge: '신제품', 
+    image: 'https://img.cjthemarket.com/images/file/product/221/20260625132547704.png?SF=webp&RS=550',
+    keywords: ['스파게티소스', '토마토소스', '크림소스','파스타소스' ] 
+  },
+  { name: '비비고 왕교자', category: '만두', emoji: '🥟', link: 'https://cjmd1.my.canva.site/dhkdrywk' , image: 'https://img.cjthemarket.com/images/file/product/20260319/217_212217_5.jpg?SF=webp&RS=550', keywords: ['왕교자만두', '비비고만두', '왕교자'] },
+  { name: 'Calvo 칼보 참치', category: '기타', emoji: '🐟', link: 'https://cjmd1.my.canva.site/zkfqh', badge: '신제품', image:'https://img.cjthemarket.com/images/file/product/049/20260708180556246.jpg?SF=webp&RS=550', keywords: ['깔보', '칼보참치', '올리브오일참치','calvo', '참치'] },
+  { name: '비후베: 비엔나, 후랑크, 베이컨', category: '조리육', emoji: '🍖', link: 'https://cjmd1.my.canva.site/sausage', badge: '인기', image: 'https://img.cjthemarket.com/images/file/product/20260128/592_162592_5.jpg?SF=webp&RS=550', keywords: ['비엔나소시지', '후랑크소세지', '소세지','후랑크', '비엔나', '베이컨'] },
+  { name: '밥 싸먹는 햄', category: '조리육', emoji: '🍖', link: 'https://cjmd1.my.canva.site/qkqtkajrsmsgoa', badge: '인기', image:'https://img.cjthemarket.com/images/file/product/20260121/848_214848_5.jpg?SF=webp&RS=550', keywords: ['밥싸햄', '슬라이스햄','햄'] },
+  { name: '슬라이스 씬', category: '조리육', emoji: '🍖', link: 'https://cjmd1.my.canva.site/tmftls', badge: '인기', image:'https://img.cjthemarket.com/images/file/product/839/20260611171444706.jpg?SF=webp&RS=550', keywords: ['샌드위치햄', '얇은햄','슬라이스 햄', '슬씬'] },
+  { name: '비비고 영양삼계탕', category: '국물요리', emoji: '🐓', link: 'https://cjmd1.my.canva.site/tkarpxkd', badge: '인기', image:'https://img.cjthemarket.com/images/file/product/417/20260518165518402.jpg?SF=webp&RS=550', keywords: ['삼계탕', '보양식', '국물요리'] },
+  { name: '큰채소가득 고기만두', category: '만두', emoji: '🥟', link: 'https://cjmd1.my.canva.site/bigmandu', badge: '인기', image: 'https://img.cjthemarket.com/images/file/product/384/20251210083038154.jpg?SF=webp&RS=550', keywords: ['채소만두', '고기만두', '큰채소'] },
+  { name: '유용욱 갈비만두', category: '만두', emoji: '🥟', link: 'https://cjmd1.my.canva.site/dahokfsitkq', badge: '신제품', image: 'https://img.cjthemarket.com/images/file/product/938/20260713122953639.jpg?SF=webp&RS=550', keywords: ['유용욱바베큐', '갈비만두','유용욱 만두'] },
+  { name: '비비고 오마이갓 잡채', category: '면', emoji: '🍜', link: 'https://cjmd1.my.canva.site/wkqco' , image: 'https://img.cjthemarket.com/images/file/product/382/20260319104309120.jpg?SF=webp&RS=550', keywords: ['비비고잡채', '오마이갓'] },
+  { name: '밸런스밀 고단백면', category: '면', emoji: '🍜', link: 'https://cjmd1.my.canva.site/rheksqoraus' , image: 'https://img.cjthemarket.com/images/file/product/222/20260213084633678.jpg?SF=webp&RS=550', keywords: ['단백질면', '다이어트면'] },
+  { name: 'CJ 닭강정', category: '치킨', emoji: '🐓', link: 'https://cjmd1.my.canva.site/chicken-gangjeong', image:'https://img.cjthemarket.com/images/file/product/562/20260320082629632.jpg?SF=webp&RS=550', keywords: ['순살닭강정', '강정', '강정', '치킨'] },
+  { name: '두툼한 굿 베이컨', category: '조리육', emoji: '🍖', link: 'https://cjmd1.my.canva.site/rntqpdlzjs', image:'https://img.cjthemarket.com/images/file/product/20260128/996_207996_5.jpg?SF=webp&RS=550', keywords: ['두꺼운베이컨', '굿베', '두툼'] },
+  { name: '육즙가득 떡갈비', category: '냉동반찬', emoji: '🟧', link: 'https://cjmd1.my.canva.site/tltlr-ejrrkfql',image:'https://img.cjthemarket.com/images/file/product/627/20260318222821625.jpg?SF=webp&RS=550', keywords: ['비비고떡갈비', '너비아니'] },
+  { name: '도톰 동그랑땡', category: '냉동반찬', emoji: '🟧', link: 'https://cjmd1.my.canva.site/ddaeng1', image:'https://img.cjthemarket.com/images/file/product/20260114/393_201393_5.jpg?SF=webp&RS=550', keywords: ['비비고동그랑땡', '고기완자','동땡'] },
+  { name: '생선구이류', category: '생선구이', emoji: '🟧', link: 'https://cjmd1.my.canva.site/todtjsrndl', image:'https://img.cjthemarket.com/images/file/product/595/20260318111216662.jpg?SF=webp&RS=550', keywords: ['고등어구이', '삼치구이', '가자미구이','생선구이'] },
+  { name: '진한 고기만두', category: '만두', emoji: '🥟', link: 'https://cjmd1.my.canva.site/mandu1', image: 'https://img.cjthemarket.com/images/file/product/506/20260409140029873.jpg?SF=webp&RS=550' },
+  { name: '딤섬 새우하가우', category: '만두', emoji: '🥟', link: 'https://cjmd1.my.canva.site/tltlr-todngkrkdn', image: 'https://img.cjthemarket.com/images/file/product/20260102/554_206554_5.jpg?SF=webp&RS=550', keywords: ['새우만두', '하가우'] },
+  { name: '더건강한 직화구이햄', category: '조리육', emoji: '🍖', link: 'https://cjmd1.my.canva.site/sausage', keywords: ['건강한햄', '직화햄'] },
+  { name: '흑백요리사 황태국', category: '국물요리', emoji: '🟧', link: 'https://cjmd1.my.canva.site/gmrqorrnrxkd', image:'https://img.cjthemarket.com/images/file/product/448/20260115173213902.jpg?SF=webp&RS=550', keywords: ['황태해장국', '안성재'] },
+  { name: '습 맵찔이 실비김치', category: '김치', emoji: '🟧', link: 'https://cjmd1.my.canva.site/kimchi1', image:'https://img.cjthemarket.com/images/file/product/20260107/695_215695_5.jpg?SF=webp&RS=550', keywords: ['매운김치', '덜매운실비'] },
+  { name: '습 실피 파김치', category: '김치', emoji: '🟧', link: 'https://cjmd1.my.canva.site/kimchi2', image:'https://img.cjthemarket.com/images/file/product/20260107/204_215204_5.jpg?SF=webp&RS=550', keywords: ['매운파김치', '실비파김치'] },
+  { name: '코스트코', category: '창고형 매장', emoji: '😎', link: 'https://cjmd1.my.canva.site/cc', image:'https://azure-na-images.contentstack.com/v3/assets/bltfc0c2adf9ebb4217/blt5812f2d119ab56ce/689c2f093f551be24584a568/costcologo.png' },
+  { name: '트레이더스', category: '창고형 매장', emoji: '😎', link: 'https://cjmd1.my.canva.site/tr', image:'https://eapp-cdn.emart.com/traders/common/logo-traders.png' },
+];
+
+
+// =========================================================
+// 🚫 아래부터는 복잡한 동작(검색, 렌더링)을 담당하는 코드입니다.
+// 가급적 수정하지 않으시는 것이 좋습니다!
+// =========================================================
+
 const urlParams = new URLSearchParams(window.location.search);
 const initialQuery = urlParams.get('q') || '';
 const initialCat = urlParams.get('cat') || '전체';
-
-const CATEGORIES = ['만두', '치킨', '냉동반찬', '조리육', '생선구이', '소스', '면', '기타',  '김치', '국물요리', '창고형 매장'];
-
-// 💡 팁: 'keywords' 항목을 추가하여 오타나 유사 검색어를 넣어주세요! 
-// 띄어쓰기 없이 붙여서 써두면 더욱 효과적입니다.
-const PRODUCTS = [
-  { name: '소바바 빠삭홀릭', category: '치킨', emoji: '🐓', link: 'https://cjmd1.my.canva.site/dahqefdpsaw', badge: '신제품', image:'https://img.cjthemarket.com/images/file/product/716/20260812081809161.jpg?SF=webp&RS=550', 
-    keywords: ['바삭홀릭', '소바바빠삭', '빠삭', '소바바','바삭', '치킨'] },
-  { name: '소바바/황금홀릭 치킨', category: '치킨', emoji: '🐓', link: 'https://cjmd1.my.canva.site/sobaba1', badge: '인기', image:'https://img.cjthemarket.com/images/file/product/775/20260323083547100.jpg?SF=webp&RS=550',
-    keywords: ['황금홀릭', '소바바', '치킨','황홀','순살' ] },
-  { name: '백설 파스타소스', category: '소스&면', emoji: '🍝', link: 'https://cjmd1.my.canva.site/pasta', badge: '신제품', image: 'https://img.cjthemarket.com/images/file/product/221/20260625132547704.png?SF=webp&RS=550',
-    keywords: ['스파게티소스', '토마토소스', '크림소스','파스타소스' ] },
-  { name: '비비고 왕교자', category: '만두', emoji: '🥟', link: 'https://cjmd1.my.canva.site/dhkdrywk' , image: 'https://img.cjthemarket.com/images/file/product/20260319/217_212217_5.jpg?SF=webp&RS=550',
-    keywords: ['왕교자만두', '비비고만두', '왕교자'] },
-  { name: 'Calvo 칼보 참치', category: '기타', emoji: '🐟', link: 'https://cjmd1.my.canva.site/zkfqh', badge: '신제품', image:'https://img.cjthemarket.com/images/file/product/049/20260708180556246.jpg?SF=webp&RS=550',
-    keywords: ['깔보', '칼보참치', '올리브오일참치','calvo', '참치'] },
-  { name: '비후베: 비엔나, 후랑크, 베이컨', category: '조리육', emoji: '🍖', link: 'https://cjmd1.my.canva.site/sausage', badge: '인기', image: 'https://img.cjthemarket.com/images/file/product/20260128/592_162592_5.jpg?SF=webp&RS=550',
-    keywords: ['비엔나소시지', '후랑크소세지', '소세지','후랑크', '비엔나', '베이컨'] },
-  { name: '밥 싸먹는 햄', category: '조리육', emoji: '🍖', link: 'https://cjmd1.my.canva.site/qkqtkajrsmsgoa', badge: '인기', image:'https://img.cjthemarket.com/images/file/product/20260121/848_214848_5.jpg?SF=webp&RS=550',
-    keywords: ['밥싸햄', '슬라이스햄','햄'] },
-  { name: '슬라이스 씬', category: '조리육', emoji: '🍖', link: 'https://cjmd1.my.canva.site/tmftls', badge: '인기', image:'https://img.cjthemarket.com/images/file/product/839/20260611171444706.jpg?SF=webp&RS=550',
-    keywords: ['샌드위치햄', '얇은햄','슬라이스 햄', '슬씬'] },
-  { name: '비비고 영양삼계탕', category: '국물요리', emoji: '🐓', link: 'https://cjmd1.my.canva.site/tkarpxkd', badge: '인기', image:'https://img.cjthemarket.com/images/file/product/417/20260518165518402.jpg?SF=webp&RS=550',
-    keywords: ['삼계탕', '보양식', '국물요리'] },
-  { name: '큰채소가득 고기만두', category: '만두', emoji: '🥟', link: 'https://cjmd1.my.canva.site/bigmandu', badge: '인기', image: 'https://img.cjthemarket.com/images/file/product/384/20251210083038154.jpg?SF=webp&RS=550',
-    keywords: ['채소만두', '고기만두', '큰채소'] },
-  { name: '유용욱 갈비만두', category: '만두', emoji: '🥟', link: 'https://cjmd1.my.canva.site/dahokfsitkq', badge: '신제품', image: 'https://img.cjthemarket.com/images/file/product/938/20260713122953639.jpg?SF=webp&RS=550',
-    keywords: ['유용욱바베큐', '갈비만두','유용욱 만두'] },
-  { name: '비비고 오마이갓 잡채', category: '소스&면', emoji: '🍜', link: 'https://cjmd1.my.canva.site/wkqco' , image: 'https://img.cjthemarket.com/images/file/product/382/20260319104309120.jpg?SF=webp&RS=550',
-    keywords: ['비비고잡채', '오마이갓'] },
-  { name: '밸런스밀 고단백면', category: '소스&면', emoji: '🍜', link: 'https://cjmd1.my.canva.site/rheksqoraus' , image: 'https://img.cjthemarket.com/images/file/product/222/20260213084633678.jpg?SF=webp&RS=550',
-    keywords: ['단백질면', '다이어트면'] },
-  { name: 'CJ 닭강정', category: '치킨', emoji: '🐓', link: 'https://cjmd1.my.canva.site/chicken-gangjeong', image:'https://img.cjthemarket.com/images/file/product/562/20260320082629632.jpg?SF=webp&RS=550',
-    keywords: ['순살닭강정', '강정', '강정', '치킨'] },
-  { name: '두툼한 굿 베이컨', category: '조리육', emoji: '🍖', link: 'https://cjmd1.my.canva.site/rntqpdlzjs', image:'https://img.cjthemarket.com/images/file/product/20260128/996_207996_5.jpg?SF=webp&RS=550',
-    keywords: ['두꺼운베이컨', '굿베', '두툼'] },
-  { name: '육즙가득 떡갈비', category: '냉동반찬', emoji: '🟧', link: 'https://cjmd1.my.canva.site/tltlr-ejrrkfql',image:'https://img.cjthemarket.com/images/file/product/627/20260318222821625.jpg?SF=webp&RS=550',
-    keywords: ['비비고떡갈비', '너비아니'] },
-  { name: '도톰 동그랑땡', category: '냉동반찬', emoji: '🟧', link: 'https://cjmd1.my.canva.site/ddaeng1', image:'https://img.cjthemarket.com/images/file/product/20260114/393_201393_5.jpg?SF=webp&RS=550',
-    keywords: ['비비고동그랑땡', '고기완자','동땡'] },
-  { name: '생선구이류', category: '기타', emoji: '🟧', link: 'https://cjmd1.my.canva.site/todtjsrndl', image:'https://img.cjthemarket.com/images/file/product/595/20260318111216662.jpg?SF=webp&RS=550',
-    keywords: ['고등어구이', '삼치구이', '가자미구이','생선구이'] },
-  { name: '진한 고기만두', category: '만두', emoji: '🥟', link: 'https://cjmd1.my.canva.site/mandu1', image: 'https://img.cjthemarket.com/images/file/product/506/20260409140029873.jpg?SF=webp&RS=550' },
-  { name: '딤섬 새우하가우', category: '만두', emoji: '🥟', link: 'https://cjmd1.my.canva.site/tltlr-todngkrkdn', image: 'https://img.cjthemarket.com/images/file/product/20260102/554_206554_5.jpg?SF=webp&RS=550',
-    keywords: ['새우만두', '하가우'] },
-  { name: '더건강한 직화구이햄', category: '조리육', emoji: '🍖', link: 'https://cjmd1.my.canva.site/sausage',
-    keywords: ['건강한햄', '직화햄'] },
-  { name: '흑백요리사 황태국', category: '국물요리', emoji: '🟧', link: 'https://cjmd1.my.canva.site/gmrqorrnrxkd', image:'https://img.cjthemarket.com/images/file/product/448/20260115173213902.jpg?SF=webp&RS=550',
-    keywords: ['황태해장국', '안성재'] },
-  { name: '습 맵찔이 실비김치', category: '김치', emoji: '🟧', link: 'https://cjmd1.my.canva.site/kimchi1', image:'https://img.cjthemarket.com/images/file/product/20260107/695_215695_5.jpg?SF=webp&RS=550',
-    keywords: ['매운김치', '덜매운실비'] },
-  { name: '습 실피 파김치', category: '김치', emoji: '🟧', link: 'https://cjmd1.my.canva.site/kimchi2', image:'https://img.cjthemarket.com/images/file/product/20260107/204_215204_5.jpg?SF=webp&RS=550',
-    keywords: ['매운파김치', '실비파김치'] },
-  { name: '코스트코', category: '창고형', emoji: '😎', link: 'https://cjmd1.my.canva.site/cc', image:'https://azure-na-images.contentstack.com/v3/assets/bltfc0c2adf9ebb4217/blt5812f2d119ab56ce/689c2f093f551be24584a568/costcologo.png' },
-  { name: '트레이더스', category: '창고형', emoji: '😎', link: 'https://cjmd1.my.canva.site/tr', image:'https://eapp-cdn.emart.com/traders/common/logo-traders.png' },
-];
 
 let activeCategory = '전체';
 let searchTerm = initialQuery;
@@ -403,7 +393,6 @@ const grid = document.getElementById('productGrid');
 const searchInput = document.getElementById('searchInput');
 const emptyState = document.getElementById('emptyState');
 
-// 검색창 초기값 설정
 if(initialQuery) {
   searchInput.value = initialQuery;
 }
@@ -416,7 +405,6 @@ function renderChips(){
   catNav.querySelectorAll('.chip').forEach(btn => {
     btn.addEventListener('click', () => {
       activeCategory = btn.dataset.cat;
-      // 카테고리를 클릭하면 검색어는 초기화하여 해당 카테고리 전체를 보여줍니다.
       searchTerm = '';
       searchInput.value = ''; 
       renderChips();
@@ -426,35 +414,27 @@ function renderChips(){
 }
 
 function renderGrid(){
-  // 검색어에서 공백을 모두 제거하고 소문자로 만듭니다. (검색 유연성 확보)
   const cleanSearchTerm = searchTerm.replace(/\s+/g, '').toLowerCase();
 
   const filtered = PRODUCTS.filter(p => {
-    // 1. 카테고리 매칭 (현재 선택된 탭)
     const matchesCat = activeCategory === '전체' || p.category === activeCategory;
     
-    // 2. 검색어 매칭 로직 (이름, 카테고리명, 키워드 검사)
     let matchesSearch = false;
     if (cleanSearchTerm === '') {
-      matchesSearch = true; // 검색어가 없으면 모두 통과
+      matchesSearch = true; 
     } else {
-      // 제품명에서 공백 제거 후 검사 ("소바바빠삭홀릭" 등에 "소바바빠삭" 검색 시 매칭됨)
       const cleanName = p.name.replace(/\s+/g, '').toLowerCase();
-      // 카테고리명 검사 ("치킨" 검색 시 치킨 카테고리 제품 모두 노출)
       const cleanCategory = p.category.replace(/\s+/g, '').toLowerCase();
       
-      // 키워드 검사
       let matchesKeyword = false;
       if (p.keywords) {
         matchesKeyword = p.keywords.some(kw => kw.replace(/\s+/g, '').toLowerCase().includes(cleanSearchTerm));
       }
 
-      // 셋 중 하나라도 걸리면 검색 성공
       if (cleanName.includes(cleanSearchTerm) || cleanCategory.includes(cleanSearchTerm) || matchesKeyword) {
         matchesSearch = true;
       }
     }
-
     return matchesCat && matchesSearch;
   });
 
@@ -487,7 +467,6 @@ function renderGrid(){
 
 searchInput.addEventListener('input', (e) => {
   searchTerm = e.target.value;
-  // 검색할 때는 '전체' 탭으로 돌아가서 모든 제품 중 찾도록 유도
   if (searchTerm.trim() !== '') {
     activeCategory = '전체';
     renderChips();
@@ -498,7 +477,6 @@ searchInput.addEventListener('input', (e) => {
 renderChips();
 renderGrid();
 
-// 만약 index.html에서 검색어를 넘겨받고 넘어왔을 경우 (초기 로딩 시)
 if(initialQuery) {
     activeCategory = '전체';
     renderChips();
