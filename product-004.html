@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
-<title>제품 상세 소개</title>
+<title>백설x움트리 생와사비 3종 상세소개</title>
 <style>
   :root{
     --bg: #FAFAF7;
@@ -47,26 +47,23 @@
   .back:hover{ color: var(--accent); }
   .back svg{ width:18px; height:18px; }
 
-  /* 대표 제품 이미지 영역 */
+  /* 대표 제품 메인 이미지 영역 */
   .hero-img{
     width:100%;
     height:220px;
     border-radius:20px;
     border: 1.5px solid var(--line);
-    background: repeating-linear-gradient(45deg,#eeeeeb,#eeeeeb 6px,#e4e4df 6px,#e4e4df 12px);
+    background: #EAE8E1;
     display:flex;
     align-items:center;
     justify-content:center;
-    color:#9c9c96;
-    font-weight:700;
-    font-size:14px;
-    text-align:center;
     margin-bottom: 24px;
     overflow: hidden;
     position: relative;
     box-shadow: 0 4px 12px rgba(0,0,0,0.03);
   }
-  .hero-img img{ width:100%; height:100%; object-fit:cover; display:block; }
+  /* 💡 메인 이미지가 잘리지 않고 다 보이도록 object-fit: contain 적용 */
+  .hero-img img{ width:100%; height:100%; object-fit:contain; display:block; }
 
   .eyebrow{
     margin: 0 0 6px;
@@ -107,7 +104,7 @@
     color: var(--ink);
   }
 
-  /* 포인트 항목 리스트 (진열 상세페이지 스타일 통일) */
+  /* 포인트 항목 리스트 */
   .point-list{
     list-style: none;
     padding: 0;
@@ -116,20 +113,52 @@
     flex-direction: column;
     gap: 12px;
   }
+  
+  /* 이미지 + 텍스트 가로 배치 카드 스타일 */
   .point-item{
     background: #fff;
     border: 1.5px solid var(--line);
     border-radius: 14px;
-    padding: 16px 18px;
-    font-size: 14.5px;
-    line-height: 1.6;
+    padding: 14px 16px;
+    font-size: 14px;
+    line-height: 1.55;
     box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    display: flex;
+    align-items: center; 
+    gap: 14px;          
   }
-  .point-item strong{
+
+  /* 각 제품 썸네일 이미지 박스 (76x76px) */
+  .point-thumb{
+    flex-shrink: 0;
+    width: 76px;
+    height: 76px;
+    border-radius: 10px;
+    background: #fff; /* 제품 누끼 사진을 위해 흰색 배경으로 변경 */
+    border: 1px solid var(--line);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  /* 💡 썸네일도 튜브 이미지가 잘리지 않게 contain 적용 */
+  .point-thumb img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain; 
+    display: block;
+  }
+
+  /* 텍스트 영역 */
+  .point-content{
+    flex: 1;
+    min-width: 0;
+  }
+  .point-content strong{
     color: var(--accent);
     display: block;
-    margin-bottom: 6px;
-    font-size: 15.5px;
+    margin-bottom: 4px;
+    font-size: 15px;
   }
 
   /* 하단 가이드 연결 버튼 */
@@ -177,7 +206,6 @@
 <body>
   <div class="wrap">
     
-    <!-- 뒤로가기 -->
     <a class="back" href="m-products.html">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M15 18l-6-6 6-6"/>
@@ -185,76 +213,74 @@
       목록으로 돌아가기
     </a>
 
-    <!-- 대표 이미지 -->
     <div class="hero-img">
-      <img src="https://github.com/cjrema/trytoeat/blob/main/Products000/%EC%9D%B4%EB%AF%B8%EC%A7%80%20%EB%85%B8%EC%B6%9C%EC%9A%A9_%EC%99%80%EC%82%AC%EB%B9%84.PNG?raw=true"><br>(파스타소스 10종)
+      <img src="https://github.com/cjrema/trytoeat/blob/main/Products000/%EC%9D%B4%EB%AF%B8%EC%A7%80%20%EB%85%B8%EC%B6%9C%EC%9A%A9_%EC%99%80%EC%82%AC%EB%B9%84.PNG?raw=true" alt="백설 움트리 생와사비 메인">
     </div>
 
-    <!-- 타이틀 영역 -->
     <p class="eyebrow">이달의 추천 제품</p>
-    <h1>파스타소스 10종</h1>
-    <p class="desc">잘 챙겨주세요! 다양한 고객의 입맛을 사로잡을 파스타소스 10종 라인업입니다.</p>
+    <h1>백설x움트리 생와사비 3종</h1>
+    <p class="desc">잘 챙겨주세요! 다양한 고객의 입맛을 사로잡을 고품질 생와사비 3종 라인업입니다.</p>
 
-    <!-- 1. 제품 특징 -->
     <div class="section">
       <h2>✨ 제품 특징 (Selling Point)</h2>
       <ul class="point-list">
+        
         <li class="point-item">
           <div class="point-thumb">
             <img src="https://github.com/cjrema/trytoeat/blob/main/Products000/%EB%B0%B1%EC%84%A4%20%EC%83%9D%EC%99%80%EC%82%AC%EB%B9%84%2043g%20%ED%8A%9C%EB%B8%8C_%EC%A7%80%ED%95%A8_SM_260715-01.jpg?raw=true" alt="생와사비">
           </div>
-          <strong>백설x움트리 생와사비</strong><br>
-          와사비 고유의 강안 맛과 향,<br>
-          식감이 좋은 생생한 입자감으로<br>
-          요리의 풍미를 한층 더 살려줍니다.
-          
+          <div class="point-content">
+            <strong>백설x움트리 생와사비</strong>
+            와사비 고유의 강한 맛과 향,<br>
+            식감이 좋은 생생한 입자감으로<br>
+            요리의 풍미를 한층 더 살려줍니다.
+          </div>
         </li>
         
         <li class="point-item">
           <div class="point-thumb">
             <img src="https://github.com/cjrema/trytoeat/blob/main/Products000/%EB%B0%B1%EC%84%A4%20%EC%83%9D%EC%99%80%EC%82%AC%EB%B9%84%20%ED%9B%84%EC%B6%94%2043g%20%ED%8A%9C%EB%B8%8C_%EC%A7%80%ED%95%A8_SM_260715-01.jpg?raw=true" alt="생와사비 후추">
           </div>
-          <strong>백설x움트리 생와사비 후추🧂</strong><br>
-          와사비와 후추의 조합으로<br>
-          느끼함은 잡아주고,<br>
-          뒷맛은 깔끔하게 즐기실 수 있습니다.<br>
-          👍 추천: 소, 돼지, 오리 등 육류와 함께 
+          <div class="point-content">
+            <strong>백설x움트리 생와사비 후추🧂</strong>
+            와사비와 후추의 조합으로<br>
+            느끼함은 잡아주고, 뒷맛은 깔끔하게!<br>
+            👍 추천: 소, 돼지, 오리 등 육류와 함께 
+          </div>
         </li>
 
         <li class="point-item">
           <div class="point-thumb">
             <img src="https://github.com/cjrema/trytoeat/blob/main/Products000/%EB%B0%B1%EC%84%A4%20%EC%83%9D%EC%99%80%EC%82%AC%EB%B9%84%20%EB%A0%88%EB%AA%AC%2040g%20%ED%8A%9C%EB%B8%8C_%EC%A7%80%ED%95%A8_SM_260715-01.jpg?raw=true" alt="생와사비 레몬">
           </div>
-          <strong>백설x움트리 생와사비 레몬</strong><br>
-          레몬의 상큼한 맛과 와사비의 알싸한 맛이<br>
-          조화롭게 어우러져 깔끔한 맛<br>
-          
-          👍 추천: 생선회, 샐러드 등 해산물과 함께
+          <div class="point-content">
+            <strong>백설x움트리 생와사비 레몬🍋</strong>
+            레몬의 상큼한 맛과 와사비의 알싸한 맛이<br>
+            조화롭게 어우러져 깔끔한 맛<br>
+            👍 추천: 생선회, 샐러드 등 해산물과 함께
+          </div>
         </li>
+
       </ul>
     </div>
 
-    <!-- 2. 진열 / 발주 참고사항 -->
     <div class="section">
       <h2>🛒 진열 시 참고사항</h2>
       <ul class="point-list">
         <li class="point-item" style="display: block;">
-          <strong>✅ 분산/연관 진열</strong><br>
-          • 와사비는 고기/수산물과 찰떡궁합 👍
+          <strong>✅ 연관 진열 추천</strong>
+          • 와사비는 고기/수산물과 찰떡궁합 👍<br>
           • 메밀소바에도 빠질 수 없어요~!
-          
         </li>
         <li class="point-item" style="display: block;">
-          <strong>💡 분산 추천 매대</strong><br>
-          • 정육 코너🍄 : 허브맛 솔트, 쌈장과 함께 진열<br>
-          • 수산 코너🐟 : 회코너에 진열
+          <strong>💡 분산 진열 포인트</strong>
+          • 정육 코너🥩 : 허브맛 솔트, 쌈장과 함께 진열<br>
+          • 수산 코너🐟 : 신선한 회코너 옆에 연계 진열
         </li>
-        
       </ul>
     </div>
   </div>
 
-  <!-- 플로팅 목록 버튼 -->
   <a class="list-btn" href="m-products.html" aria-label="목록으로">
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <line x1="8" y1="6" x2="20" y2="6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
