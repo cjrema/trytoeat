@@ -132,25 +132,67 @@
     margin-bottom: 3px;
   }
 
-  /* 진열 연출 예시 이미지 플레이스홀더 Box */
-  .sub-img-grid{
+  /* ==========================================
+     [스타일 1] 3칸짜리 A4 세로형 이미지 그리드 CSS
+     ========================================== */
+  .sub-img-grid.a4-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    grid-template-columns: repeat(3, 1fr); /* 가로로 3등분 균등 배치 */
+    gap: 10px; /* 박스 사이 간격 */
     margin-top: 12px;
   }
-  .sub-img-box{
-    height: 120px;
-    border-radius: 12px;
-    background: #EAE8E1;
+  .sub-img-box.a4-box {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
     text-align: center;
     font-size: 12px;
     font-weight: 700;
     color: #8C877D;
+  }
+  .sub-img-box.a4-box img {
+    width: 100%;
+    aspect-ratio: 1 / 1.41; /* A4 비율(세로형) 고정 */
+    object-fit: cover;      /* 비율 유지하며 박스에 꽉 채우기 */
+    border-radius: 8px;
     border: 1px dashed #C8C3B8;
+    background: #EAE8E1;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  /* ==========================================
+     [스타일 2] 1칸짜리 가로형 와이드 이미지 그리드 CSS
+     ========================================== */
+  .sub-img-grid.wide-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* 가로로 1개만 꽉 차게 배치 */
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .sub-img-box.wide-box {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #8C877D;
+  }
+  .sub-img-box.wide-box img {
+    width: 100%;
+    height: 180px;          /* 가로형 이미지 높이 지정 (원하는 크기로 조절 가능) */
+    object-fit: cover;      /* 비율 유지하며 꽉 채우기 */
+    border-radius: 8px;
+    border: 1px dashed #C8C3B8;
+    background: #EAE8E1;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  /* 모바일 화면에서 3칸 그리드가 너무 좁아질 경우 세로(1열)로 뚝 떨어지게 처리 */
+  @media (max-width: 480px) {
+    .sub-img-grid.a4-grid {
+      grid-template-columns: 1fr;
+    }
   }
 
   /* 플로팅 목록 버튼 */
@@ -182,52 +224,78 @@
       목록으로 돌아가기
     </a>
 
-    <!-- 대표 이미지 (실제 이미지 태그 <img>로 변경 가능) -->
-    <div class="hero-img" id="guideHero">
-      <!-- <img src="진열사진.jpg" alt="진열 예시"> -->
-      대표 진열 예시 이미지를 넣어주세요<br>(권장 규격: 432px × 220px)
-    </div>
-
-    <p class="eyebrow" id="guideCategory">연계진열 노하우</p>
-    <h1 id="guideTitle">파스타소스 × 스파게티면 연계진열</h1>
-    <p class="desc" id="guideDesc">면 매대 바로 옆에 소스를 배치하여 고객의 요리 연상 구매를 유도하는 핵심 진열 기법입니다.</p>
+    <p class="eyebrow" id="guideCategory">분산/연계진열 가이드</p>
+    <h1 id="guideTitle">🍅 백설 파스타소스 진열 하기!</h1>
+    <p class="desc" id="guideDesc">스파게티면은 파스타소스 짝꿍이랍니다!</p>
 
     <!-- 1. 핵심 진열 포인트 -->
     <div class="section">
       <h2>💡 핵심 진열 포인트</h2>
       <ul class="point-list" id="pointList">
         <li class="point-item">
-          <strong>1. 시선 집중 존 (Golden Zone) 활용</strong>
-          고객의 눈높이(1.2m~1.5m)에 베스트셀러 파스타소스를 우선 배치합니다.
+          <strong>농산 매대🌿</strong>
+          버섯, 양파, 애호박, 가지 등의 채소들과 함께!
+          <b>👍 추천: 토마토 베이스 소스</b>
         </li>
         <li class="point-item">
-          <strong>2. 연관 카테고리 인접 배치</strong>
-          스파게티면 바로 측면에 소스 스탠드를 설치하거나, 소스 매대 상단에 면을 고리 진열합니다.
+          <strong>수산 매대🐟</strong>
+          냉동 해물모둠 또는 새우, 신선한 조개류와 함께!
+          <b>👍 추천: 토마토, 크림, 오일 모든 제품</b>
         </li>
         <li class="point-item">
-          <strong>3. 레시피/POP 연출</strong>
-          '3분 간편 파스타 완성' 레시피 POP를 첨부하여 동시 구매 욕구를 자극합니다.
+          <strong>조리육 매대🥩</strong>
+          비엔나, 베이컨, 후랑크와 함께! 
+          <b>👍 추천: 크림 베이스 소스</b>
         </li>
       </ul>
     </div>
 
-    <!-- 2. 매대 연출 예시 이미지 -->
-    <div class="section">
-      <h2>📸 매대 연출 예시 이미지</h2>
-      <p>실제 매장에 적용할 수 있는 연출 컷입니다. (이미지 클릭 시 확대)</p>
-      
-      <div class="sub-img-grid">
-        <div class="sub-img-box">연출 예시 A<br>(측면 고리진열)</div>
-        <div class="sub-img-box">연출 예시 B<br>(엔드 매대 구성)</div>
-      </div>
-    </div>
-
-    <!-- 3. 체크리스트 -->
+    <!-- 2 이것만은 꼭! -->
     <div class="section">
       <h2>✅ 현장 점검 체크리스트</h2>
       <p>• 유통기한이 짧은 제품이 전면에 선입선출 되어있는가?</p>
       <p>• 가격표(POP)가 면과 소스 각각 명확히 구분되어 표시되었는가?</p>
       <p>• 매대 재고가 80% 이상 풍성하게 채워져 있는가?</p>
+    </div>
+    
+    <!-- ==========================================
+       [HTML 파트 1] 3칸짜리 A4 세로형 이미지 영역
+       ========================================== -->
+    <div class="section">
+      <h2>📸 매대 연출 예시 이미지 (3분할 세로형)</h2>
+      <p>A4 세로 비율에 맞춘 이미지 3개를 나란히 보여줍니다.</p>
+      
+      <!-- a4-grid 클래스 사용 -->
+      <div class="sub-img-grid a4-grid">
+        <div class="sub-img-box a4-box">
+          <img src="이미지1경로.jpg" alt="연출 예시 A">
+          연출 예시 A<br>(측면 고리진열)
+        </div>
+        <div class="sub-img-box a4-box">
+          <img src="이미지2경로.jpg" alt="연출 예시 B">
+          연출 예시 B<br>(엔드 매대 구성)
+        </div>
+        <div class="sub-img-box a4-box">
+          <img src="이미지3경로.jpg" alt="연출 예시 C">
+          연출 예시 C<br>(추가 연출)
+        </div>
+      </div>
+    </div>
+    
+    <!-- ==========================================
+       [HTML 파트 2] 1칸짜리 가로형(와이드) 이미지 영역
+       ========================================== -->
+    <div class="section">
+      <h2>📸 전체 매장 전경 이미지 (1칸 가로형)</h2>
+      <p>넓은 가로 비율로 보여주는 대표 연출 컷입니다.</p>
+      
+      <!-- wide-grid 클래스 사용 -->
+      <div class="sub-img-grid wide-grid">
+        <div class="sub-img-box wide-box">
+          <img src="가로이미지경로.jpg" alt="가로형 연출 예시">
+          연출 예시 단독 컷 (전체 매장 뷰)
+        </div>
+      </div>
     </div>
 
   </div>
@@ -245,7 +313,7 @@
   </a>
 
 <script>
-  // URL 파라미터(guide=stew 등)에 따라 동적으로 상세 내용을 바꿔주는 가벼운 스크립트 예시
+  // URL 파라미터에 따라 동적으로 상세 내용을 바꿔주는 스크립트
   const urlParams = new URLSearchParams(window.location.search);
   const guideType = urlParams.get('guide');
 
