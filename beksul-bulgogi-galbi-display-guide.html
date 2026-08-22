@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+<title>진열 상세 가이드</title>
+<style>
+  :root{
+    --bg: #FAFAF7;
+    --ink: #1F2E22;
+    --muted: #767065;
+    --green: #3fae2a;
+    --line: #E6E1D6;
+    --accent: #E8622C;
+  }
+  *, *::before, *::after{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+  html{ overflow-y: scroll; }
+  html,body{ margin:0; padding:0; min-height:100vh; }
+  body{
+    font-family:'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background: var(--bg);
+    color: var(--ink);
+    display:flex;
+    justify-content:center;
+  }
+  a{ text-decoration:none; color:inherit; }
+  
+  .wrap{
+    width:100%;
+    max-width:480px;
+    padding: 32px 24px 100px;
+  }
+
+  .back{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-size:14px;
+    font-weight:700;
+    color: var(--muted);
+    margin-bottom: 18px;
+    transition: color .15s ease;
+  }
+  .back:hover{ color: var(--accent); }
+  .back svg{ width:16px; height:16px; }
+
+  /* 대표 진열 예시 이미지 영역 */
+  .hero-img{
+    width:100%;
+    height:220px;
+    border-radius:20px;
+    border: 1.5px solid var(--line);
+    background: repeating-linear-gradient(45deg,#eeeeeb,#eeeeeb 6px,#e4e4df 6px,#e4e4df 12px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#9c9c96;
+    font-weight:700;
+    font-size:14px;
+    text-align:center;
+    margin-bottom: 22px;
+    overflow: hidden;
+    position: relative;
+  }
+  .hero-img img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+  .eyebrow{
+    margin: 0 0 6px;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+  }
+
+  h1{
+    font-size:24px;
+    font-weight:800;
+    margin:0 0 8px;
+    letter-spacing:-0.02em;
+    line-height: 1.3;
+  }
+  .desc{
+    font-size:15px;
+    color:var(--muted);
+    font-weight:500;
+    line-height:1.6;
+    margin:0 0 24px;
+  }
+
+  .section{
+    border-top:1px solid var(--line);
+    padding-top:20px;
+    margin-top:20px;
+  }
+  .section h2{
+    font-size:16px;
+    font-weight:800;
+    margin:0 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .section p{
+    font-size:14.5px;
+    color:var(--ink);
+    line-height:1.7;
+    margin:0 0 10px;
+  }
+
+  /* 포인트 항목 리스트 */
+  .point-list{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .point-item{
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+  .point-item strong{
+    color: var(--accent);
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  /* 제품 라인업 카드 */
+  .lineup-item{ }
+  .lineup-text{ }
+
+  /* ==========================================
+     [스타일 1] 3칸짜리 A4 세로형 이미지 그리드 CSS
+     ========================================== */
+  .sub-img-grid.a4-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 가로로 3등분 균등 배치 */
+    gap: 10px; /* 박스 사이 간격 */
+    margin-top: 12px;
+  }
+  .sub-img-box.a4-box {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #8C877D;
+  }
+  .sub-img-box.a4-box img {
+    width: 100%;
+    aspect-ratio: 1 / 1.41; /* A4 비율(세로형) 고정 */
+    object-fit: cover;      /* 비율 유지하며 박스에 꽉 채우기 */
+    border-radius: 8px;
+    border: 1px dashed #C8C3B8;
+    background: #EAE8E1;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  /* ==========================================
+     [스타일 2] 1칸짜리 가로형 와이드 이미지 그리드 CSS
+     ========================================== */
+  .sub-img-grid.wide-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* 가로로 1개만 꽉 차게 배치 */
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .sub-img-box.wide-box {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #8C877D;
+  }
+  .sub-img-box.wide-box img {
+    width: 100%;
+    height: 180px;          /* 가로형 이미지 높이 지정 (원하는 크기로 조절 가능) */
+    object-fit: cover;      /* 비율 유지하며 꽉 채우기 */
+    border-radius: 8px;
+    border: 1px dashed #C8C3B8;
+    background: #EAE8E1;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  /* 모바일 화면에서 3칸 그리드가 너무 좁아질 경우 세로(1열)로 뚝 떨어지게 처리 */
+  @media (max-width: 480px) {
+    .sub-img-grid.a4-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* 플로팅 목록 버튼 */
+  .list-btn{
+    position:fixed;
+    left:50%;
+    bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+    transform: translateX(-50%);
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+    z-index: 1000;
+    margin: 0;
+    padding: 0;
+  }
+  .list-btn svg{ width:22px; height:22px; display:block; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="display.html">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      목록으로 돌아가기
+    </a>
+
+    <p class="eyebrow" id="guideCategory">명절 대비/이후 연계진열 가이드</p>
+    <h1 id="guideTitle">🥩 백설 불고기·갈비양념 5종 진열 하기!</h1>
+    <p class="desc" id="guideDesc">명절 전엔 선물세트 옆에서, 명절 후엔 남은 고기 활용으로!</p>
+
+    <!-- 0. 제품 라인업 -->
+    <div class="section">
+      <h2>📦 제품 라인업</h2>
+      <ul class="point-list">
+        <li class="point-item lineup-item">
+          <div class="lineup-text">
+            <strong>백설 소불고기 양념 500g</strong>
+            국산 사과·배로 부드러운 단맛, 1953년 황금비율 노하우
+          </div>
+        </li>
+        <li class="point-item lineup-item">
+          <div class="lineup-text">
+            <strong>백설 저당 소불고기 양념 490g</strong>
+            당류·칼로리↓, 5가지 무첨가, 양파로 자연스러운 단맛
+          </div>
+        </li>
+        <li class="point-item lineup-item">
+          <div class="lineup-text">
+            <strong>백설 소갈비 양념 500g</strong>
+            국산 사과·배, 마늘·청주·후추로 밑간 없이 깔끔한 맛
+          </div>
+        </li>
+        <li class="point-item lineup-item">
+          <div class="lineup-text">
+            <strong>백설 저당 소갈비 양념 480g</strong>
+            당류·칼로리↓, 5가지 무첨가, 양파·무로 낸 자연 단맛
+          </div>
+        </li>
+        <li class="point-item lineup-item">
+          <div class="lineup-text">
+            <strong>백설 돼지갈비 양념 500g</strong>
+            국산 사과·배, 마늘·양파·후추로 밑간 없이 깊은 풍미
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- 1. 핵심 진열 포인트 -->
+    <div class="section">
+      <h2>💡 핵심 진열 포인트</h2>
+      <ul class="point-list" id="pointList">
+        <li class="point-item">
+          <strong>명절 대비 · 정육 선물세트 매대🎁</strong>
+          갈비·불고기 정육 선물세트 옆에 5종 양념을 분산 진열!<br>
+          <b>👍 추천: "세트 사은품처럼" 양념 크로스 진열로 동반구매 유도</b>
+        </li>
+        <li class="point-item">
+          <strong>명절 이후 · 남은 고기 활용 코너🍲</strong>
+          명절에 남은 갈비·불고기감을 처리할 수 있게 계산대 인근·정육 매대에 재배치!<br>
+          <b>👍 추천: "명절 남은 고기, 이렇게 활용하세요" POP</b>
+        </li>
+        <li class="point-item">
+          <strong>채소 매대🥔</strong>
+          명절에 함께 산 감자, 당근, 무 등 부재료 옆에 분산 진열!<br>
+          <b>👍 추천: 갈비찜/불고기 레시피 카드로 소진 유도</b>
+        </li>
+      </ul>
+    </div>
+
+    <!-- 2 이것만은 꼭! -->
+    <div class="section">
+      <h2>✅ 현장 점검 체크리스트</h2>
+      <p>• 유통기한이 짧은 제품이 전면에 선입선출 되어있는가?</p>
+      <p>• 명절 전/후 시점에 맞는 POP로 교체되어 있는가?</p>
+      <p>• 명절 성수기 매대 재고가 80% 이상 풍성하게 채워져 있는가?</p>
+    </div>
+    
+    <!-- ==========================================
+       [HTML 파트 1] 3칸짜리 A4 세로형 이미지 영역
+       ========================================== -->
+    <div class="section">
+      <h2>📸 연출물 POP 이미지</h2>
+      <p>각 분산진열 장소에 알맞은 POP를 사용해 보세요.</p>
+      
+      <!-- a4-grid 클래스 사용 -->
+      <div class="sub-img-grid a4-grid">
+        <div class="sub-img-box a4-box">
+          <img src="이미지1경로.jpg" alt="연출 예시 A">
+          연출 예시 A<br>(명절 선물세트 연계)
+        </div>
+        <div class="sub-img-box a4-box">
+          <img src="이미지2경로.jpg" alt="연출 예시 B">
+          연출 예시 B<br>(명절 후 소진 코너)
+        </div>
+        <div class="sub-img-box a4-box">
+          <img src="이미지3경로.jpg" alt="연출 예시 C">
+          연출 예시 C<br>(레시피 부재료 연계)
+        </div>
+      </div>
+    </div>
+    
+    <!-- ==========================================
+       [HTML 파트 2] 1칸짜리 가로형(와이드) 이미지 영역
+       ========================================== -->
+    <div class="section">
+      <h2>📸 매장 연출 예시 </h2>
+      <p>매대 연출 예시 이미지를 한 번 보고<br> 
+      </p>
+      
+      <!-- wide-grid 클래스 사용 -->
+      <div class="sub-img-grid wide-grid">
+        <div class="sub-img-box wide-box">
+          <img src="가로이미지경로.jpg" alt="가로형 연출 예시">
+          연출 예시 단독 컷 (전체 매장 뷰)
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 플로팅 목록 버튼 -->
+  <a class="list-btn" href="display.html" aria-label="목록으로">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="8" y1="6" x2="20" y2="6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="8" y1="12" x2="20" y2="12" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="8" y1="18" x2="20" y2="18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="4" cy="6" r="1.5" fill="currentColor"/>
+      <circle cx="4" cy="12" r="1.5" fill="currentColor"/>
+      <circle cx="4" cy="18" r="1.5" fill="currentColor"/>
+    </svg>
+  </a>
+
+<script>
+  // URL 파라미터에 따라 동적으로 상세 내용을 바꿔주는 스크립트
+  const urlParams = new URLSearchParams(window.location.search);
+  const guideType = urlParams.get('guide');
+
+  const guidesData = {
+    myeongjeol_jeon: {
+      category: '명절 대비 진열',
+      title: '정육 선물세트 × 양념 크로스진열',
+      desc: '명절 갈비·불고기 정육 선물세트 매대 옆에 5종 양념을 분산 배치해 동반구매를 유도합니다.',
+      points: [
+        { title: '1. 선물세트 옆 걸이대 배치', desc: '정육 선물세트 진열대 인근 걸이대(Strip)에 5종 양념을 고리 진열합니다.' },
+        { title: '2. "손질 끝, 양념만 더하세요" POP', desc: '명절 요리 부담을 덜어주는 문구로 선물세트 구매 고객의 추가 구매를 유도합니다.' }
+      ]
+    },
+    myeongjeol_hu: {
+      category: '명절 이후 소진 진열',
+      title: '남은 고기 활용 코너',
+      desc: '명절에 남은 갈비·불고기감을 빠르게 소진할 수 있도록 정육 매대와 계산대 인근에 재배치합니다.',
+      points: [
+        { title: '1. "명절 후 냉장고 파먹기" 존 구성', desc: '남은 고기 처리 컨셉으로 5종 양념을 한데 모아 눈에 띄는 매대에 재진열합니다.' },
+        { title: '2. 간편 조리 POP 강조', desc: '"밑간 없이 바로 조리" 문구로 명절 이후 지친 고객의 간편 조리 니즈를 공략합니다.' }
+      ]
+    },
+    chaeso: {
+      category: '부재료 연계 기획전',
+      title: '감자·당근·무 연계 매대',
+      desc: '명절에 함께 구매하는 감자, 당근, 무 등 조림용 채소 옆에 양념 5종을 연계 진열합니다.',
+      points: [
+        { title: '1. 원스톱 쇼핑 존 구성', desc: '감자, 당근, 무와 양념 5종을 한 번에 담을 수 있도록 종합 모음전을 구성합니다.' },
+        { title: '2. 레시피 카드 연출', desc: '"갈비찜 20분+40분 완성" 등 실제 조리법 카드를 함께 부착해 구매 전환을 높입니다.' }
+      ]
+    }
+  };
+
+  if(guideType && guidesData[guideType]) {
+    const data = guidesData[guideType];
+    document.getElementById('guideCategory').textContent = data.category;
+    document.getElementById('guideTitle').textContent = data.title;
+    document.getElementById('guideDesc').textContent = data.desc;
+    
+    const pointList = document.getElementById('pointList');
+    pointList.innerHTML = data.points.map(p => `
+      <li class="point-item">
+        <strong>${p.title}</strong>
+        ${p.desc}
+      </li>
+    `).join('');
+  }
+</script>
+</body>
+</html>
