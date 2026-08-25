@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover" />
+<title>8월 2차 샘표 장류 유인행사 점검 (8/25)</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+<style>
+  :root {
+    --bg: #FAFAF7;
+    --card-bg: #FFFFFF;
+    --ink: #1F2E22;
+    --muted: #767065;
+    --line: #E6E1D6;
+    --accent: #E8622C;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    margin: 0; padding: 0; min-height: 100vh;
+    background: var(--bg); color: var(--ink);
+    font-family: 'Pretendard', sans-serif;
+    display: flex; justify-content: center;
+  }
+  .wrap { width: 100%; max-width: 480px; padding: 36px 20px 80px; display: flex; flex-direction: column; gap: 20px; }
+  .header { text-align: center; }
+  .header h1 { font-size: 26px; font-weight: 800; margin: 0 0 6px; }
+  .header p { font-size: 13.5px; color: var(--muted); margin: 0; }
+  .card {
+    background: var(--card-bg); border-radius: 18px; padding: 24px 20px;
+    border: 1.5px solid var(--line); box-shadow: 0 4px 14px rgba(0,0,0,0.03);
+  }
+  .form-group { position: relative; margin-bottom: 18px; display: flex; flex-direction: column; gap: 6px; }
+  .form-group label { font-size: 14px; font-weight: 700; }
+  input[type="text"] {
+    width: 100%; padding: 13px 14px; border-radius: 12px;
+    border: 1.5px solid var(--line); background: #F9F8F5;
+    font-size: 14.5px; font-family: inherit; color: var(--ink); outline: none;
+  }
+  input[type="text"]:focus { border-color: var(--accent); background: #FFFFFF; }
+  .suggest-list {
+    position: absolute; top: calc(100% - 2px); left: 0; right: 0;
+    background: #ffffff; border: 1.5px solid var(--line); border-radius: 12px;
+    max-height: 180px; overflow-y: auto; margin: 4px 0 0; padding: 0;
+    list-style: none; z-index: 1000; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
+  .suggest-item { padding: 11px 14px; font-size: 14px; font-weight: 600; cursor: pointer; border-bottom: 1px solid #F4F3EE; }
+  .suggest-item:hover { background: #F4F3EE; color: var(--accent); }
+  .radio-group { display: flex; gap: 10px; }
+  .radio-label {
+    flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 12px; background: #F9F8F5; border: 1.5px solid var(--line);
+    border-radius: 12px; font-size: 14.5px; font-weight: 700; cursor: pointer;
+  }
+  .radio-label:has(input:checked) { border-color: var(--accent); background: #FFF7F2; color: var(--accent); }
+  .btn-submit {
+    width: 100%; padding: 15px; background: var(--accent); color: #fff;
+    font-size: 15.5px; font-weight: 800; border: none; border-radius: 12px; cursor: pointer;
+  }
+  .btn-submit:active { transform: scale(0.98); }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="header">
+    <h1>8월 2차 샘표 장류 유인행사 점검 (8/25)</h1>
+    <p>매장명, MD님 이름 및 유인행사 유무를 입력해 주세요.</p>
+  </header>
+
+  <section class="card">
+    <form id="dataForm">
+      <div class="form-group">
+        <label for="martInput">마트명 검색</label>
+        <input type="text" id="martInput" placeholder="마트명을 입력하거나 검색하세요" required autocomplete="off" />
+        <ul id="martSuggestList" class="suggest-list" hidden></ul>
+      </div>
+
+      <div class="form-group">
+        <label for="userName">이름</label>
+        <input type="text" id="userName" placeholder="담당자 이름을 입력하세요" required />
+      </div>
+
+      <div class="form-group">
+        <label>유무 선택</label>
+        <div class="radio-group">
+          <label class="radio-label">
+            <input type="radio" name="hasStatus" value="유인행사 O" checked /> 유 (있음)
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="hasStatus" value="유인행사 X" /> 무 (없음)
+          </label>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-submit">데이터 저장하기</button>
+    </form>
+  </section>
+</div>
+
+<script>
+const MART_DATABASE = [
+  "이마트 남양주진접점", "이마트 별내점", "롯데마트 중계점", "이마트 묵동점", "롯데마트 강변점",
+  "이마트 남양주점", "이마트 다산점", "롯데마트 덕소점", "롯데마트 마석점", "롯데마트 구리점",
+  "이마트 청계천점", "이마트 미아점", "이마트 하월곡점", "롯데마트 삼양점", "롯데마트 제타플렉스 서울역점",
+  "이마트 자양점", "이마트 왕십리역점", "롯데마트 행당역점", "롯데마트 청량리점", "이마트 창동점",
+  "이마트 월계점", "롯데마트 제타플렉스 잠실점", "롯데마트 송파점", "롯데마트 월드타워점", "롯데마트 서초점",
+  "이마트 양재점", "이마트 역삼점", "이마트 가든5점", "이마트 수서점", "이마트 하남점",
+  "이마트 고덕점", "이마트 천호점", "이마트 명일점", "롯데마트 천호점", "이마트 여의도점",
+  "이마트 목동점", "이마트 신월점", "이마트 신도림점", "이마트 소하점", "이마트 구로점",
+  "롯데마트 공항점", "롯데마트 금천점", "이마트 영등포점", "롯데마트 양평점", "이마트 은평점",
+  "이마트 용산점", "이마트 수색점", "이마트 공덕점", "이마트 신촌점", "롯데마트 그랑그로서리 은평점",
+  "이마트 풍산점", "롯데마트 주엽점", "이마트 파주점", "이마트 파주운정점", "이마트 포천점",
+  "이마트 의정부점", "롯데마트 장암점", "이마트 화정점", "롯데마트 화정점", "롯데마트 고양점",
+  "이마트 일산점", "이마트 양주점", "롯데마트 동두천점", "이마트 수원점", "이마트 서수원점",
+  "롯데마트 수원점", "이마트 동탄점", "이마트 화성봉담점", "롯데마트 천천점", "이마트 산본점",
+  "롯데마트 의왕점", "이마트 고잔점", "롯데마트 안산점", "이마트 안양점", "이마트 평촌점",
+  "이마트 광교점", "롯데마트 광교점", "이마트 흥덕점", "이마트 경기광주점", "롯데마트 오산점",
+  "이마트 평택점", "이마트 안성점", "롯데마트 안성점", "이마트 분당점", "이마트 용인점",
+  "이마트 동백점", "이마트 보라점", "롯데마트 신갈점", "이마트 수지점", "이마트 성남점",
+  "롯데마트 롯데몰수지점", "이마트 오산점", "롯데마트 평택점", "이마트 죽전점", "롯데마트 판교점",
+  "롯데마트 송도점", "이마트 동인천점", "롯데마트 영종도점", "이마트 연수점", "롯데마트 연수점",
+  "롯데마트 청라점", "이마트 검단점", "롯데마트 검단점", "이마트 계양점", "롯데마트 삼산점",
+  "롯데마트 시흥점", "롯데마트 계양점", "이마트 김포한강점", "롯데마트 김포한강점", "이마트 중동점",
+  "롯데마트 부평역점", "롯데마트 부평점", "이마트 부천점", "롯데마트 시화점", "롯데마트 시흥배곧점",
+  "이마트 이천점", "이마트 원주점", "이마트 여주점", "이마트 춘천점", "롯데마트 춘천점",
+  "이마트 태백점", "이마트 제천점", "롯데마트 원주점", "이마트 강릉점", "이마트 속초점",
+  "이마트 동해점", "이마트 성서점", "이마트 칠성점", "이마트 안동점", "이마트 포항점",
+  "이마트 영천점", "이마트 포항이동점", "이마트 반야월점", "이마트 수성점", "이마트 월배점",
+  "이마트 김천점", "롯데마트 구미점", "롯데마트 김천점", "이마트 구미점", "이마트 동구미점",
+  "이마트 만촌점", "이마트 경산점", "이마트 상주점", "롯데마트 대구점", "이마트 해운대점",
+  "롯데마트 키즈 부산점", "롯데마트 광복점", "이마트 문현점", "롯데마트 사하점", "롯데마트 동래점",
+  "이마트 연제점", "롯데마트 동부산점", "롯데마트 울산점", "롯데마트 진장점", "이마트 금정점",
+  "이마트 울산점", "이마트 제주점", "이마트 신제주점", "이마트 서귀포점", "롯데마트 제주점",
+  "이마트 사상점", "롯데마트 화명점", "롯데마트 장유점", "이마트 양산점", "롯데마트 사상점",
+  "이마트 김해터미널점", "이마트 통영점", "롯데마트 통영점", "롯데마트 진해점", "롯데마트 거제점",
+  "롯데마트 양덕점", "이마트 창원점", "이마트 마산점", "롯데마트 마산점", "이마트 진주점",
+  "이마트 사천점", "롯데마트 진주점", "이마트 세종점", "롯데마트 서대전점", "롯데마트 노은점",
+  "이마트 둔산점", "롯데마트 충주점", "이마트 대전터미널점", "롯데마트 청주점", "롯데마트 대덕밸리점",
+  "롯데마트 상당점", "이마트 아산점", "이마트 천안터미널점", "이마트 천안서북점", "이마트 천안점",
+  "롯데마트 성정점", "이마트 서산점", "롯데마트 서산점", "롯데마트 당진점", "이마트 청주점",
+  "이마트 충주점", "롯데마트 서청주점", "이마트 광산점", "롯데마트 남악점", "이마트 목포점",
+  "이마트 익산점", "롯데마트 익산점", "롯데마트 첨단점", "이마트 여수점", "이마트 광주점",
+  "롯데마트 여수점", "롯데마트 수완점", "이마트 순천점", "이마트 봉선점", "롯데마트 여천점",
+  "롯데마트 광주월드컵점", "이마트 남원점", "이마트 전주점", "이마트 군산점", "롯데마트 군산점",
+  "롯데마트 전주점", "롯데마트 정읍점"
+];
+
+const martInput = document.getElementById('martInput');
+const suggestList = document.getElementById('martSuggestList');
+
+martInput.addEventListener('input', (e) => {
+  const query = e.target.value.trim().toLowerCase();
+  if (!query) { suggestList.hidden = true; return; }
+  const matches = MART_DATABASE.filter(m => m.toLowerCase().includes(query));
+  if (matches.length === 0) {
+    suggestList.innerHTML = '<li class="suggest-item" style="color:#9C988F; cursor:default;">일치하는 마트가 없습니다</li>';
+    suggestList.hidden = false;
+    return;
+  }
+  suggestList.innerHTML = matches.map(m => `<li class="suggest-item">${m}</li>`).join('');
+  suggestList.hidden = false;
+});
+
+suggestList.addEventListener('click', (e) => {
+  if (e.target.classList.contains('suggest-item') && !e.target.textContent.includes('일치하는')) {
+    martInput.value = e.target.textContent;
+    suggestList.hidden = true;
+  }
+});
+
+document.addEventListener('click', (e) => {
+  if (!martInput.contains(e.target) && !suggestList.contains(e.target)) suggestList.hidden = true;
+});
+
+const storageKey = 'field_entry_records';
+const form = document.getElementById('dataForm');
+const userName = document.getElementById('userName');
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  let records = JSON.parse(localStorage.getItem(storageKey) || '[]');
+  const selectedStatus = document.querySelector('input[name="hasStatus"]:checked').value;
+  
+  records.unshift({
+    mart: martInput.value.trim(),
+    name: userName.value.trim(),
+    status: selectedStatus,
+    createdAt: new Date().toLocaleString()
+  });
+
+  localStorage.setItem(storageKey, JSON.stringify(records));
+  userName.value = '';
+  martInput.value = '';
+  suggestList.hidden = true;
+  document.querySelector('input[name="hasStatus"][value="유"]').checked = true;
+  alert('데이터가 성공적으로 등록되었습니다.');
+});
+</script>
+</body>
+</html>
