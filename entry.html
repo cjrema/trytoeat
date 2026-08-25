@@ -56,7 +56,7 @@
     width: 100%; padding: 15px; background: var(--accent); color: #fff;
     font-size: 15.5px; font-weight: 800; border: none; border-radius: 12px; cursor: pointer;
   }
-  .btn-submit:active { transform: scale(0.98); }
+  .btn-submit:disabled { background: #B5B0A4; cursor: not-allowed; }
 </style>
 </head>
 <body>
@@ -77,7 +77,7 @@
 
       <div class="form-group">
         <label for="userName">이름</label>
-        <input type="text" id="userName" placeholder="담당자 이름을 입력하세요" required />
+        <input type="text" id="userName" placeholder="담당자 이름을 입력하세요" required autocomplete="off" />
       </div>
 
       <div class="form-group">
@@ -92,12 +92,15 @@
         </div>
       </div>
 
-      <button type="submit" class="btn-submit">데이터 저장하기</button>
+      <button type="submit" id="submitBtn" class="btn-submit">데이터 전송하기</button>
     </form>
   </section>
 </div>
 
 <script>
+// ⚠️ 2단계에서 복사한 구글 웹앱 URL을 아래 따옴표 안에 넣으세요!
+const GOOGLE_SCRIPT_URL = "여기에_구글_웹앱_URL을_붙여넣으세요";
+
 const MART_DATABASE = [
   "이마트 남양주진접점", "이마트 별내점", "롯데마트 중계점", "이마트 묵동점", "롯데마트 강변점",
   "이마트 남양주점", "이마트 다산점", "롯데마트 덕소점", "롯데마트 마석점", "롯데마트 구리점",
@@ -172,36 +175,47 @@ document.addEventListener('click', (e) => {
   if (!martInput.contains(e.target) && !suggestList.contains(e.target)) suggestList.hidden = true;
 });
 
-const storageKey = 'field_entry_records';
 const form = document.getElementById('dataForm');
 const userName = document.getElementById('userName');
+const submitBtn = document.getElementById('submitBtn');
 
-  form.addEventListener('submit', (e) => {
+form.addEventListener('submit', (e) => {
   e.preventDefault();
-  let records = JSON.parse(localStorage.getItem(storageKey) || '[]');
-  const selectedStatus = document.querySelector('input[name="hasStatus"]:checked').value;
   
-  records.unshift({
+  submitBtn.disabled = true;
+  submitBtn.textContent = '저장 중...';
+
+  const selectedStatus = document.querySelector('input[name="hasStatus"]:checked').value;
+  const payload = {
     mart: martInput.value.trim(),
     name: userName.value.trim(),
     status: selectedStatus,
     createdAt: new Date().toLocaleString()
+  };
+
+  // 구글 시트로 비동기 전송
+  fetch(GOOGLE_SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+  .then(() => {
+    alert('데이터가 성공적으로 등록되었습니다.');
+    userName.value = '';
+    martInput.value = '';
+    suggestList.hidden = true;
+    document.querySelector('input[name="hasStatus"][value="유인행사 O"]').checked = true;
+  })
+  .catch((err) => {
+    alert('전송 중 오류가 발생했습니다. 다시 시도해 주세요.');
+    console.error(err);
+  })
+  .finally(() => {
+    submitBtn.disabled = false;
+    submitBtn.textContent = '데이터 전송하기';
   });
-
-  localStorage.setItem(storageKey, JSON.stringify(records));
-  userName.value = '';
-  martInput.value = '';
-  suggestList.hidden = true;
-  
-  // 수정된 부분: value="유" -> value="유인행사 O"
-  const defaultRadio = document.querySelector('input[name="hasStatus"][value="유인행사 O"]');
-  if (defaultRadio) defaultRadio.checked = true;
-
-  alert('데이터가 성공적으로 등록되었습니다.');
 });
-
-
-  
 </script>
 </body>
 </html>
