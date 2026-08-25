@@ -176,7 +176,7 @@ const storageKey = 'field_entry_records';
 const form = document.getElementById('dataForm');
 const userName = document.getElementById('userName');
 
-form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', (e) => {
   e.preventDefault();
   let records = JSON.parse(localStorage.getItem(storageKey) || '[]');
   const selectedStatus = document.querySelector('input[name="hasStatus"]:checked').value;
@@ -192,9 +192,16 @@ form.addEventListener('submit', (e) => {
   userName.value = '';
   martInput.value = '';
   suggestList.hidden = true;
-  document.querySelector('input[name="hasStatus"][value="유"]').checked = true;
+  
+  // 수정된 부분: value="유" -> value="유인행사 O"
+  const defaultRadio = document.querySelector('input[name="hasStatus"][value="유인행사 O"]');
+  if (defaultRadio) defaultRadio.checked = true;
+
   alert('데이터가 성공적으로 등록되었습니다.');
 });
+
+
+  
 </script>
 </body>
 </html>
