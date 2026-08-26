@@ -98,7 +98,6 @@
 </div>
 
 <script>
-// ⚠️ 2단계에서 복사한 구글 웹앱 URL을 아래 따옴표 안에 넣으세요!
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzrLwFuTCQyqfBZhGKk6bs-2Q7iKp2QomH4FnBTeOAh4ZBAcby4_OH0ZnMdavc1t6gw/exec";
 
 const MART_DATABASE = [
@@ -181,13 +180,22 @@ const submitBtn = document.getElementById('submitBtn');
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
+
+  const enteredMart = martInput.value.trim();
+
+  // 🔒 매장명 데이터베이스 존재 여부 검증
+  if (!MART_DATABASE.includes(enteredMart)) {
+    alert('목록에 있는 매장명을 검색하여 정확히 선택해 주세요.');
+    martInput.focus();
+    return;
+  }
   
   submitBtn.disabled = true;
   submitBtn.textContent = '저장 중...';
 
   const selectedStatus = document.querySelector('input[name="hasStatus"]:checked').value;
   const payload = {
-    mart: martInput.value.trim(),
+    mart: enteredMart,
     name: userName.value.trim(),
     status: selectedStatus,
     createdAt: new Date().toLocaleString()
