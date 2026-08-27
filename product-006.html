@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+<title>해찬들 옛장 상세 소개</title>
+<style>
+  :root {
+    --bg: #FAFAF7;
+    --ink: #1F2E22;
+    --muted: #767065;
+    --green: #2E7D32;
+    --line: #E6E1D6;
+    --accent: #E8622C;
+    --red: #C62828;
+    --brown: #5D4037;
+  }
+  
+  *, *::before, *::after { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { overflow-y: scroll; }
+  html, body { margin: 0; padding: 0; min-height: 100vh; }
+  body {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background: var(--bg);
+    color: var(--ink);
+    display: flex;
+    justify-content: center;
+  }
+  a { text-decoration: none; color: inherit; }
+
+  /* 전체 레이아웃 틀 */
+  .wrap {
+    width: 100%;
+    max-width: 480px;
+    padding: 32px 24px 100px;
+  }
+
+  /* 상단 뒤로가기 버튼 */
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--muted);
+    margin-bottom: 20px;
+    transition: color .15s ease;
+  }
+  .back:hover { color: var(--accent); }
+  .back svg { width: 18px; height: 18px; }
+
+  /* 상단 메인 대표 이미지 */
+  .hero-img {
+    width: 100%;
+    height: 220px;
+    border-radius: 20px;
+    border: 1.5px solid var(--line);
+    background: #EAE8E1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--muted);
+  }
+  .hero-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* 타이틀 및 기획 문구 */
+  .eyebrow {
+    margin: 0 0 6px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+  }
+  h1 {
+    font-size: 26px;
+    font-weight: 800;
+    margin: 0 0 8px;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+  }
+  .desc {
+    font-size: 15px;
+    color: var(--muted);
+    font-weight: 500;
+    line-height: 1.6;
+    margin: 0 0 28px;
+  }
+
+  /* 구분선 섹션 스타일 */
+  .section {
+    border-top: 2px solid var(--line);
+    padding-top: 28px;
+    margin-top: 24px;
+  }
+  .section h2 {
+    font-size: 19px;
+    font-weight: 800;
+    margin: 0 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .title-brown { color: var(--brown); }
+  .title-red { color: var(--red); }
+
+  /* 새롭게 추가된 제품 스펙 박스 */
+  .spec-box {
+    background: #FFFFFF;
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+  }
+  .spec-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    padding: 8px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .spec-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .spec-label {
+    font-weight: 700;
+    color: var(--muted);
+  }
+  .spec-value {
+    font-weight: 600;
+    text-align: right;
+  }
+  .price-normal { text-decoration: line-through; color: var(--muted); font-size: 13px; margin-right: 4px; }
+  .price-event { color: var(--red); font-weight: 800; }
+
+  /* 제품 항목 리스트 공통 */
+  .point-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* 텍스트 가로 배치 카드 스타일 */
+  .point-item {
+    background: #fff;
+    border: 1.5px solid var(--line);
+    border-radius: 14px;
+    padding: 16px;
+    font-size: 14px;
+    line-height: 1.55;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+  }
+  .point-content {
+    flex: 1;
+    min-width: 0;
+  }
+  .point-content strong {
+    color: var(--ink);
+    display: block;
+    margin-bottom: 6px;
+    font-size: 15px;
+  }
+  .point-content p { margin: 0; color: var(--muted); }
+
+  /* 하단 큰 버튼 */
+  .guide-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    margin-top: 32px;
+    padding: 16px 0;
+    background: var(--ink);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 14px;
+    transition: all .2s;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  .guide-btn:active { transform: scale(0.98); }
+  .guide-btn:hover { background: #2f4333; }
+
+  /* 우측 하단 플로팅 버튼 */
+  .list-btn {
+    position: fixed;
+    left: 50%;
+    bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+    transform: translateX(-50%);
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+    z-index: 1000;
+  }
+  .list-btn svg { width: 22px; height: 22px; display: block; }
+</style>
+</head>
+<body>
+
+  <div class="wrap">
+    
+    <a class="back" href="m-products.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+      목록으로 돌아가기
+    </a>
+
+    <!-- 메인 이미지 (제품 컷 대체용) -->
+    <div class="hero-img">
+      해찬들 옛장
+    </div>
+
+    <p class="eyebrow">🔥 전통의 깊이를 담은</p>
+    <h1>해찬들 옛장 2종</h1>
+    <p class="desc">전통 방식 그대로 깊이 있게 빚어낸 옛장 된장과 고추장을 만나보세요.</p>
+
+
+    <!-- ==============================================
+         1. 옛장 된장 섹션
+    =============================================== -->
+    <div class="section">
+      <h2 class="title-brown">🍲 해찬들 옛장 된장</h2>
+      
+      <!-- 제품 스펙 정보 박스 -->
+      <div class="spec-box">
+        <div class="spec-item">
+          <span class="spec-label">중량</span>
+          <span class="spec-value">850g</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">가격</span>
+          <span class="spec-value">
+            <span class="price-normal">12,980원</span> 
+            <span class="price-event">6,390원</span>
+          </span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">소비기한</span>
+          <span class="spec-value">12개월</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">보관방법</span>
+          <span class="spec-value" style="font-size: 13px;">실온보관 (개봉 후 냉장보관 권장)</span>
+        </div>
+      </div>
+
+      <ul class="point-list">
+        <li class="point-item">
+          <div class="point-content">
+            <strong>01 옛 전통방식 깊이 그대로 직접 빚은 사각메주</strong>
+            <p>옛 선조들의 지혜가 담긴 전통 방식대로 사각메주를 직접 빚어 만들었습니다.</p>
+          </div>
+        </li>
+        <li class="point-item">
+          <div class="point-content">
+            <strong>02 두번의 발효로 완성한 풍부한 감칠맛</strong>
+            <p>사각메주에 콩알메주를 더해 두 번 숙성하는 겹발효 방식으로, 더 구수하고 풍부한 감칠맛을 완성했습니다.</p>
+          </div>
+        </li>
+        <li class="point-item">
+          <div class="point-content">
+            <strong>03 옛장 하나로 충분한 깊고 구수한 맛</strong>
+            <p>된장 숙성 과정에서 얻은 간장 맛성분을 더한 깊고 진한 맛으로, 옛장 된장 하나로 구수한 된장찌개를 완성할 수 있습니다.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+
+    <!-- ==============================================
+         2. 옛장 고추장 섹션
+    =============================================== -->
+    <div class="section">
+      <h2 class="title-red">🌶️ 해찬들 옛장 고추장</h2>
+      
+      <!-- 제품 스펙 정보 박스 -->
+      <div class="spec-box">
+        <div class="spec-item">
+          <span class="spec-label">중량</span>
+          <span class="spec-value">1kg</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">가격</span>
+          <span class="spec-value">
+            <span class="price-normal">24,090원</span> 
+            <span class="price-event">11,870원</span>
+          </span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">소비기한</span>
+          <span class="spec-value">18개월</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">보관방법</span>
+          <span class="spec-value" style="font-size: 13px;">실온보관 (개봉 후 냉장보관 권장)</span>
+        </div>
+      </div>
+
+      <ul class="point-list">
+        <li class="point-item">
+          <div class="point-content">
+            <strong>01 옛 전통방식 깊이 그대로 쌀·콩 동시발효</strong>
+            <p>전통방식으로 쌀과 콩을 동시에 발효해 감칠맛을 높이고, 태양초로 깨끗한 매운맛을 살렸습니다.</p>
+          </div>
+        </li>
+        <li class="point-item">
+          <div class="point-content">
+            <strong>02 조청과 태양초로 균형잡힌 풍부한 맛</strong>
+            <p>조청과 태양초를 사용하여 깔끔한 매운맛과 부드러운 단맛의 균형을 느낄 수 있습니다.</p>
+          </div>
+        </li>
+        <li class="point-item">
+          <div class="point-content">
+            <strong>03 어떤 요리에도 잘 어울리는 매콤한 감칠맛</strong>
+            <p>요리 초보부터 요리 고수까지, 전통 한식부터 요즘 세대가 즐기는 매운요리까지, 매콤한 감칠맛이 필요한 다양한 요리를 맛있게 완성할 수 있습니다.</p>
+            <p style="margin-top: 8px; font-weight: 700; color: var(--accent);">💡 추천요리: 제육볶음, 떡볶이, 감자짜글이, 비빔만두&국수, 생선조림, 제철나물무침</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <a class="guide-btn" href="https://cjrema.github.io/trytoeat/tasting-guide.html?q=해찬들옛장" target="_blank" rel="noopener">
+      해당 제품 시식가이드 보기 〉
+    </a>
+  </div>
+
+  <a class="list-btn" href="m-products.html" aria-label="목록으로">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="8" y1="6" x2="20" y2="6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="8" y1="12" x2="20" y2="12" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="8" y1="18" x2="20" y2="18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="4" cy="6" r="1.5" fill="currentColor"/>
+      <circle cx="4" cy="12" r="1.5" fill="currentColor"/>
+      <circle cx="4" cy="18" r="1.5" fill="currentColor"/>
+    </svg>
+  </a>
+
+</body>
+</html>
