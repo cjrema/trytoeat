@@ -130,6 +130,18 @@
     transform: translateX(4px);
   }
 
+  .nav-btn.disabled {
+    background: #EAE8E1;
+    color: #9C988F;
+    cursor: not-allowed;
+    pointer-events: none; /* 마우스 터치 및 클릭을 원천 차단 */
+    box-shadow: none;
+    transform: none;
+  }
+  .nav-btn.disabled .arrow {
+    color: #C3C0B8;
+  }
+
   /* =========================================================
      🔍 4. 시식 가이드 검색창 & 카테고리 태그
   ========================================================= */
