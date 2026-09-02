@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+<title>순후추 & 와사비 분산진열 캠페인</title>
+<style>
+  :root{
+    --bg: #FAFAF7;
+    --ink: #1F2E22;
+    --muted: #767065;
+    --green: #3fae2a;
+    --line: #E6E1D6;
+    --accent: #E8622C;
+  }
+  *, *::before, *::after{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+  html{ overflow-y: scroll; }
+  html,body{ margin:0; padding:0; min-height:100vh; }
+  body{
+    font-family:'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background: var(--bg);
+    color: var(--ink);
+    display:flex;
+    justify-content:center;
+  }
+  a{ text-decoration:none; color:inherit; }
+  
+  .wrap{
+    width:100%;
+    max-width:480px;
+    padding: 32px 24px 100px;
+  }
+
+  .back{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-size:14px;
+    font-weight:700;
+    color: var(--muted);
+    margin-bottom: 18px;
+    transition: color .15s ease;
+  }
+  .back:hover{ color: var(--accent); }
+  .back svg{ width:16px; height:16px; }
+
+  /* 대표 진열 예시 이미지 영역 */
+  .hero-img{
+    width:100%;
+    height:220px;
+    border-radius:20px;
+    border: 1.5px solid var(--line);
+    background: repeating-linear-gradient(45deg,#eeeeeb,#eeeeeb 6px,#e4e4df 6px,#e4e4df 12px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#9c9c96;
+    font-weight:700;
+    font-size:14px;
+    text-align:center;
+    margin-bottom: 22px;
+    overflow: hidden;
+    position: relative;
+  }
+  .hero-img img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+  .eyebrow{
+    margin: 0 0 6px;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+  }
+
+  h1{
+    font-size:24px;
+    font-weight:800;
+    margin:0 0 8px;
+    letter-spacing:-0.02em;
+    line-height: 1.3;
+  }
+  .desc{
+    font-size:15px;
+    color:var(--muted);
+    font-weight:500;
+    line-height:1.6;
+    margin:0 0 24px;
+  }
+
+  .section{
+    border-top:1px solid var(--line);
+    padding-top:20px;
+    margin-top:20px;
+  }
+  .section h2{
+    font-size:17px;
+    font-weight:800;
+    margin:0 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .section p{
+    font-size:14.5px;
+    color:var(--ink);
+    line-height:1.7;
+    margin:0 0 10px;
+  }
+
+  /* 포인트 항목 리스트 */
+  .point-list{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .point-item{
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+  .point-item strong{
+    color: var(--accent);
+    display: block;
+    margin-bottom: 4px;
+    font-size: 15px;
+  }
+
+  /* 진열 연출 예시 이미지 플레이스홀더 Box */
+  .sub-img-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .sub-img-box{
+    height: 120px;
+    border-radius: 12px;
+    background: #EAE8E1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #8C877D;
+    border: 1px dashed #C8C3B8;
+  }
+
+  /* 플로팅 목록 버튼 */
+  .list-btn{
+    position:fixed;
+    left:50%;
+    bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+    transform: translateX(-50%);
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+    z-index: 1000;
+    margin: 0;
+    padding: 0;
+  }
+  .list-btn svg{ width:22px; height:22px; display:block; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="display.html">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      목록으로 돌아가기
+    </a>
+
+    <!-- 대표 이미지 -->
+    <div class="hero-img">
+      <!-- <img src="메인진열사진.jpg" alt="분산진열 예시"> -->
+      후추 & 생와사비 3종<br>신선 매대 연계 진열 예시 컷
+    </div>
+
+    <p class="eyebrow">맞춤형 분산진열 노하우</p>
+    <h1>순후추 & 생와사비<br>타깃 매대 크로스 진열</h1>
+    <p class="desc">각 제품의 요리 용도에 어울리는 코너에 연계 진열하여 고객의 동반 구매를 유도해 보세요!</p>
+
+    <!-- 1. 백설 순후추 포인트 -->
+    <div class="section">
+      <h2 style="color: #1F2E22;">🧂 백설 순후추 연계 진열</h2>
+      <ul class="point-list">
+        <li class="point-item">
+          <strong>1. 정육 매대</strong>
+          스테이크, 돼지고기 구이 등에 필수! 와사비 후추맛도 함께 진열을 추천합니다.
+        </li>
+        <li class="point-item">
+          <strong>2. 국탕찌개 옆</strong>
+          갈비탕, 사골곰탕 등 국물요리의 단짝으로 묶어 진열해 보세요.
+        </li>
+        <li class="point-item">
+          <strong>3. 파스타, 볶음밥 재료 옆</strong>
+          각종 파스타나 볶음밥 등 양식 및 간편식 요리 재료와 함께 연출합니다.
+        </li>
+        <li class="point-item">
+          <strong>4. 수프 옆</strong>
+          상온, 냉장, 냉동 수프 코너 옆에 진열해 풍미를 더하는 팁을 제안합니다.
+        </li>
+      </ul>
+    </div>
+
+    <!-- 2. 백설x움트리 와사비 3종 포인트 -->
+    <div class="section">
+      <h2 style="color: #2E7D32;">🌿 백설x움트리 와사비 3종 연계 진열</h2>
+      <ul class="point-list">
+        <li class="point-item">
+          <strong style="color: #2E7D32;">1. 수산 매대 (회 코너)</strong>
+          간장(회/진/양조) + 와사비 조합으로 진열하여 완벽한 해산물 식탁을 제안합니다.
+        </li>
+        <li class="point-item">
+          <strong style="color: #2E7D32;">2. 정육 매대</strong>
+          스테이크, 돼지고기 구이 등에 곁들이는 별미! 백설 순후추도 함께 진열하면 효과가 배가 됩니다.
+        </li>
+        <li class="point-item">
+          <strong style="color: #2E7D32;">3. 냉장면(메밀소바 등) 옆 or 델리(초밥, 튀김류)</strong>
+          소바 소스에 와사비 추가, 또는 간장(회/진/양조)과 와사비의 조합은 필수입니다!
+        </li>
+        <li class="point-item">
+          <strong style="color: #2E7D32;">4. 샐러드 드레싱 옆</strong>
+          오리엔탈 드레싱 + 와사비를 제안하여 고객이 '오리엔탈 와사비 드레싱'을 연상할 수 있도록 연출하세요.
+        </li>
+      </ul>
+    </div>
+
+    <!-- 3. 매대 연출 예시 이미지 -->
+    <div class="section">
+      <h2>📸 매대 연출 예시 이미지</h2>
+      <p>실제 매장에 적용할 수 있는 연출 컷입니다.</p>
+      <div class="sub-img-grid">
+        <div class="sub-img-box">연출 예시 A<br>(정육 매대 연계)</div>
+        <div class="sub-img-box">연출 예시 B<br>(수산 매대 연계)</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 플로팅 목록 버튼 -->
+  <a class="list-btn" href="display.html" aria-label="목록으로">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="8" y1="6" x2="20" y2="6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="8" y1="12" x2="20" y2="12" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="8" y1="18" x2="20" y2="18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="4" cy="6" r="1.5" fill="currentColor"/>
+      <circle cx="4" cy="12" r="1.5" fill="currentColor"/>
+      <circle cx="4" cy="18" r="1.5" fill="currentColor"/>
+    </svg>
+  </a>
+
+</body>
+</html>
