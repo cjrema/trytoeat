@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+<title>밸런스밀 저당 도시락 3종 상세소개</title>
+<style>
+  :root {
+    --bg: #FAFAF7;
+    --ink: #1F2E22;
+    --muted: #767065;
+    --line: #E6E1D6;
+    --accent: #E8622C; /* 사이트 공통 주황색 포인트 */
+    
+    /* 각 제품별 포인트 컬러 (글씨/강조용) */
+    --color-hot: #C62828;
+    --color-curry: #F9A825;
+    --color-bbq: #6D4C41;
+  }
+  *, *::before, *::after { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { overflow-y: scroll; }
+  html, body { margin: 0; padding: 0; min-height: 100vh; }
+  body {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background: var(--bg);
+    color: var(--ink);
+    display: flex;
+    justify-content: center;
+  }
+  a { text-decoration: none; color: inherit; }
+
+  .wrap {
+    width: 100%;
+    max-width: 480px;
+    padding: 32px 24px 100px;
+  }
+
+  /* 뒤로가기 버튼 */
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--muted);
+    margin-bottom: 20px;
+    transition: color .15s ease;
+  }
+  .back:hover { color: var(--accent); }
+  .back svg { width: 18px; height: 18px; }
+
+  /* 메인 대표 이미지 박스 (기존 사이트 톤앤매너 통일) */
+  .hero-img {
+    width: 100%;
+    height: 220px;
+    border-radius: 20px;
+    border: 1.5px solid var(--line);
+    background: #EAE8E1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    text-align: center;
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 700;
+    overflow: hidden;
+  }
+  .hero-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0; left: 0;
+  }
+
+  .eyebrow {
+    margin: 0 0 6px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+  }
+  h1 {
+    font-size: 26px;
+    font-weight: 800;
+    margin: 0 0 8px;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+  }
+  .desc {
+    font-size: 15px;
+    color: var(--muted);
+    font-weight: 500;
+    line-height: 1.6;
+    margin: 0 0 24px;
+    word-break: keep-all;
+  }
+
+  /* 💡 시식가이드 버튼 (기존 허브 사이트 버튼 스타일로 변경) */
+  .btn-primary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 18px;
+    background: #fff;
+    border: 1.5px solid var(--line);
+    border-radius: 16px;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ink);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    transition: all 0.2s;
+    margin-bottom: 32px;
+  }
+  .btn-primary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .btn-primary svg { width: 20px; height: 20px; color: inherit; }
+
+  /* 공통 섹션 스타일 */
+  .section {
+    border-top: 1px solid var(--line);
+    padding-top: 24px;
+    margin-top: 24px;
+  }
+  .section-title {
+    font-size: 18px;
+    font-weight: 800;
+    margin: 0 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* 공통 체크 포인트 (깔끔한 리스트형) */
+  .check-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .check-item {
+    background: #fff;
+    border: 1.5px solid var(--line);
+    border-radius: 14px;
+    padding: 16px;
+    font-size: 14.5px;
+    line-height: 1.55;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+  }
+  .check-item strong {
+    color: var(--accent);
+    display: block;
+    margin-bottom: 4px;
+    font-size: 15.5px;
+  }
+
+  /* 각 제품별 카드 스타일 (좌측 둥근 이미지 + 우측 정보) */
+  .product-card {
+    background: #fff;
+    border: 1.5px solid var(--line);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+  }
+  
+  .card-top {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .product-img {
+    width: 86px;
+    height: 86px;
+    flex-shrink: 0;
+    background: #F4F3EE;
+    border: 1px dashed #DCDCDC;
+    border-radius: 50%; /* 동그란 이미지 틀 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+    overflow: hidden;
+    text-align: center;
+  }
+  .product-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .product-info { flex: 1; }
+  .product-info h3 { margin: 0 0 6px; font-size: 19px; font-weight: 800; }
+  .product-info p { font-size: 14px; color: var(--muted); line-height: 1.4; margin: 0; font-weight: 600; word-break: keep-all; }
+
+  /* 제품별 상세 포인트 박스 */
+  .point-box {
+    margin: 0 0 16px;
+    padding: 14px;
+    background: #F9F9F7;
+    border-radius: 10px;
+  }
+  .point-row {
+    margin-bottom: 10px;
+    font-size: 13.5px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .point-row:last-child { margin-bottom: 0; }
+  .point-row strong {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 2px;
+  }
+
+  /* 영양성분 뱃지 (톤다운된 은은한 컬러) */
+  .nutrition-box { display: flex; flex-wrap: wrap; gap: 6px; }
+  .nutri-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 800;
+    background: #EAE8E1;
+    color: var(--ink);
+  }
+  .nutri-badge span { margin-left: 4px; color: var(--muted); font-weight: 600; }
+
+  /* 제품별 테마 컬러 (제목과 포인트 텍스트에만 살짝 적용) */
+  .theme-hot h3, .theme-hot .point-row strong { color: var(--color-hot); }
+  .theme-curry h3, .theme-curry .point-row strong { color: var(--color-curry); }
+  .theme-bbq h3, .theme-bbq .point-row strong { color: var(--color-bbq); }
+
+  /* 조리방법 박스 */
+  .cook-box {
+    background: #fff;
+    border: 1.5px solid var(--line);
+    border-radius: 14px;
+    padding: 16px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+  }
+  .cook-box table { width: 100%; margin-top: 14px; border-collapse: collapse; background: #fff; text-align: center; font-weight: 700; font-size: 13.5px; border: 1px solid var(--line); }
+  .cook-box th, .cook-box td { padding: 10px; border: 1px solid var(--line); }
+  .cook-box th { background: #F4F3EE; color: var(--muted); }
+
+  /* 플로팅 목록 버튼 */
+  .list-btn {
+    position: fixed;
+    left: 50%;
+    bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+    transform: translateX(-50%);
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+    z-index: 1000;
+  }
+  .list-btn svg { width: 22px; height: 22px; display: block; }
+</style>
+</head>
+<body>
+
+  <div class="wrap">
+    
+    <a class="back" href="m-products.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+      목록으로 돌아가기
+    </a>
+
+    <div class="hero-img">
+      <!-- 📷 메인 종합 사진 넣는 곳 -->
+      <!-- <img src="메인사진.jpg" alt="밸런스밀"> -->
+      밸런스밀<br>대표 이미지 영역
+    </div>
+
+    <p class="eyebrow">맛있는 식단 관리의 시작</p>
+    <h1>밸런스밀 저당 도시락 3종</h1>
+    <p class="desc">냉동고 자리 차지 걱정 없이 전자레인지 2분이면 완성! 밥 따로 닭가슴살 따로 돌릴 필요 없는 완벽한 영양 설계의 한 끼를 즐겨보세요.</p>
+
+    <!-- 시식가이드 바로가기 버튼 -->
+    <a href="tasting-guide.html" class="btn-primary">
+      <span>💡 시식가이드 바로가기</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+    </a>
+
+    <div class="section">
+      <h2 class="section-title">✨ 완벽한 영양 밸런스</h2>
+      <div class="check-list">
+        <div class="check-item">
+          <strong>1. 닭가슴살과 통곡물밥의 조화</strong>
+          입안 가득 부드러운 닭가슴살과 톡톡 씹히는 통곡물밥(현미, 흑미, 귀리)으로 단백질과 식이섬유를 꽉 채웠습니다.
+        </div>
+        <div class="check-item">
+          <strong>2. 저당 레시피로 당 걱정 NO!</strong>
+          특제 소스가 쏙 밴 닭가슴살을 담아 당 걱정은 덜고 속세의 깊은 맛은 그대로 살렸습니다. 매일 먹어도 부담 없어요.
+        </div>
+        <div class="check-item">
+          <strong>3. 실온 보관으로 간편하게</strong>
+          냉동실 자리 차지 걱정 없이 실온에 보관하다가, 전자레인지 2분 조리로 언제 어디서든 간편하게 완성됩니다.
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">🍱 제품 라인업 상세</h2>
+
+      <!-- 1. 크레이지핫 -->
+      <div class="product-card theme-hot">
+        <div class="card-top">
+          <div class="product-img">
+            <!-- 📷 크레이지핫 사진 넣는 곳 -->
+            <!-- <img src="크레이지핫.jpg" alt="크레이지핫"> -->
+            크레이지핫
+          </div>
+          <div class="product-info">
+            <h3>닭가슴살 크레이지핫</h3>
+            <p>화끈하고 스모키한<br>매운 감칠맛 가득!</p>
+          </div>
+        </div>
+        
+        <div class="point-box">
+          <div class="point-row">
+            <strong>POINT 1</strong>
+            부드러운 닭가슴살과 톡톡 씹히는 통곡물밥으로 단백질과 식이섬유를 꽉 채웠습니다.
+          </div>
+          <div class="point-row">
+            <strong>POINT 2</strong>
+            화끈한 매운맛은 살리되 당을 낮춰 매일 먹어도 부담 없는 저당 도시락입니다.
+          </div>
+        </div>
+
+        <div class="nutrition-box">
+          <div class="nutri-badge" style="background: #FFEbee;">단백질 <span>20g</span></div>
+          <div class="nutri-badge" style="background: #FFF9C4;">저당 <span>3g</span></div>
+          <div class="nutri-badge" style="background: #F4F3EE;">식이섬유 <span>10.9g</span></div>
+          <div class="nutri-badge" style="background: #F4F3EE;">칼로리 <span>365kcal</span></div>
+        </div>
+      </div>
+
+      <!-- 2. 버터커리맛 -->
+      <div class="product-card theme-curry">
+        <div class="card-top">
+          <div class="product-img">
+            <!-- 📷 버터커리맛 사진 넣는 곳 -->
+            <!-- <img src="버터커리.jpg" alt="버터커리"> -->
+            버터커리
+          </div>
+          <div class="product-info">
+            <h3>닭가슴살 버터커리맛</h3>
+            <p>부드럽고 깊은 풍미가<br>가득한 커리맛</p>
+          </div>
+        </div>
+        
+        <div class="point-box">
+          <div class="point-row">
+            <strong>POINT 1</strong>
+            부드러운 닭가슴살과 톡톡 씹히는 통곡물밥으로 단백질과 식이섬유를 꽉 채웠습니다.
+          </div>
+          <div class="point-row">
+            <strong>POINT 2</strong>
+            특제 소스가 쏙 밴 닭가슴살! 버터커리의 부드럽고 깊은 맛은 그대로 유지했습니다.
+          </div>
+        </div>
+
+        <div class="nutrition-box">
+          <div class="nutri-badge" style="background: #FFF3E0;">단백질 <span>20g</span></div>
+          <div class="nutri-badge" style="background: #FFF9C4;">저당 <span>4g</span></div>
+          <div class="nutri-badge" style="background: #F4F3EE;">식이섬유 <span>9.6g</span></div>
+          <div class="nutri-badge" style="background: #F4F3EE;">칼로리 <span>385kcal</span></div>
+        </div>
+      </div>
+
+      <!-- 3. 숯불치킨맛 -->
+      <div class="product-card theme-bbq">
+        <div class="card-top">
+          <div class="product-img">
+            <!-- 📷 숯불치킨맛 사진 넣는 곳 -->
+            <!-- <img src="숯불치킨.jpg" alt="숯불치킨"> -->
+            숯불치킨
+          </div>
+          <div class="product-info">
+            <h3>닭가슴살 숯불치킨맛</h3>
+            <p>스모키하고 진한<br>숯불향 가득!</p>
+          </div>
+        </div>
+        
+        <div class="point-box">
+          <div class="point-row">
+            <strong>POINT 1</strong>
+            부드러운 닭가슴살과 통곡물밥으로 든든한 단백질(21g)과 식이섬유를 채웠습니다.
+          </div>
+          <div class="point-row">
+            <strong>POINT 2</strong>
+            숯불치킨 특유의 스모키한 풍미는 속세의 맛 그대로지만, 당을 낮춰 건강하게 완성했습니다.
+          </div>
+        </div>
+
+        <div class="nutrition-box">
+          <div class="nutri-badge" style="background: #EFEBE9;">단백질 <span>21g</span></div>
+          <div class="nutri-badge" style="background: #FFF9C4;">저당 <span>4g</span></div>
+          <div class="nutri-badge" style="background: #F4F3EE;">식이섬유 <span>11.1g</span></div>
+          <div class="nutri-badge" style="background: #F4F3EE;">칼로리 <span>360kcal</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 조리방법 섹션 -->
+    <div class="section">
+      <h2 class="section-title">👨‍🍳 조리 방법</h2>
+      <div class="cook-box">
+        <strong>전자레인지 조리</strong><br>
+        1. 용기 윗면의 필름을 표시선까지 벗기신 후 전자레인지에 넣어 조리해 주세요.<br>
+        2. 조리 후 뜨거울 수 있으니 손잡이를 잡고 꺼내어 맛있게 드세요.
+        
+        <table>
+          <tr>
+            <th>기준</th>
+            <th>700W</th>
+            <th>1000W</th>
+          </tr>
+          <tr>
+            <td>1개</td>
+            <td>2분 30초</td>
+            <td>2분</td>
+          </tr>
+        </table>
+        <div style="font-size: 13px; color: var(--muted); margin-top: 12px; line-height: 1.5;">
+          * 포장재를 개봉하지 않고 데울 시 터질 위험이 있으니, 반드시 개봉 후 데워주세요.<br>
+          * 조리 후 꺼낼 때 화상의 위험이 있으니 손잡이 부분을 잡아주세요.
+        </div>
+      </div>
+    </div>
+
+  </div> 
+
+  <!-- 플로팅 목록 버튼 -->
+  <a class="list-btn" href="m-products.html" aria-label="목록으로">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="8" y1="6" x2="20" y2="6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="8" y1="12" x2="20" y2="12" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="8" y1="18" x2="20" y2="18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="4" cy="6" r="1.5" fill="currentColor"/>
+      <circle cx="4" cy="12" r="1.5" fill="currentColor"/>
+      <circle cx="4" cy="18" r="1.5" fill="currentColor"/>
+    </svg>
+  </a>
+
+</body>
+</html>
