@@ -76,3 +76,22 @@ if (document.readyState === "loading") {
 } else {
   initNotice();
 }
+
+// 페이지가 로드되면 전광판 빈 자리에 내용을 채워주는 기능
+document.addEventListener("DOMContentLoaded", function() {
+  const marqueeArea = document.getElementById("shared-marquee-area");
+  
+  // HTML에 shared-marquee-area 자리가 있는 경우에만 실행
+  if (marqueeArea) {
+    marqueeArea.innerHTML = `
+      <div class="marquee-wrap">
+        <span class="marquee-icon">⚡</span>
+        <div class="marquee-content">
+          <span class="marquee-text">
+            [공지] 백설 1분링 및 비비고 사골곰탕 진열 가이드가 새롭게 업데이트 되었습니다! 이번 주도 화이팅! 🚀
+          </span>
+        </div>
+      </div>
+    `;
+  }
+});
