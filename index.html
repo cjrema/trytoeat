@@ -8,7 +8,7 @@
 
 <style>
   /* =========================================================
-     🎨 1. 전체 색상 변수 설정 (브랜드 컬러 모음)
+     🎨 1. 전체 색상 변수 설정 
   ========================================================= */
   :root {
     --bg: #FAFAF7;       
@@ -43,7 +43,7 @@
   button { font-family: inherit; border: none; outline: none; cursor: pointer; }
 
   /* =========================================================
-     📱 2. 메인 화면 레이아웃 (모바일 폭 480px 고정)
+     📱 2. 메인 화면 레이아웃
   ========================================================= */
   .wrap {
     width: 100%;
@@ -56,7 +56,7 @@
 
   .page-header {
     text-align: center;
-    padding: 10px 0 4px;
+    padding: 10px 0 0;
   }
   .main-title {
     font-size: 26px;
@@ -74,7 +74,47 @@
   }
 
   /* =========================================================
-     📦 3. 흰색 섹션 카드 & 메뉴 버튼 스타일
+     🚨 3. 전광판 CSS (HTML은 notice.js에서 불러옴)
+  ========================================================= */
+  .marquee-wrap {
+    background: var(--ink);
+    color: #fff;
+    border-radius: 12px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+  .marquee-icon {
+    flex-shrink: 0;
+    font-size: 15px;
+  }
+  .marquee-content {
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+  }
+  .marquee-text {
+    display: inline-block;
+    padding-left: 100%;
+    animation: marquee 15s linear infinite;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  .marquee-content:hover .marquee-text {
+    animation-play-state: paused;
+  }
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+  }
+
+  /* =========================================================
+     📦 4. 흰색 섹션 카드 & 메뉴 버튼 스타일
   ========================================================= */
   .section-card {
     background: var(--card-bg);
@@ -128,20 +168,8 @@
     transform: translateX(4px);
   }
 
-  .nav-btn.disabled {
-    background: #EAE8E1;
-    color: #9C988F;
-    cursor: not-allowed;
-    pointer-events: none; 
-    box-shadow: none;
-    transform: none;
-  }
-  .nav-btn.disabled .arrow {
-    color: #C3C0B8;
-  }
-
   /* =========================================================
-     🔍 4. 시식 가이드 검색창 & 카테고리 태그
+     🔍 5. 시식 가이드 검색창 & 카테고리 태그
   ========================================================= */
   .search-box {
     display: flex;
@@ -228,11 +256,9 @@
   }
 
   /* =========================================================
-     🔒 5. 비밀번호 잠금 화면 스타일
+     🔒 6. 비밀번호 잠금 화면 스타일
   ========================================================= */
-  body.locked { 
-    overflow: hidden; 
-  } 
+  body.locked { overflow: hidden; } 
   
   .auth-overlay {
     position: fixed;
@@ -301,9 +327,7 @@
     transition: background 0.2s;
   }
   
-  .auth-box button:hover { 
-    background: var(--accent); 
-  }
+  .auth-box button:hover { background: var(--accent); }
   
   .error-msg {
     color: var(--accent);
@@ -333,8 +357,12 @@
   <div class="wrap">
     <header class="page-header">
       <h1 class="main-title">📢 CJ리테일원 알림장 </h1>
+      <!-- 업데이트 날짜 수정 필요 시 여기서 하세요 -->
       <p class="update-date">Update. 2026. 09. 29 </p>
     </header>
+
+    <!-- 🌟 전광판이 쏙 들어갈 빈 자리 (notice.js 에서 쏴줍니다) -->
+    <div id="shared-marquee-area"></div>
 
     <section class="section-card">
       <h2 class="section-title">📌 필독! 알림장 </h2>
@@ -347,6 +375,7 @@
           </svg>
         </a>
         
+        <!-- 하위 페이지 파일명에 맞게 href 링크를 수정해주세요 -->
         <a class="nav-btn" href="display.html">
           <span> 분산&연계 진열의 달인 👷‍♀️</span>
           <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
@@ -379,46 +408,39 @@
 
   </div> 
 
+<!-- 💡 전광판(공지사항) 스크립트 연결부 -->
+<script src="notice.js"></script>
+
 <script>
   // =========================================================
   // 🔒 1. 5분 유지되는 비밀번호 잠금 로직
   // =========================================================
-  
-  // 💡 설정: 잠금 해제 유지 시간 (현재 5분 = 5 * 60 * 1000 밀리초)
   const LOCK_DURATION = 5 * 60 * 1000; 
 
-  // 1) 페이지 로딩 시: 저장된 로그인 시간이 남아있는지 확인
   window.onload = function() {
     const savedTime = localStorage.getItem('cjAuthTime');
-    
     if (savedTime && (Date.now() - parseInt(savedTime) < LOCK_DURATION)) {
-      // 5분이 지나지 않았다면 잠금 화면 숨기고, 스크롤 활성화
       document.getElementById('authOverlay').style.display = 'none';
       document.body.classList.remove('locked');
     } else {
-      // 5분이 지났거나 처음 접속이면 기존 기록 삭제 (잠금화면 유지)
       localStorage.removeItem('cjAuthTime');
     }
   };
 
-  // 2) 비밀번호 입력 버튼 클릭(또는 엔터) 시 실행
   function checkPassword() {
     const pw = document.getElementById('pwInput').value;
     const errorMsg = document.getElementById('errorMsg');
     
-    // 💡 비밀번호 변경은 여기서 하세요 (현재 '1234')
-    if (pw === '6390') { 
-      // 인증 성공! 화면 넘기고 현재 시간을 로컬 스토리지에 저장
+    // 💡 비밀번호 설정: '1234'
+    if (pw === '1234') { 
       document.getElementById('authOverlay').style.display = 'none';
       document.body.classList.remove('locked');
       localStorage.setItem('cjAuthTime', Date.now()); 
     } else {
-      // 인증 실패! 에러 띄우고 입력창 비우기
       errorMsg.style.display = 'block';
       document.getElementById('pwInput').value = '';
     }
   }
-
 
   // =========================================================
   // 🔍 2. 기존 시식가이드 검색 로직
