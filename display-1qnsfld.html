@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+<title>백설 1분링 분산진열 가이드</title>
+<style>
+  :root {
+    --bg: #FAFAF7;
+    --ink: #1F2E22;
+    --muted: #767065;
+    --line: #E6E1D6;
+    --accent: #E8622C; /* 사이트 공통 주황색 포인트 */
+    --accent-light: #FFF4F2;
+  }
+  *, *::before, *::after { box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+  html { overflow-y: scroll; }
+  html, body { margin:0; padding:0; min-height:100vh; }
+  body {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background: var(--bg);
+    color: var(--ink);
+    display: flex;
+    justify-content: center;
+  }
+  a { text-decoration: none; color: inherit; }
+  
+  .wrap {
+    width: 100%;
+    max-width: 480px;
+    padding: 32px 24px 100px;
+  }
+
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--muted);
+    margin-bottom: 18px;
+    transition: color .15s ease;
+  }
+  .back:hover { color: var(--accent); }
+  .back svg { width: 16px; height: 16px; }
+
+  /* 대표 진열 예시 이미지 영역 */
+  .hero-img {
+    width: 100%;
+    height: 220px;
+    border-radius: 20px;
+    border: 1.5px solid var(--line);
+    background: repeating-linear-gradient(45deg, #eeeeeb, #eeeeeb 6px, #e4e4df 6px, #e4e4df 12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9c9c96;
+    font-weight: 700;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 22px;
+    overflow: hidden;
+    position: relative;
+  }
+  .hero-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .eyebrow {
+    margin: 0 0 6px;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+  }
+
+  h1 {
+    font-size: 24px;
+    font-weight: 800;
+    margin: 0 0 8px;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+  }
+  .desc {
+    font-size: 15px;
+    color: var(--muted);
+    font-weight: 500;
+    line-height: 1.6;
+    margin: 0 0 24px;
+    word-break: keep-all; /* 💡 자연스러운 줄바꿈 */
+  }
+
+  .section {
+    border-top: 1px solid var(--line);
+    padding-top: 20px;
+    margin-top: 20px;
+  }
+  .section h2 {
+    font-size: 17px;
+    font-weight: 800;
+    margin: 0 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .section p {
+    font-size: 14.5px;
+    color: var(--ink);
+    line-height: 1.7;
+    margin: 0 0 10px;
+    word-break: keep-all; /* 💡 자연스러운 줄바꿈 */
+  }
+
+  /* 제품 라인업 가로 그리드 */
+  .lineup-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .lineup-card {
+    background: #fff;
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 8px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.4;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    word-break: keep-all; /* 💡 자연스러운 줄바꿈 */
+  }
+  .lineup-card strong {
+    display: block;
+    color: var(--ink);
+    font-size: 14px;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+  .lineup-card span {
+    display: inline-block;
+    padding: 3px 8px;
+    background: var(--accent-light);
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  /* 포인트 항목 리스트 */
+  .point-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .point-item {
+    background: #fff;
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    padding: 16px;
+    font-size: 14.5px;
+    line-height: 1.55;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    word-break: keep-all; /* 💡 자연스러운 줄바꿈 */
+  }
+  .point-item strong {
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+    font-size: 16px;
+  }
+  .point-item .recommend {
+    display: block;
+    margin-top: 10px;
+    padding: 12px;
+    background: #F4F3EE;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.6;
+    width: 100%;
+    word-break: keep-all; /* 💡 자연스러운 줄바꿈 */
+  }
+
+  /* ==========================================
+     [스타일 1] 3칸짜리 A4 세로형 이미지 그리드
+     ========================================== */
+  .sub-img-grid.a4-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .sub-img-box.a4-box {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.4;
+    word-break: keep-all; /* 💡 자연스러운 줄바꿈 */
+  }
+  .sub-img-box.a4-box img {
+    width: 100%;
+    aspect-ratio: 1 / 1.41;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1.5px solid var(--line);
+    background: #fff;
+    margin-bottom: 8px;
+    display: block;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+  }
+
+  /* 플로팅 목록 버튼 */
+  .list-btn {
+    position: fixed;
+    left: 50%;
+    bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+    transform: translateX(-50%);
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+    z-index: 1000;
+  }
+  .list-btn svg { width: 22px; height: 22px; display: block; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="display.html">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      목록으로 돌아가기
+    </a>
+
+    <!-- 대표 이미지 -->
+    <div class="hero-img">
+      <!-- 📷 메인 사진을 넣는 곳 -->
+      <!-- <img src="메인사진.jpg" alt="1분링 연계진열"> -->
+      백설 1분링 연계 진열<br>대표 예시 컷
+    </div>
+
+    <p class="eyebrow">분산/연계진열 가이드</p>
+    <h1>🍲 백설 1분링 진열 하기!</h1>
+    <p class="desc">1분 만에 깊고 진한 맛 완성! 1분링의 3가지 라인업(분말스틱, 육수링, 찌개링)을 활용해 타겟 식재료 매대에서 연관 구매를 쑥쑥 올려보세요.</p>
+
+    <!-- 0. 제품 라인업 -->
+    <div class="section" style="border-top: none; padding-top: 0; margin-top: 0;">
+      <h2>🛒 백설 1분링 라인업</h2>
+      <p style="font-size:13px; color:var(--muted); margin:0;">각각의 용도에 맞게 다양한 코너에 분산 진열해 보세요.</p>
+      <div class="lineup-grid">
+        <div class="lineup-card">
+          <span>분말스틱</span>
+          <strong>만능 베이스</strong>
+          새우꽃게, 마늘,<br>버섯다시마 등
+        </div>
+        <div class="lineup-card">
+          <span>육수링</span>
+          <strong>진한 국물</strong>
+          멸치디포리, 사골,<br>바지락멸치 등
+        </div>
+        <div class="lineup-card">
+          <span>찌개링</span>
+          <strong>1인분 집밥</strong>
+          된장찌개, 부대찌개,<br>순두부찌개
+        </div>
+      </div>
+    </div>
+
+    <!-- 1. 핵심 진열 포인트 -->
+    <div class="section">
+      <h2>💡 타겟 매대 핵심 진열 포인트</h2>
+      <ul class="point-list">
+        
+        <li class="point-item">
+          <strong>🌱 맞춤형 식재료 코너 (1:1 핀셋 진열)</strong>
+          각 식재료에 딱 맞는 1분링을 1:1로 매칭해 직관적인 요리를 제안해 보세요.
+          <div class="recommend">
+            👍 <strong>콩나물 매대:</strong> 백설 육수에는 1분링 멸치디포리<br>
+            <span style="font-size:13px; color:var(--muted); font-weight:normal;">(시원한 콩나물국 뚝딱!)</span><br><br>
+            👍 <strong>순두부 매대:</strong> 백설 순두부찌개 1분링<br>
+            <span style="font-size:13px; color:var(--muted); font-weight:normal;">(양념장 없이 1분이면 바로 완성)</span><br><br>
+            👍 <strong>두부 코너:</strong> 백설 된장찌개 1분링, 백설 육수에는 1분링 야채
+          </div>
+        </li>
+
+        <li class="point-item">
+          <strong>🐟 수산 코너 (해산물 매대)</strong>
+          번거로운 해물 육수 낼 필요 없이 한 알로 끝! 냉동 해물모둠이나 신선한 조개류 옆에 훅(고리) 진열을 추천합니다.
+          <div class="recommend">
+            👍 <strong>추천 제품:</strong><br>
+            <span style="font-size:14px; font-weight:normal;">
+            - 백설 육수에는 1분링 멸치디포리<br>
+            - 백설 육수에는 1분링 바지락멸치<br>
+            - 백설 1분링 분말스틱 새우꽃게
+            </span>
+          </div>
+        </li>
+        
+        <li class="point-item">
+          <strong>🥩 정육/조리육 코너 (가공육 매대)</strong>
+          부대찌개의 생명은 진한 국물! 스팸, 후랑크 소시지, 샤브샤브용 고기 옆에 배치하여 식당에서 먹던 찌개 맛을 제안하세요.
+          <div class="recommend">
+            👍 <strong>추천 제품:</strong><br>
+            <span style="font-size:14px; font-weight:normal;">
+            - 백설 부대찌개 1분링<br>
+            - 백설 육수에는 1분링 사골
+            </span>
+          </div>
+        </li>
+        
+      </ul>
+    </div>
+
+    <!-- 2. 체크리스트 -->
+    <div class="section">
+      <h2>✅ 현장 점검 체크리스트</h2>
+      <p>• 공간 효율을 높이기 위해 매대 측면에 <strong>훅(Strip) 진열대</strong>를 잘 고정했는가?</p>
+      <p>• <strong>💡 매출 Up 꿀팁!</strong> 고기/찌개 매대에 진열 시, <strong>신제품 백설 순후추</strong>를 곁들여 동반 진열했는가? (후추가 국물의 풍미를 확 살려줍니다!)</p>
+      <p>• "두부, 양파만 넣으면 찌개 완성!" 등 조리 간편성을 강조하는 POP가 부착되었는가?</p>
+    </div>
+    
+    <!-- 3. 이미지 영역 -->
+    <div class="section">
+      <h2>📸 연출물 POP 및 매대 예시</h2>
+      <p>각 분산진열 장소에 알맞은 연출 컷을 참고해 보세요.</p>
+      
+      <div class="sub-img-grid a4-grid">
+        <div class="sub-img-box a4-box">
+          <!-- 📷 사진1 (채소/두부 매대) -->
+          <!-- <img src="사진주소1.jpg" alt="채소 코너 진열"> -->
+          <div style="aspect-ratio: 1/1.41; background: #EAE8E1; border-radius: 10px; border: 1.5px solid var(--line); margin-bottom: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--muted); font-weight: 700;">사진 1 넣는 곳</div>
+          채소/두부 코너<br><span style="font-size: 12px; color: var(--muted); font-weight: 500;">(찌개링 연계)</span>
+        </div>
+        <div class="sub-img-box a4-box">
+          <!-- 📷 사진2 (수산 매대) -->
+          <!-- <img src="사진주소2.jpg" alt="수산 코너 진열"> -->
+          <div style="aspect-ratio: 1/1.41; background: #EAE8E1; border-radius: 10px; border: 1.5px solid var(--line); margin-bottom: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--muted); font-weight: 700;">사진 2 넣는 곳</div>
+          수산/해물 코너<br><span style="font-size: 12px; color: var(--muted); font-weight: 500;">(해물 육수링 연계)</span>
+        </div>
+        <div class="sub-img-box a4-box">
+          <!-- 📷 사진3 (정육 매대 & 순후추) -->
+          <!-- <img src="사진주소3.jpg" alt="정육 및 후추 진열"> -->
+          <div style="aspect-ratio: 1/1.41; background: #EAE8E1; border-radius: 10px; border: 1.5px solid var(--line); margin-bottom: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--muted); font-weight: 700;">사진 3 넣는 곳</div>
+          가공육 코너<br><span style="font-size: 12px; color: var(--muted); font-weight: 500;">(찌개링 + 순후추)</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 플로팅 목록 버튼 -->
+  <a class="list-btn" href="display.html" aria-label="목록으로">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="8" y1="6" x2="20" y2="6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="8" y1="12" x2="20" y2="12" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="8" y1="18" x2="20" y2="18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="4" cy="6" r="1.5" fill="currentColor"/>
+      <circle cx="4" cy="12" r="1.5" fill="currentColor"/>
+      <circle cx="4" cy="18" r="1.5" fill="currentColor"/>
+    </svg>
+  </a>
+
+</body>
+</html>
