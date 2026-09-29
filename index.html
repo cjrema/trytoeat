@@ -11,14 +11,14 @@
      🎨 1. 전체 색상 변수 설정 (브랜드 컬러 모음)
   ========================================================= */
   :root {
-    --bg: #FAFAF7;       /* 화면 전체 바탕색 */
-    --card-bg: #FFFFFF;  /* 카드 하얀색 배경 */
-    --ink: #1F2E22;      /* 기본 메인 글자색 (진한 쑥색) */
-    --muted: #767065;    /* 회색 설명 글자색 */
-    --line: #E6E1D6;     /* 연한 테두리 선 색상 */
-    --accent: #E8622C;   /* 강조 포인트 주황색 */
-    --hover-bg: #F4F3EE; /* 마우스 올렸을 때 배경색 */
-    --green: #2E7D32;    /* 초록색 포인트 */
+    --bg: #FAFAF7;       
+    --card-bg: #FFFFFF;  
+    --ink: #1F2E22;      
+    --muted: #767065;    
+    --line: #E6E1D6;     
+    --accent: #E8622C;   
+    --hover-bg: #F4F3EE; 
+    --green: #2E7D32;    
   }
 
   *, *::before, *::after {
@@ -54,7 +54,6 @@
     gap: 20px;
   }
 
-  /* 상단 제목 헤더 */
   .page-header {
     text-align: center;
     padding: 10px 0 4px;
@@ -94,7 +93,6 @@
     letter-spacing: -0.3px;
   }
 
-  /* 메뉴 이동 버튼 세로 리스트 */
   .btn-group {
     display: flex;
     flex-direction: column;
@@ -134,7 +132,7 @@
     background: #EAE8E1;
     color: #9C988F;
     cursor: not-allowed;
-    pointer-events: none; /* 마우스 터치 및 클릭을 원천 차단 */
+    pointer-events: none; 
     box-shadow: none;
     transform: none;
   }
@@ -233,7 +231,7 @@
      🔒 5. 비밀번호 잠금 화면 스타일
   ========================================================= */
   body.locked { 
-    overflow: hidden; /* 잠금 상태일 때 스크롤 방지 */
+    overflow: hidden; 
   } 
   
   .auth-overlay {
@@ -243,7 +241,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 9999; /* 화면 가장 위로 배치 */
+    z-index: 9999;
   }
   
   .auth-box {
@@ -317,16 +315,14 @@
 </style>
 </head>
 
-<!-- 페이지 접속 시 스크롤을 막기 위해 body에 locked 클래스 추가 -->
 <body class="locked">
 
-  <!-- 🔒 비밀번호 입력 화면 (오버레이) -->
+  <!-- 🔒 비밀번호 입력 화면 -->
   <div id="authOverlay" class="auth-overlay">
     <div class="auth-box">
       <h2>🔒 페이지 잠금</h2>
       <p>사내 전용 알림장입니다.<br>비밀번호를 입력해주세요.</p>
       
-      <!-- 엔터키를 누르면 checkPassword() 함수 실행 -->
       <input type="password" id="pwInput" placeholder="비밀번호 4자리" onkeypress="if(event.keyCode==13) checkPassword();">
       <button onclick="checkPassword()">확인</button>
       
@@ -382,23 +378,42 @@
     </section>
 
   </div> 
-  <script src="notice.js"></script>
 
 <script>
   // =========================================================
-  // 🔒 비밀번호 확인 로직 추가
+  // 🔒 1. 5분 유지되는 비밀번호 잠금 로직
   // =========================================================
+  
+  // 💡 설정: 잠금 해제 유지 시간 (현재 5분 = 5 * 60 * 1000 밀리초)
+  const LOCK_DURATION = 5 * 60 * 1000; 
+
+  // 1) 페이지 로딩 시: 저장된 로그인 시간이 남아있는지 확인
+  window.onload = function() {
+    const savedTime = localStorage.getItem('cjAuthTime');
+    
+    if (savedTime && (Date.now() - parseInt(savedTime) < LOCK_DURATION)) {
+      // 5분이 지나지 않았다면 잠금 화면 숨기고, 스크롤 활성화
+      document.getElementById('authOverlay').style.display = 'none';
+      document.body.classList.remove('locked');
+    } else {
+      // 5분이 지났거나 처음 접속이면 기존 기록 삭제 (잠금화면 유지)
+      localStorage.removeItem('cjAuthTime');
+    }
+  };
+
+  // 2) 비밀번호 입력 버튼 클릭(또는 엔터) 시 실행
   function checkPassword() {
     const pw = document.getElementById('pwInput').value;
     const errorMsg = document.getElementById('errorMsg');
     
-    // 💡 변경 포인트: 원하는 비밀번호로 '1234' 자리를 수정하세요.
+    // 💡 비밀번호 변경은 여기서 하세요 (현재 '1234')
     if (pw === '6390') { 
-      // 인증 성공 시 오버레이를 숨기고 스크롤 잠금(locked) 해제
+      // 인증 성공! 화면 넘기고 현재 시간을 로컬 스토리지에 저장
       document.getElementById('authOverlay').style.display = 'none';
       document.body.classList.remove('locked');
+      localStorage.setItem('cjAuthTime', Date.now()); 
     } else {
-      // 인증 실패 시 에러 메시지 노출 및 입력창 초기화
+      // 인증 실패! 에러 띄우고 입력창 비우기
       errorMsg.style.display = 'block';
       document.getElementById('pwInput').value = '';
     }
@@ -406,14 +421,13 @@
 
 
   // =========================================================
-  // 🔍 기존 시식가이드 스크립트
+  // 🔍 2. 기존 시식가이드 검색 로직
   // =========================================================
   const TASTING_GUIDE_URL = 'https://cjrema.github.io/trytoeat/tasting-guide.html';
   const CATEGORIES = ['만두', '치킨', '냉동반찬', '조리육', '생선구이', '소스', '면', '김치', '국물요리','창고형'];
 
   const quickCats = document.getElementById('quickCats');
   
-  // 카테고리 태그 버튼 자동 생성
   CATEGORIES.forEach(cat => {
     const btn = document.createElement('button');
     btn.type = 'button';
@@ -426,14 +440,12 @@
   const searchForm = document.getElementById('searchForm');
   const searchInput = document.getElementById('searchInput');
 
-  // 검색창 입력 시 시식가이드 페이지로 검색어 전달하며 이동
   function goToSearch(query){
     const url = new URL(TASTING_GUIDE_URL);
     if(query) url.searchParams.set('q', query);
     window.location.href = url.toString();
   }
 
-  // 카테고리 태그 클릭 시 시식가이드 페이지로 이동
   function goToCategory(category){
     const url = new URL(TASTING_GUIDE_URL);
     if(category) url.searchParams.set('cat', category);
