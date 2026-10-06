@@ -51,7 +51,7 @@
   .back:hover { color: var(--accent); }
   .back svg { width: 18px; height: 18px; }
 
-  /* 메인 대표 이미지 박스 (기존 사이트 톤앤매너 통일) */
+  /* 메인 대표 이미지 박스 */
   .hero-img {
     width: 100%;
     height: 220px;
@@ -102,7 +102,7 @@
     word-break: keep-all;
   }
 
-  /* 💡 시식가이드 버튼 (기존 허브 사이트 버튼 스타일로 변경) */
+  /* 시식가이드 버튼 */
   .btn-primary {
     display: flex;
     align-items: center;
@@ -142,7 +142,7 @@
     gap: 6px;
   }
 
-  /* 공통 체크 포인트 (깔끔한 리스트형) */
+  /* 공통 체크 포인트 */
   .check-list {
     display: flex;
     flex-direction: column;
@@ -165,7 +165,7 @@
     font-size: 15.5px;
   }
 
-  /* 각 제품별 카드 스타일 (좌측 둥근 이미지 + 우측 정보) */
+  /* 각 제품별 카드 스타일 */
   .product-card {
     background: #fff;
     border: 1.5px solid var(--line);
@@ -188,7 +188,7 @@
     flex-shrink: 0;
     background: #F4F3EE;
     border: 1px dashed #DCDCDC;
-    border-radius: 50%; /* 동그란 이미지 틀 */
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -199,7 +199,7 @@
     text-align: center;
   }
   .product-img img { width: 100%; height: 100%; object-fit: contain; display: block; transform: scale(1.2);}
-  .product-info { flex: 0.5; }
+  .product-info { flex: 1; }
   .product-info h3 { margin: 0 0 6px; font-size: 19px; font-weight: 800; }
   .product-info p { font-size: 14px; color: var(--muted); line-height: 1.4; margin: 0; font-weight: 600; word-break: keep-all; }
 
@@ -223,7 +223,7 @@
     margin-bottom: 2px;
   }
 
-  /* 영양성분 뱃지 (톤다운된 은은한 컬러) */
+  /* 영양성분 뱃지 */
   .nutrition-box { display: flex; flex-wrap: wrap; gap: 6px; }
   .nutri-badge {
     display: inline-flex;
@@ -238,7 +238,7 @@
   }
   .nutri-badge span { margin-left: 4px; color: var(--muted); font-weight: 600; }
 
-  /* 제품별 테마 컬러 (제목과 포인트 텍스트에만 살짝 적용) */
+  /* 제품별 테마 컬러 */
   .theme-hot h3, .theme-hot .point-row strong { color: var(--color-hot); }
   .theme-curry h3, .theme-curry .point-row strong { color: var(--color-curry); }
   .theme-bbq h3, .theme-bbq .point-row strong { color: var(--color-bbq); }
@@ -257,6 +257,72 @@
   .cook-box table { width: 100%; margin-top: 14px; border-collapse: collapse; background: #fff; text-align: center; font-weight: 700; font-size: 13.5px; border: 1px solid var(--line); }
   .cook-box th, .cook-box td { padding: 10px; border: 1px solid var(--line); }
   .cook-box th { background: #F4F3EE; color: var(--muted); }
+
+  /* FAQ 카드 스타일 */
+  .faq-card {
+    background: #fff;
+    border: 1.5px solid var(--line);
+    border-radius: 14px;
+    padding: 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+  }
+  .faq-q {
+    font-size: 15.5px;
+    font-weight: 800;
+    color: var(--ink);
+    margin: 0 0 10px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.45;
+  }
+  .faq-q .badge-q {
+    background: var(--accent);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 2px 7px;
+    border-radius: 6px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .faq-a {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 0 0 14px;
+    padding-left: 4px;
+    word-break: keep-all;
+  }
+  .faq-a strong {
+    color: var(--ink);
+  }
+  .faq-detail-box {
+    background: #F9F9F7;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: var(--ink);
+    border: 1px solid #ECEAE4;
+  }
+  .faq-detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .faq-detail-row:last-child {
+    border-bottom: none;
+  }
+  .faq-detail-row .flavor {
+    font-weight: 700;
+  }
+  .faq-detail-row .ratio {
+    color: var(--muted);
+    font-size: 13px;
+  }
 
   /* 플로팅 목록 버튼 */
   .list-btn {
@@ -331,7 +397,6 @@
       <div class="product-card theme-hot">
         <div class="card-top">
           <div class="product-img">
-            <!-- 📷 크레이지핫 사진 넣는 곳 -->
             <img src="https://img.cjthemarket.com/images/file/product/474/20260918104817563.jpg?SF=webp&RS=550" alt="크레이지핫">
             크레이지핫
           </div>
@@ -366,7 +431,6 @@
       <div class="product-card theme-curry">
         <div class="card-top">
           <div class="product-img">
-            <!-- 📷 버터커리맛 사진 넣는 곳 -->
             <img src="https://img.cjthemarket.com/images/file/product/087/20260918103908269.jpg?SF=webp&RS=550" alt="버터커리">
             버터커리
           </div>
@@ -401,7 +465,6 @@
       <div class="product-card theme-bbq">
         <div class="card-top">
           <div class="product-img">
-            <!-- 📷 숯불치킨맛 사진 넣는 곳 -->
             <img src="https://img.cjthemarket.com/images/file/product/555/20260918104601532.jpg?SF=webp&RS=550" alt="숯불치킨">
             숯불치킨
           </div>
@@ -438,8 +501,8 @@
       <h2 class="section-title">👨‍🍳 조리 방법</h2>
       <div class="cook-box">
         <strong>전자레인지 조리</strong><br>
-        1. 용기 윗면의 필름을 표시선까지 벗기신 후<br>    
-        　　전자레인지에 넣어 조리해 주세요.<br>
+        1. 용기 윗면의 필름을 표시선까지 벗기신 후<br>   
+          전자레인지에 넣어 조리해 주세요.<br>
         2. 조리 후 뜨거울 수 있으니 손잡이를 잡고 꺼내어 맛있게 드세요.
         
         <table>
@@ -456,8 +519,37 @@
         </table>
         <div style="font-size: 13px; color: var(--muted); margin-top: 12px; line-height: 1.5;">
           * 포장재를 개봉하지 않고 데울 시 터질 위험이 있으니,<br>
-        　　반드시 개봉 후 데워주세요.<br>
+            반드시 개봉 후 데워주세요.<br>
           * 조리 후 꺼낼 때 화상의 위험이 있으니 손잡이 부분을 잡아주세요.
+        </div>
+      </div>
+    </div>
+
+    <!-- 💡 추가된 FAQ 섹션 -->
+    <div class="section">
+      <h2 class="section-title">❓ 자주 묻는 질문 (FAQ)</h2>
+      <div class="faq-card">
+        <p class="faq-q">
+          <span class="badge-q">Q</span>
+          <span>밸런스밀 저당도시락에 밥은 얼마나 들어있나요?</span>
+        </p>
+        <p class="faq-a">
+          <strong>A.</strong> 통곡물밥은 <strong>130g</strong>이며, 나머지는 닭가슴살과 소스로 <strong>147g~160g</strong> 알차게 채워져 있습니다!
+        </p>
+        
+        <div class="faq-detail-box">
+          <div class="faq-detail-row">
+            <span class="flavor">🍛 버터커리맛</span>
+            <span class="ratio">밥 130g + 닭가슴살&소스 160g</span>
+          </div>
+          <div class="faq-detail-row">
+            <span class="flavor">🔥 크레이지핫</span>
+            <span class="ratio">밥 130g + 닭가슴살&소스 150g</span>
+          </div>
+          <div class="faq-detail-row">
+            <span class="flavor">🍗 숯불치킨맛</span>
+            <span class="ratio">밥 130g + 닭가슴살&소스 147g</span>
+          </div>
         </div>
       </div>
     </div>
