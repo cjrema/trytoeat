@@ -82,12 +82,24 @@ details{margin-top:22px}
 #dt{min-width:980px}#dt td:nth-child(1){min-width:150px}#dt td:nth-child(2){min-width:130px}#dt td:nth-child(3){min-width:120px}#dt td:nth-child(4){min-width:90px;white-space:nowrap}#dt td:nth-child(5){min-width:190px}#dt td:nth-child(6){min-width:170px}#dt td:nth-child(7){min-width:260px}
 .qa .big{font:700 34px/1.2 "Pretendard","Noto Sans KR",sans-serif;color:var(--blue);margin:2px 0 6px}.qa .big.key{color:var(--red)}.qa h3{font-size:16px;margin:0}.qa p{margin:0 0 10px;font-size:14px}.qa .go{margin-top:2px}
 .pri{display:flex;gap:14px;align-items:flex-start;justify-content:space-between;padding:14px 0;border-top:1px solid var(--line)}.pri:first-of-type{border-top:0}.pri b{display:block;font-size:15.5px}.pri span{color:var(--mut);font-size:13.5px;display:block;margin-top:2px}.pri .go{white-space:nowrap;margin:0}
+.mh h3{font-size:17px}#mtg{display:none}
+@media (max-width:700px){
+.mtop{padding:calc(10px + env(safe-area-inset-top,0px)) 14px 8px}
+.mh{margin-bottom:4px;align-items:center}.mh h3{font-size:15px;line-height:1.35}
+#mtg{display:inline-block}.b,#mtg,#mx{padding:5px 10px;font-size:13px}
+.mtop:not(.open) .fs{display:none}
+.mtop.open .fs{grid-template-columns:1fr 1fr;max-height:34vh;overflow:auto}
+.seg{flex-wrap:nowrap;overflow-x:auto;margin:4px 0}.seg button{white-space:nowrap;padding:4px 11px;font-size:12.5px;flex-shrink:0}
+#mn{margin:6px 0 0!important;padding:5px 10px;font-size:12px}
+#mlist{padding:2px 14px calc(30px + env(safe-area-inset-bottom,0px))}
+.ent{padding:11px 13px}.ent dl{grid-template-columns:68px 1fr;font-size:13px}
+}
 .hint{font-size:13px;color:var(--mut);margin:0 0 12px}summary{cursor:pointer;font:700 18px "Pretendard","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;margin-bottom:10px}
 </style></head><body>
 <header><div class="in"><h1>CJ리테일원 「1인 1식당, 구매지도 만들기」</h1>
 <div class="camp">내 주변 식당 한 곳의 정보가, <b>전국 구매지도</b>가 됩니다.</div></div></header>
 <nav><div id="tabs"></div></nav>
-<div id="md" hidden><div class="mb"><div class="mtop"><div class="mh"><h3 id="mt"></h3><button class="b" id="mx">닫기</button></div><div id="mf"></div><p class="note" id="mn" style="margin:10px 0 0"></p></div><div id="mlist"><div id="ml"></div><div class="pg"><button class="b" id="mm">더 보기</button></div></div></div></div>
+<div id="md" hidden><div class="mb"><div class="mtop"><div class="mh"><h3 id="mt"></h3><span style="display:flex;gap:6px;flex-shrink:0"><button class="b" id="mtg">필터 ▾</button><button class="b" id="mx">닫기</button></span></div><div id="mf"></div><p class="note" id="mn" style="margin:10px 0 0"></p></div><div id="mlist"><div id="ml"></div><div class="pg"><button class="b" id="mm">더 보기</button></div></div></div></div>
 <main>
 <section id="s0"></section><section id="s1"></section><section id="s2"></section><section id="s3"></section><section id="s4"></section><section id="s5"></section><section id="s6"></section>
 </main>
@@ -181,15 +193,16 @@ function fbar(){const seg=['전체','사용 중','과거 사용','미사용'].ma
 const sel=FAC.map(([k,n,f])=>{const c={};BL.forEach(r=>new Set(f(r)).forEach(v=>c[v]=(c[v]||0)+1));const ks=Object.keys(c).sort((a,b)=>c[b]-c[a]);if(ks.length<2)return'';return `<label>${n}<select data-f="${k}"><option value="">전체</option>${ks.map(v=>`<option value="${esc(v)}"${fl[k]===v?' selected':''}>${esc(v)} (${c[v]})</option>`).join('')}</select></label>`}).join('');
 $('#mf').innerHTML=`<div class="seg">${seg}</div><div class="fs">${sel}<label>검색<input id="mq" placeholder="식당명·메모" value="${esc(fl.q||'')}"></label></div>`}
 function mdraw(){$('#ml').insertAdjacentHTML('beforeend',ML.slice(mp*MS,mp*MS+MS).map(r=>`<div class="card ent"><div class="t"><b>${esc(r[1])}</b><span class="st-${cl[r[6]]}">${r[6]}</span><small style="color:var(--mut)">${esc(r[4])}${r[5]!==r[4]?' (원본: '+esc(r[5])+')':''}</small></div><dl>${fld('지역',r[2])}${fld('사용 제품',r[7])}${fld('이유',r[8])}${fld('구매처',r[9])}${fld('중시 기준',r[10])}${fld('가격 유형',tg(r,'pp:').filter(x=>x!=='메모 없음').join(', '))}${fld('현장 메모',r[11])}</dl></div>`).join(''));mp++;$('#mm').style.display=mp*MS<ML.length?'':'none'}
-function apply(){const q=(fl.q||'').trim().toLowerCase();ML=BL.filter(r=>(!fl.st||fl.st==='전체'||r[6]===fl.st)&&FAC.every(([k,n,f])=>!fl[k]||f(r).includes(fl[k]))&&(!q||(r[1]+r[2]+r[7]+r[8]+r[11]).toLowerCase().includes(q)));mp=0;$('#ml').innerHTML=ML.length?'':'<p class="note">조건에 맞는 매장이 없습니다.</p>';$('#mn').textContent=`${ML.length.toLocaleString()}곳 표시 (전체 ${BL.length.toLocaleString()}곳)`;mdraw();$('#mlist').scrollTop=0}
+function apply(){const q=(fl.q||'').trim().toLowerCase();ML=BL.filter(r=>(!fl.st||fl.st==='전체'||r[6]===fl.st)&&FAC.every(([k,n,f])=>!fl[k]||f(r).includes(fl[k]))&&(!q||(r[1]+r[2]+r[7]+r[8]+r[11]).toLowerCase().includes(q)));mp=0;$('#ml').innerHTML=ML.length?'':'<p class="note">조건에 맞는 매장이 없습니다.</p>';$('#mn').textContent=`${ML.length.toLocaleString()}곳 표시 (전체 ${BL.length.toLocaleString()}곳)`;mdraw();$('#mlist').scrollTop=0;const na=FAC.filter(([k])=>fl[k]).length+(q?1:0);$('#mtg').textContent='필터'+(na?' ('+na+')':'')+(document.querySelector('.mtop').classList.contains('open')?' ▴':' ▾')}
 function openQ(q,t){BL=q==='all'?R:R.filter(r=>r[12].includes(q));fl={};
 let ti=t;if(!ti){const [k,v]=q.split(':');ti=(v||'').replace('|',' · ')+(KN[k]?' — '+KN[k]:'')}
-$('#mt').textContent=ti;$('#md').hidden=false;document.body.style.overflow='hidden';fbar();apply()}
+$('#mt').textContent=ti;$('.mtop').classList.remove('open');$('#md').hidden=false;document.body.style.overflow='hidden';fbar();apply()}
 function closeQ(){$('#md').hidden=true;document.body.style.overflow=''}
 document.addEventListener('click',e=>{const h=e.target.closest('[data-q]');if(h)openQ(h.dataset.q,h.dataset.t)});
 $('#mf').addEventListener('click',e=>{const b=e.target.closest('[data-s]');if(b){fl.st=b.dataset.s;fbar();apply()}});
 $('#mf').addEventListener('change',e=>{const f=e.target.dataset.f;if(f){fl[f]=e.target.value;apply()}});
 $('#mf').addEventListener('input',e=>{if(e.target.id==='mq'){fl.q=e.target.value;apply()}});
+$('#mtg').onclick=()=>{$('.mtop').classList.toggle('open');apply()};
 $('#mx').onclick=closeQ;$('#mm').onclick=mdraw;$('#md').addEventListener('click',e=>{if(e.target.id==='md')closeQ()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeQ()});
 show(+(location.hash.slice(1))||0);
 </script></body></html>
